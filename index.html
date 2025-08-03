@@ -53,11 +53,9 @@
 
     certs: `Certificados:\n  CS50 – Introduction to Computer Science – HarvardX\n  Link: https://cs50.harvard.edu/certificates/SEU_CERTIFICADO`,
 
-    contact: `
-    Contato:
-    Email: <span id="email" style="text-decoration: underline; color: blue; cursor: pointer;">kaellovato5@gmail.com</span>
-    LinkedIn: <a href="https://linkedin.com/in/kael-lovato" target="_blank" rel="noopener noreferrer">linkedin.com/in/kael-lovato</a>
-    `,
+    contact: `Contato:
+    Email: kaellovato5@gmail.com
+    LinkedIn: linkedin.com/in/kael-lovato`,
 
     gui: 'REDIRECT_GUI',
     clear: 'CLEAR'
@@ -215,19 +213,7 @@
         } else if (cmd === 'PROJECTS_SUBMENU') {
           showProjectMenu(response);
         } else if (cmd) {
-          typeEffect(cmd, response, () => {
-            // Se o comando digitado foi "contact", adiciona o event listener no email
-            if (input.toLowerCase() === 'contact') {
-              const emailSpan = response.querySelector('#email');
-              if (emailSpan) {
-                emailSpan.addEventListener('click', () => {
-                  navigator.clipboard.writeText('kaellovato5@gmail.com').then(() => {
-                    alert('Email copiado para a área de transferência!');
-                  });
-                });
-              }
-            }
-          });
+          typeEffect(cmd, response);
         } else {
           errorSound.currentTime = 0;
           errorSound.volume = 1.0;
