@@ -1,0 +1,109 @@
+body {
+  background: #0d0d0d;
+  color: #33ff33;
+  font-family: monospace;
+  padding: 2rem;
+  font-size: 1.2rem;
+}
+
+#terminal {
+  display: block;
+  max-width: 800px;
+  margin: auto;
+  white-space: pre-wrap;
+}
+
+ #terminal img {
+  display: flex;
+  margin-top: 10px;
+  max-width: 300px; 
+  border-radius: 8px;
+}
+
+.input-line {
+  display: flex;
+}
+
+.prompt {
+  margin-right: 0.5rem;
+}
+
+.cmd-input {
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  outline: none;
+  width: 100%;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.cursor {
+  animation: blink 1s step-start infinite;
+}
+
+@media (max-width: 600px) {
+  body {
+    font-size: 0.9rem;
+    padding: 1rem;
+  }
+}
+
+* {
+  user-select: none;
+}
+
+.glitch-out {
+  animation: glitchFade 0.3s ease-out forwards;
+}
+
+@keyframes glitchFade {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0);
+    filter: blur(0);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translate(-2px, 1px);
+    filter: blur(1px);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(2px, -1px);
+    filter: blur(2px);
+  }
+}
+
+/* Estilo extra para seções de submenu */
+.submenu-entry {
+  color: #00ffff;
+  margin-left: 1rem;
+}
+
+.project-image {
+  display: inline-block;
+  margin-top: 0.5rem;
+  border: 1px solid #33ff33;
+  padding: 0.25rem;
+  max-width: 90%;
+  background-color: #000;
+  color: #33ff33;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.project-channel {
+  color: #ff9933;
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+
+.project-entry {
+  margin-left: 2rem;
+  color: #66ff66;
+  margin-bottom: 0.3rem;
+}
