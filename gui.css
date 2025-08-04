@@ -131,6 +131,7 @@ a:hover {
   flex-wrap: wrap;
 }
 
+/* Estilo padrão: lado a lado */
 .sobre-conteudo img {
   max-width: 200px;
   border-radius: 12px;
@@ -140,6 +141,23 @@ a:hover {
 .sobre-conteudo p {
   flex: 1;
   min-width: 250px;
+}
+
+/* Para telas pequenas: centraliza imagem */
+@media (max-width: 600px) {
+  .sobre-conteudo {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .sobre-conteudo img {
+    margin-top: 10px;
+  }
+
+  .sobre-conteudo p {
+    min-width: unset;
+  }
 }
 
 .copy-btn {
