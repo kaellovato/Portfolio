@@ -47,7 +47,33 @@
     gui         - Abrir interface gráfica
     clear       - Limpar terminal`,
     
-    about: `<img src="KaelBg.png" alt="Kael Lovato">Sou Kael Lovato, desenvolvedor apaixonado por tecnologia, aprendizado contínuo e experiências imersivas.<br>Trabalho com jogos, web e design interativo.`,
+    about: function (container) {
+      // Cria o container principal que irá conter a imagem e o texto
+      const aboutContainer = document.createElement('div');
+      aboutContainer.className = 'about-container';
+
+      // Cria a imagem
+      const img = document.createElement('img');
+      img.src = 'KaelBg.png';
+      img.alt = 'Kael Lovato';
+      img.className = 'about-img';
+
+      // Cria o container de texto (vazio por enquanto)
+      const textContainer = document.createElement('div');
+      textContainer.className = 'about-text-terminal';
+
+      // Monta a estrutura visual primeiro
+      aboutContainer.appendChild(img);
+      aboutContainer.appendChild(textContainer);
+      container.appendChild(aboutContainer);
+
+      // Aguarda um pequeno delay antes de começar a digitar
+      setTimeout(() => {
+        const text = `Sou Kael Lovato, desenvolvedor apaixonado por tecnologia, aprendizado contínuo e experiências imersivas.\nTrabalho com jogos, web e design interativo.`;
+        typeEffect(text, textContainer);
+      }, 500); // Espera 0.5s após mostrar a imagem
+    },
+
 
     projects: 'PROJECTS_SUBMENU',
 
@@ -103,6 +129,8 @@
             keySound.play().catch(() => {}); // Toca o som, ignorando erros se não puder tocar
           }
         }
+
+        window.scrollTo(0, document.body.scrollHeight);
 
         // Passa para o próximo caractere
         i++;
@@ -196,9 +224,7 @@
         
         typeEffect("Saindo da seção de projetos...", response, () => {
         setTimeout(() => {
-          clearWithGlitch(() => {
-              showHelp();
-            });
+            showHelp();
           }, 500);
         });
         } else {
@@ -212,8 +238,12 @@
           window.location.href = 'gui.html';
         } else if (cmd === 'PROJECTS_SUBMENU') {
           showProjectMenu(response);
+          
+        } else if (typeof cmd === 'function') {
+            cmd(response);
         } else if (cmd) {
-          typeEffect(cmd, response);
+            typeEffect(cmd, response);
+        
         } else {
           errorSound.currentTime = 0;
           errorSound.volume = 1.0;
