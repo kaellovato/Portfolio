@@ -33,10 +33,39 @@
 
     <div class="section">
       <h2>Contato</h2>
-      <p>Email: <a href="mailto:kaellovato5@gmail.com">kaellovato5@gmail.com</a><br>
-      LinkedIn: <a href="https://linkedin.com/in/kael-lovato" target="_blank">linkedin.com/in/kael-lovato</a></p>
+      <p>
+        Email: 
+        <a href="mailto:kaellovato5@gmail.com" style="color: #33ff33; text-decoration: underline;">
+          kaellovato5@gmail.com
+        </a>
+        <button 
+          onclick="copyEmail()" 
+          class="copy-btn"
+          title="Copiar e-mail"
+        >
+          Copiar E-mail
+        </button>
+        <br></p>
+        <div id="copyPopup" class="popup">Email copiado!</div>
+      <p>LinkedIn: <a href="https://linkedin.com/in/kael-lovato" target="_blank">linkedin.com/in/kael-lovato</a></p>
       <button class="toggle-button" onclick="window.location.href='index.html'">Voltar para Terminal</button>
     </div>
   </div>
+
+  <script>
+    function copyEmail() {
+      const email = 'kaellovato5@gmail.com';
+      navigator.clipboard.writeText(email).then(() => {
+        const popup = document.getElementById('copyPopup');
+        popup.classList.add('show');
+        setTimeout(() => {
+          popup.classList.remove('show');
+        }, 2000);
+      }).catch(() => {
+        alert('Falha ao copiar o e-mail.');
+      });
+    }
+
+  </script>
 </body>
 </html>
