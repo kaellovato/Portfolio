@@ -141,3 +141,47 @@ a:hover {
   flex: 1;
   min-width: 250px;
 }
+
+.copy-btn {
+  margin-left: 10px;
+  background-color: transparent;
+  border: 2px solid #33ff33;
+  color: #33ff33;
+  padding: 4px 10px;
+  border-radius: 5px;
+  font-family: monospace;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.copy-btn:hover {
+  background-color: #33ff33;
+  color: #141414;
+}
+
+/* Popup estilo */
+.popup {
+  visibility: hidden;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #33ff33;
+  color: #141414;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-family: monospace;
+  font-weight: bold;
+  box-shadow: 0 0 10px #33ff33aa;
+  z-index: 9999;
+  transition: visibility 0s linear 0.3s, opacity 0.3s ease;
+  opacity: 0;
+}
+
+.popup.show {
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0s;
+}
+
