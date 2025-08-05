@@ -1,3 +1,7 @@
+/*===========================
+=        GERAL             =
+===========================*/
+
 body {
   background: #0d0d0d;
   color: #33ff33;
@@ -6,6 +10,11 @@ body {
   font-size: 1.2rem;
 }
 
+* {
+  user-select: none;
+}
+
+/* Terminal principal */
 #terminal {
   display: block;
   max-width: 800px;
@@ -13,12 +22,9 @@ body {
   white-space: pre-wrap;
 }
 
- #terminal img {
-  display: flex;
-  margin-top: 10px;
-  max-width: 300px;
-  border-radius: 8px;
-}
+/*============================
+=        TERMINAL            =
+============================*/
 
 .input-line {
   display: flex;
@@ -37,6 +43,7 @@ body {
   width: 100%;
 }
 
+/* Cursor piscando */
 @keyframes blink {
   50% { opacity: 0; }
 }
@@ -45,17 +52,54 @@ body {
   animation: blink 1s step-start infinite;
 }
 
+/*===============================
+=          RESPONSIVO           =
+===============================*/
+
 @media (max-width: 600px) {
   body {
     font-size: 0.9rem;
     padding: 1rem;
   }
+
+  .about-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: justify;
+    gap: 16px;
+  }
+
+  .about-img {
+    width: 100%;
+    max-width: 250px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+  }
+
+  .about-text-terminal {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-top: 0;
+  }
+
+  .project-img {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .project-text {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
 }
 
-* {
-  user-select: none;
-}
+/*===============================
+=      ANIMAÇÕES GERAIS         =
+===============================*/
 
+/* Efeito de glitch */
 .glitch-out {
   animation: glitchFade 0.3s ease-out forwards;
 }
@@ -78,35 +122,104 @@ body {
   }
 }
 
-/* Estilo extra para seções de submenu */
+/* Animação de entrada (fade + leve subida) */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Classe para aplicar a animação de entrada */
+.fade-in {
+  animation: fadeInUp 0.6s ease-out both;
+}
+
+/*===============================
+=         HOVER ZOOM            =
+===============================*/
+
+/* Efeito hover com brilho verde no contorno e zoom */
+img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px 5px #00ff00; /* Glow verde mais forte no hover */
+  transition: all 0.3s ease-in-out;
+  cursor: zoom-in;
+  z-index: 2;
+}
+
+/*===============================
+=          MODAL ZOOM           =
+===============================*/
+
+/* Overlay para modal de imagem ao clicar */
+.image-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(4px); /* Desfoca fundo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Imagem dentro do modal */
+.image-modal-overlay img {
+  max-width: 90%;
+  max-height: 90%;
+  box-shadow: 0 0 30px #00ff00;
+  border-radius: 10px;
+  border: 2px solid #00ff00;
+  animation: fadeInZoom 0.3s ease-out;
+}
+
+/* Animação de entrada do modal (zoom e fade) */
+@keyframes fadeInZoom {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/*==================================
+=        COMPONENTES VARIADOS       =
+===================================*/
+
+/* Submenus de terminal */
 .submenu-entry {
   color: #00ffff;
   margin-left: 1rem;
 }
 
-.project-image {
-  display: inline-block;
-  margin-top: 0.5rem;
-  border: 1px solid #33ff33;
-  padding: 0.25rem;
-  max-width: 90%;
-  background-color: #000;
-  color: #33ff33;
-  font-size: 0.9rem;
-  font-style: italic;
-}
-
+/* Canal do projeto */
 .project-channel {
   color: #ff9933;
   font-weight: bold;
   margin-top: 0.5rem;
 }
 
+/* Entrada de projeto (estilo terminal) */
 .project-entry {
   margin-left: 2rem;
   color: #66ff66;
   margin-bottom: 0.3rem;
 }
+
+/*===============================
+=          ABOUT SECTION        =
+===============================*/
 
 .about-container {
   display: flex;
@@ -118,9 +231,10 @@ body {
 
 .about-img {
   width: 180px;
-  border-radius: 10px;
   border: 2px solid #00ff00;
-  box-shadow: 0 0 10px #00ff00;
+  border-radius: 8px;
+  box-shadow: 0 0 10px 2px #00ff0077;
+  transition: all 0.3s ease-in-out;
 }
 
 .about-text-terminal {
@@ -132,22 +246,51 @@ body {
   margin-top: 50px;
 }
 
-@media (max-width: 600px) {
-  .about-container {
-    flex-direction: column;
-    align-items: center;
-    text-align: justify;
-    gap: 16px;
-  }
+/*===============================
+=         PROJETOS SECTION      =
+===============================*/
 
-  .about-img {
-    width: 100%;
-    max-width: 250px;
-  }
+.project-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 32px;
+  gap: 16px;
+}
 
-  .about-text-terminal {
-    font-size: 0.95rem;
-    line-height: 1.5;
-    margin-top: 0;
-  }
+.project-img {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  display: block;
+  border: 2px solid #00ff00;
+  border-radius: 8px;
+  box-shadow: 0 0 10px 2px #00ff0077;
+  transition: all 0.3s ease-in-out;
+}
+
+.project-text {
+  max-width: 700px;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #00ff00;
+  text-align: justify;
+  white-space: pre-wrap;
+}
+
+/*===============================
+=        IMAGENS GENÉRICAS      =
+===============================*/
+
+/* Imagens adicionais fora de projeto/about */
+.project-image {
+  display: inline-block;
+  margin-top: 0.5rem;
+  border: 1px solid #33ff33;
+  padding: 0.25rem;
+  max-width: 90%;
+  background-color: #000;
+  color: #33ff33;
+  font-size: 0.9rem;
+  font-style: italic;
 }
