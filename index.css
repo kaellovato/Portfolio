@@ -217,6 +217,17 @@ img:hover {
   margin-bottom: 0.3rem;
 }
 
+/* Garante empilhamento correto do histórico e da linha de input */
+#history {
+  position: relative;
+  z-index: 1;
+}
+
+.input-line {
+  position: relative;
+  z-index: 2;
+}
+
 /*===============================
 =          ABOUT SECTION        =
 ===============================*/
@@ -238,12 +249,42 @@ img:hover {
 }
 
 .about-text-terminal {
+  pointer-events: auto;
   max-width: 500px;
   white-space: pre-wrap;
   font-size: 1rem;
   line-height: 1.6;
   color: #00ff00;
-  margin-top: 50px;
+  margin-top: 20px;
+}
+
+.about-text-terminal a {
+  color: #00ff00;
+  transition: color 0.2s ease-in-out;
+  text-decoration: none;
+}
+
+.about-text-terminal a:hover {
+  color: #00ffcc;
+  border-bottom: 1px solid #00ffcc;
+  text-shadow: 0 0 8px #00ffcc;
+}
+
+.copy-btn {
+  margin-left: 8px;
+  padding: 4px 10px;
+  font-family: monospace;
+  background-color: #000;
+  color: #00ff00;
+  border: 1px solid #00ff00;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.copy-btn:hover {
+  background-color: #00ff00;
+  color: #000;
 }
 
 /*===============================
@@ -293,4 +334,104 @@ img:hover {
   color: #33ff33;
   font-size: 0.9rem;
   font-style: italic;
+}
+
+/*===============================
+=            Pop Up            =
+===============================*/
+
+#copyPopup {
+  visibility: hidden;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #33ff33;
+  color: #141414;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-family: monospace;
+  font-weight: bold;
+  box-shadow: 0 0 10px #33ff33aa;
+  z-index: 9999;
+  transition: visibility 0s linear 0.3s, opacity 0.3s ease;
+  opacity: 0;
+}
+
+#copyPopup.show {
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0s;
+}
+
+/*===============================
+=            Contact           =
+===============================*/
+
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+  max-width: 650px;
+}
+
+.contact-input, .contact-textarea {
+  background: #000;
+  border: 1px solid #33ff33;
+  color: #33ff33;
+  font-family: monospace;
+  padding: 6px 10px;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.contact-input:focus, .contact-textarea:focus {
+  border-color: #00ffcc;
+  box-shadow: 0 0 6px #00ffcc;
+}
+
+.contact-textarea {
+  resize: none; /* ✅ não pode redimensionar */
+  min-height: 100px;
+  max-height: 100px;
+}
+
+.contact-btn {
+  align-self: flex-start;
+  padding: 6px 14px;
+  font-family: monospace;
+  background: #000;
+  border: 1px solid #33ff33;
+  color: #33ff33;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.contact-btn:hover {
+  background: #33ff33;
+  color: #000;
+  box-shadow: 0 0 10px #33ff33;
+}
+
+.contact-feedback {
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+.char-count {
+  font-size: 0.85rem;
+  color: #999;
+  margin-top: -8px;
+}
+
+.contact-input.invalid, .contact-textarea.invalid {
+  border-color: red;
+}
+
+.contact-input.valid, .contact-textarea.valid {
+  border-color: #33ff33;
 }
