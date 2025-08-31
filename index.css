@@ -93,6 +93,29 @@ body {
     font-size: 0.95rem;
     line-height: 1.5;
   }
+
+    .contact-container {
+    max-width: 100%;
+    width: 100%;
+    padding: 0 1rem;
+  }
+
+  .contact-input, .contact-textarea {
+    width: 100%;
+    font-size: 0.9rem;
+    padding: 6px 8px;
+  }
+
+  .contact-btn {
+    width: 100%;
+    padding: 8px;
+    font-size: 0.95rem;
+  }
+
+  .char-count {
+    font-size: 0.8rem;
+    text-align: right;
+  }
 }
 
 /*===============================
