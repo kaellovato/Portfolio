@@ -110,120 +110,115 @@ Email: <a href="mailto:kaellovato5@gmail.com">kaellovato5@gmail.com</a><span id=
       }, 500);
     },
 
-    contact: function (container) {
-      const contactContainer = document.createElement('div');
-      contactContainer.className = 'contact-container fade-in';
+      contact: function(container) {
+        const contactContainer = document.createElement('div');
+        contactContainer.className = 'contact-container fade-in';
+        container.appendChild(contactContainer);
 
-      // Título
-      const title = document.createElement('p');
-      title.innerHTML = "Me envie uma mensagem:";
-      contactContainer.appendChild(title);
+        const textContainer = document.createElement('div');
+        contactContainer.appendChild(textContainer);
 
-      // Campo Nome
-      const nameInput = document.createElement('input');
-      nameInput.type = 'text';
-      nameInput.placeholder = 'Seu nome';
-      nameInput.className = 'contact-input';
-      contactContainer.appendChild(nameInput);
+        // Texto inicial que será digitado
+        const text = `Me envie uma mensagem:\nPreencha os campos abaixo.\n`;
 
-      // Campo Email
-      const emailInput = document.createElement('input');
-      emailInput.type = 'email';
-      emailInput.placeholder = 'Seu e-mail';
-      emailInput.className = 'contact-input';
-      contactContainer.appendChild(emailInput);
+        typeEffect(text, textContainer, () => {
+          // Depois que a digitação termina, criamos os inputs
+          const nameInput = document.createElement('input');
+          nameInput.type = 'text';
+          nameInput.placeholder = 'Seu nome';
+          nameInput.className = 'contact-input';
+          contactContainer.appendChild(nameInput);
 
-      // Campo Mensagem
-      const messageInput = document.createElement('textarea');
-      messageInput.placeholder = 'Sua mensagem (máx. 500 caracteres)...';
-      messageInput.className = 'contact-textarea';
-      messageInput.maxLength = 500; // ✅ máximo 500 caracteres
-      contactContainer.appendChild(messageInput);
+          const emailInput = document.createElement('input');
+          emailInput.type = 'email';
+          emailInput.placeholder = 'Seu e-mail';
+          emailInput.className = 'contact-input';
+          contactContainer.appendChild(emailInput);
 
-      // Contador de caracteres
-      const charCount = document.createElement('p');
-      charCount.className = 'char-count';
-      charCount.textContent = "0 / 500";
-      contactContainer.appendChild(charCount);
+          const messageInput = document.createElement('textarea');
+          messageInput.placeholder = 'Sua mensagem (máx. 500 caracteres)...';
+          messageInput.className = 'contact-textarea';
+          messageInput.maxLength = 500;
+          contactContainer.appendChild(messageInput);
 
-      messageInput.addEventListener("input", () => {
-        charCount.textContent = `${messageInput.value.length} / 500`;
-      });
-
-      // Botão Enviar
-      const sendButton = document.createElement('button');
-      sendButton.textContent = 'Enviar';
-      sendButton.className = 'contact-btn';
-      contactContainer.appendChild(sendButton);
-
-      // Feedback
-      const feedback = document.createElement('p');
-      feedback.className = 'contact-feedback';
-      contactContainer.appendChild(feedback);
-
-      // Função de validação de email
-      function isValidEmail(email) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(email.toLowerCase());
-      }
-
-      // Função para marcar borda do input como válido ou inválido
-      function validateField(field, isValid) {
-        if (isValid) {
-          field.classList.remove('invalid');
-          field.classList.add('valid');
-        } else {
-          field.classList.remove('valid');
-          field.classList.add('invalid');
-        }
-      }
-
-      sendButton.onclick = () => {
-        const nameValid = nameInput.value.trim() !== "";
-        const emailValid = isValidEmail(emailInput.value);
-        const messageValid = messageInput.value.trim() !== "";
-
-        // Atualiza bordas visuais
-        validateField(nameInput, nameValid);
-        validateField(emailInput, emailValid);
-        validateField(messageInput, messageValid);
-
-        // Feedback de preenchimento
-        if (!nameValid || !emailValid || !messageValid) {
-          feedback.textContent = "Preencha corretamente todos os campos.";
-          feedback.style.color = "yellow";
-          return;
-        }
-
-        // Envio via FormSubmit
-        fetch("https://formsubmit.co/ajax/kaellovato5@gmail.com", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: nameInput.value,
-            email: emailInput.value,
-            message: messageInput.value
-          })
-        })
-        .then(res => res.json())
-        .then(() => {
-          feedback.textContent = "Mensagem enviada com sucesso!";
-          feedback.style.color = "#33ff33";
-          nameInput.value = "";
-          emailInput.value = "";
-          messageInput.value = "";
+          // Contador de caracteres
+          const charCount = document.createElement('p');
+          charCount.className = 'char-count';
           charCount.textContent = "0 / 500";
-          // remove classes de validação
-          [nameInput, emailInput, messageInput].forEach(input => input.classList.remove('valid', 'invalid'));
-        })
-        .catch(() => {
-          feedback.textContent = "Erro ao enviar mensagem.";
-          feedback.style.color = "red";
-        });
-      };
+          contactContainer.appendChild(charCount);
 
-      container.appendChild(contactContainer);
-    },
+          messageInput.addEventListener("input", () => {
+            charCount.textContent = `${messageInput.value.length} / 500`;
+          });
+
+          // Botão enviar
+          const sendButton = document.createElement('button');
+          sendButton.textContent = 'Enviar';
+          sendButton.className = 'contact-btn';
+          contactContainer.appendChild(sendButton);
+
+          const feedback = document.createElement('p');
+          feedback.className = 'contact-feedback';
+          contactContainer.appendChild(feedback);
+
+          // Função de validação
+          function isValidEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email.toLowerCase());
+          }
+
+          function validateField(field, isValid) {
+            if (isValid) {
+              field.classList.remove('invalid');
+              field.classList.add('valid');
+            } else {
+              field.classList.remove('valid');
+              field.classList.add('invalid');
+            }
+          }
+
+          sendButton.onclick = () => {
+            const nameValid = nameInput.value.trim() !== "";
+            const emailValid = isValidEmail(emailInput.value);
+            const messageValid = messageInput.value.trim() !== "";
+
+            validateField(nameInput, nameValid);
+            validateField(emailInput, emailValid);
+            validateField(messageInput, messageValid);
+
+            if (!nameValid || !emailValid || !messageValid) {
+              feedback.textContent = "Preencha corretamente todos os campos.";
+              feedback.style.color = "yellow";
+              return;
+            }
+
+            // Envio via FormSubmit
+            fetch("https://formsubmit.co/ajax/kaellovato5@gmail.com", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                name: nameInput.value,
+                email: emailInput.value,
+                message: messageInput.value
+              })
+            })
+            .then(res => res.json())
+            .then(() => {
+              feedback.textContent = "Mensagem enviada com sucesso!";
+              feedback.style.color = "#33ff33";
+              nameInput.value = "";
+              emailInput.value = "";
+              messageInput.value = "";
+              charCount.textContent = "0 / 500";
+              [nameInput, emailInput, messageInput].forEach(i => i.classList.remove('valid', 'invalid'));
+            })
+            .catch(() => {
+              feedback.textContent = "Erro ao enviar mensagem.";
+              feedback.style.color = "red";
+            });
+          };
+        });
+      },
 
     projects: 'PROJECTS_SUBMENU', // Manipulado em outra função
     certs: `Certificados:\n  CS50 – Introduction to Computer Science – HarvardX\n  Link: https://cs50.harvard.edu/certificates/SEU_CERTIFICADO`,
