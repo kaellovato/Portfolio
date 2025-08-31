@@ -397,7 +397,7 @@ img:hover {
   flex-direction: column;
   gap: 15px;
   margin-top: 20px;
-  max-width: 650px;
+  max-width: 550px;
 }
 
 .contact-input, .contact-textarea {
