@@ -57,7 +57,7 @@
     about       - Sobre mim
     projects    - Meus projetos
     certs       - Certificados
-    contact     - Contato
+    contact     - Me envie mensagem
     gui         - Abrir interface gráfica
     clear       - Limpar terminal`,
 
@@ -79,14 +79,154 @@
       container.appendChild(aboutContainer);
 
       setTimeout(() => {
-        const text = `Sou Kael Lovato, desenvolvedor apaixonado por tecnologia, aprendizado contínuo e experiências imersivas.\nTrabalho com jogos, web e design interativo.`;
-        typeEffect(text, textContainer);
+const text = `Sou Kael Lovato, desenvolvedor apaixonado por tecnologia, aprendizado contínuo e experiências imersivas.
+Trabalho com jogos, web e design interativo.<br>
+LinkedIn: <a href="https://linkedin.com/in/kael-lovato" target="_blank" rel="noopener noreferrer">linkedin.com/in/kael-lovato</a>
+Email: <a href="mailto:kaellovato5@gmail.com">kaellovato5@gmail.com</a><span id="email-line"></span><br>`;
+
+        typeEffect(text, textContainer, () => {
+          setTimeout(() => {
+            const emailLine = document.getElementById('email-line');
+
+             // Cria botão
+            const copyButton = document.createElement('button');
+            copyButton.textContent = 'Copiar e-mail';
+            copyButton.onclick = copyEmail;
+            copyButton.className = 'copy-btn';
+            copyButton.style.marginLeft = '8px'; // espaço entre o link e o botão
+
+            emailLine.appendChild(copyButton); // adiciona ao lado do e-mail
+
+            // Cria popup se não existir
+            if (!document.getElementById('copyPopup')) {
+              const popup = document.createElement('div');
+              popup.id = 'copyPopup';
+              popup.className = 'popup'; // Usa sua classe CSS existente
+              popup.textContent = 'E-mail copiado!';
+              document.body.appendChild(popup);
+            }
+          }, 25); // Pequeno atraso para garantir que o DOM renderize
+        });
       }, 500);
+    },
+
+    contact: function (container) {
+      const contactContainer = document.createElement('div');
+      contactContainer.className = 'contact-container fade-in';
+
+      // Título
+      const title = document.createElement('p');
+      title.innerHTML = "Me envie uma mensagem:";
+      contactContainer.appendChild(title);
+
+      // Campo Nome
+      const nameInput = document.createElement('input');
+      nameInput.type = 'text';
+      nameInput.placeholder = 'Seu nome';
+      nameInput.className = 'contact-input';
+      contactContainer.appendChild(nameInput);
+
+      // Campo Email
+      const emailInput = document.createElement('input');
+      emailInput.type = 'email';
+      emailInput.placeholder = 'Seu e-mail';
+      emailInput.className = 'contact-input';
+      contactContainer.appendChild(emailInput);
+
+      // Campo Mensagem
+      const messageInput = document.createElement('textarea');
+      messageInput.placeholder = 'Sua mensagem (máx. 500 caracteres)...';
+      messageInput.className = 'contact-textarea';
+      messageInput.maxLength = 500; // ✅ máximo 500 caracteres
+      contactContainer.appendChild(messageInput);
+
+      // Contador de caracteres
+      const charCount = document.createElement('p');
+      charCount.className = 'char-count';
+      charCount.textContent = "0 / 500";
+      contactContainer.appendChild(charCount);
+
+      messageInput.addEventListener("input", () => {
+        charCount.textContent = `${messageInput.value.length} / 500`;
+      });
+
+      // Botão Enviar
+      const sendButton = document.createElement('button');
+      sendButton.textContent = 'Enviar';
+      sendButton.className = 'contact-btn';
+      contactContainer.appendChild(sendButton);
+
+      // Feedback
+      const feedback = document.createElement('p');
+      feedback.className = 'contact-feedback';
+      contactContainer.appendChild(feedback);
+
+      // Função de validação de email
+      function isValidEmail(email) {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email.toLowerCase());
+      }
+
+      // Função para marcar borda do input como válido ou inválido
+      function validateField(field, isValid) {
+        if (isValid) {
+          field.classList.remove('invalid');
+          field.classList.add('valid');
+        } else {
+          field.classList.remove('valid');
+          field.classList.add('invalid');
+        }
+      }
+
+      sendButton.onclick = () => {
+        const nameValid = nameInput.value.trim() !== "";
+        const emailValid = isValidEmail(emailInput.value);
+        const messageValid = messageInput.value.trim() !== "";
+
+        // Atualiza bordas visuais
+        validateField(nameInput, nameValid);
+        validateField(emailInput, emailValid);
+        validateField(messageInput, messageValid);
+
+        // Feedback de preenchimento
+        if (!nameValid || !emailValid || !messageValid) {
+          feedback.textContent = "Preencha corretamente todos os campos.";
+          feedback.style.color = "yellow";
+          return;
+        }
+
+        // Envio via FormSubmit
+        fetch("https://formsubmit.co/ajax/kaellovato5@gmail.com", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: nameInput.value,
+            email: emailInput.value,
+            message: messageInput.value
+          })
+        })
+        .then(res => res.json())
+        .then(() => {
+          feedback.textContent = "Mensagem enviada com sucesso!";
+          feedback.style.color = "#33ff33";
+          nameInput.value = "";
+          emailInput.value = "";
+          messageInput.value = "";
+          charCount.textContent = "0 / 500";
+          // remove classes de validação
+          [nameInput, emailInput, messageInput].forEach(input => input.classList.remove('valid', 'invalid'));
+        })
+        .catch(() => {
+          feedback.textContent = "Erro ao enviar mensagem.";
+          feedback.style.color = "red";
+        });
+      };
+
+      container.appendChild(contactContainer);
     },
 
     projects: 'PROJECTS_SUBMENU', // Manipulado em outra função
     certs: `Certificados:\n  CS50 – Introduction to Computer Science – HarvardX\n  Link: https://cs50.harvard.edu/certificates/SEU_CERTIFICADO`,
-    contact: `Contato:\nEmail: kaellovato5@gmail.com\nLinkedIn: linkedin.com/in/kael-lovato`,
     gui: 'REDIRECT_GUI',
     clear: 'CLEAR'
   };
@@ -94,37 +234,56 @@
   // Função que simula o efeito de digitação caractere por caractere
   function typeEffect(text, element, callback) {
     let i = 0;
-    let isTag = false;
-    let tagBuffer = "";
 
-    const interval = setInterval(() => {
-      const char = text.charAt(i);
+    function tick() {
+      if (i >= text.length) {
+        // Finaliza com o HTML completo 1x para garantir DOM estável
+        element.innerHTML = text;
+        if (callback) callback();
+        return;
+      }
 
-      if (char === "<") isTag = true;
+      const char = text[i];
 
-      if (isTag) {
-        tagBuffer += char;
-        if (char === ">") {
-          element.innerHTML += tagBuffer;
-          tagBuffer = "";
-          isTag = false;
-        }
+      if (char === '<') {
+        // Insere a TAG inteira de uma vez (abrindo/fechando)
+        const close = text.indexOf('>', i);
+        const tag = text.slice(i, close + 1);
+        element.insertAdjacentHTML('beforeend', tag);
+        i = close + 1;
       } else {
-        element.innerHTML += char;
+        // Insere texto visível como TextNode (não reparseia tudo)
+        element.appendChild(document.createTextNode(char));
+
+        // som de digitação só em caracteres visíveis
         if (![' ', '\n'].includes(char) && i % 5 === 0) {
           keySound.currentTime = 0;
           keySound.volume = 0.1;
           keySound.play().catch(() => {});
         }
+
+        i++;
       }
 
-      window.scrollTo(0, document.body.scrollHeight);
-      i++;
-      if (i >= text.length) {
-        clearInterval(interval);
-        if (callback) callback();
-      }
-    }, 10);
+      setTimeout(tick, 10); // velocidade
+    }
+
+    tick();
+  }
+
+  function copyEmail() {
+    requestAnimationFrame(() => {
+      const email = 'kaellovato5@gmail.com';
+      navigator.clipboard.writeText(email).then(() => {
+        const popup = document.getElementById('copyPopup');
+        popup.classList.add('show');
+        setTimeout(() => {
+          popup.classList.remove('show');
+        }, 2000);
+      }).catch(() => {
+        alert('Falha ao copiar o e-mail.');
+      });
+    });
   }
 
   // Função que remove o terminal com efeito de "glitch"
@@ -156,7 +315,7 @@
     about       - Sobre mim
     projects    - Meus projetos
     certs       - Certificados
-    contact     - Contato
+    contact     - Me envie mensagem
     gui         - Abrir interface gráfica
     clear       - Limpar terminal`;
 
