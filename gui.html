@@ -1,71 +1,220 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kael Lovato - GUI</title>
-  <link rel="stylesheet" href="gui.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kael Lovato - Portfólio</title>
+<link rel="stylesheet" href="gui.css">
 </head>
 <body>
-  <div id="gui">
-<div class="section sobre">
-  <h2>Sobre</h2>
-  <div class="sobre-conteudo">
-    <img src="KaelBg.png" alt="Kael Lovato">
-    <p>Sou Kael Lovato, desenvolvedor apaixonado por tecnologia, aprendizado constante e experiências imersivas. Atuo com jogos, web e design interativo.</p>
+
+<!-- Terminal simulado -->
+<div id="terminal"></div>
+
+<header>
+  <h1>Kael Lovato</h1>
+  <p>Desenvolvedor | Jogos, Web e Design Interativo</p>
+</header>
+
+<div id="gui-container">
+  <button id="back-terminal">Voltar ao Terminal</button>
+
+  <div id="main-buttons">
+    <button data-tab="about">Sobre</button>
+    <button data-tab="projects">Projetos</button>
+    <button data-tab="contact">Contato</button>
+    <button data-tab="certs">Certificados</button>
+  </div>
+
+  <div id="tab-content">
+    <!-- Sobre -->
+    <section id="about" class="section active">
+      <div class="about-container">
+        <img src="KaelBg.png" alt="Kael Lovato" class="about-img">
+        <div class="about-text">
+          <p>Sou Kael Lovato, desenvolvedor apaixonado por tecnologia, aprendizado contínuo e experiências imersivas.</p>
+          <p>Trabalho com jogos, web e design interativo.</p>
+          <p>LinkedIn: <a href="https://linkedin.com/in/kael-lovato" target="_blank" rel="noopener noreferrer">linkedin.com/in/kael-lovato</a></p>
+          <p>Email: <span id="email-text">kaellovato5@gmail.com</span><button id="copy-btn">Copiar e-mail</button><span id="copy-tooltip">E-mail copiado!</span>
+</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projetos -->
+    <section id="projects" class="section">
+      <div class="projects-grid" id="projects-grid"></div>
+    </section>
+
+    <!-- Certificados -->
+    <section id="certs" class="section">
+      <ul class="certs-list">
+        <li>CS50 – Introduction to Computer Science – HarvardX<br>Link: Ainda não concluído</li>
+      </ul>
+    </section>
+
+    <!-- Contato -->
+    <section id="contact" class="section">
+      <div class="contact-wrapper">
+        <form id="contact-form">
+          <label for="name">Nome</label>
+          <input type="text" id="name" placeholder="Seu nome" required>
+          <label for="email">E-mail</label>
+          <input type="email" id="email" placeholder="Seu e-mail" required>
+          <label for="message">Mensagem</label>
+          <textarea id="message" placeholder="Sua mensagem..." maxlength="500" required></textarea>
+          <p id="char-count">0 / 500</p>
+          <button type="submit">Enviar</button>
+          <p id="feedback"></p>
+        </form>
+      </div>
+    </section>
   </div>
 </div>
 
-    <div class="section">
-      <h2>Projetos</h2>
-      <ul>
-        <li><strong>Experiência em Realidade Virtual:</strong> Recriação do Terremoto de Lisboa em 1755 usando Unreal Engine 5.<br><img src="rvprojeto.png" alt="Projeto RV"></li>
-        <li><strong>Dashboard Web:</strong> Interface com autenticação, gráficos e responsividade.<br><img src="Dashboard.png" alt="Dashboard Web"></li>
-        <li><strong>Terminal Interativo:</strong> Este portfólio com som, animações e navegação textual.<br><img src="Terminal.png" alt="Terminal Interativo"></li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>Certificados</h2>
-      <p>CS50 – Introduction to Computer Science – HarvardX<br>
-      <a href="https://cs50.harvard.edu/certificates/SEU_CERTIFICADO" target="_blank">Ver certificado</a></p>
-    </div>
-
-    <div class="section">
-      <h2>Contato</h2>
-      <p>
-        Email: 
-        <a href="mailto:kaellovato5@gmail.com" style="color: #33ff33;">
-          kaellovato5@gmail.com
-        </a>
-        <button 
-          onclick="copyEmail()" 
-          class="copy-btn"
-          title="Copiar e-mail"
-        >
-          Copiar E-mail
-        </button>
-        <br></p>
-        <div id="copyPopup" class="popup">Email copiado!</div>
-      <p>LinkedIn: <a href="https://linkedin.com/in/kael-lovato" target="_blank">linkedin.com/in/kael-lovato</a></p>
-      <button class="toggle-button" onclick="window.location.href='index.html'">Voltar para Terminal</button>
-    </div>
+<!-- Modal -->
+<div id="project-modal" class="project-modal">
+  <div class="modal-content">
+    <span class="close-btn">&times;</span>
+    <img id="modal-img" src="" alt="">
+    <h3 id="modal-title"></h3>
+    <p id="modal-desc"></p>
+    <p id="modal-tools"></p>
+    <p id="modal-status"></p>
   </div>
+</div>
 
-  <script>
-    function copyEmail() {
-      const email = 'kaellovato5@gmail.com';
-      navigator.clipboard.writeText(email).then(() => {
-        const popup = document.getElementById('copyPopup');
-        popup.classList.add('show');
-        setTimeout(() => {
-          popup.classList.remove('show');
-        }, 2000);
-      }).catch(() => {
-        alert('Falha ao copiar o e-mail.');
-      });
-    }
+<script>
 
-  </script>
+  // Elementos
+const terminal = document.getElementById('terminal');
+const projectsGrid = document.getElementById('projects-grid');
+const tabs = document.querySelectorAll('#main-buttons button[data-tab]');
+const sections = document.querySelectorAll('.section');
+const copyBtn = document.getElementById('copy-btn');
+const emailText = document.getElementById('email-text');
+const messageInput = document.getElementById('message');
+const charCount = document.getElementById('char-count');
+const modal = document.getElementById('project-modal');
+const modalImg = document.getElementById('modal-img');
+const modalTitle = document.getElementById('modal-title');
+const modalDesc = document.getElementById('modal-desc');
+const modalTools = document.getElementById('modal-tools');
+const modalStatus = document.getElementById('modal-status');
+const modalClose = modal.querySelector('.close-btn');
+const backBtn = document.getElementById('back-terminal');
+const guiContainer = document.getElementById('gui-container');
+
+// Dados projetos
+const projects = [
+  {title:'Experiência em Realidade Virtual', img:'rvprojeto.png', desc:'Recriação do Terremoto de Lisboa na Unreal Engine 5. Ambientação histórica, efeitos sonoros imersivos, navegação em primeira pessoa.', tools:'Unreal Engine 5, Quixel, Unreal Engine | Fab', status:'Finalizado'},
+  {title:'Terminal Interativo', img:'Terminal.png', desc:'Portfólio com som, animações e navegação textual.', tools:'HTML, CSS, JS', status:'Finalizado'}
+];
+
+// Mostrar aba
+function showTab(tab){
+  sections.forEach(s => s.classList.remove('active'));
+  document.getElementById(tab).classList.add('active');
+}
+
+// Modal
+function openModal(p){
+  modalImg.src = p.img;
+  modalTitle.textContent = p.title;
+  modalDesc.textContent = p.desc;
+  modalTools.textContent = p.tools ? `Ferramentas: ${p.tools}` : '';
+  modalStatus.textContent = p.status ? `Status: ${p.status}` : '';
+  modal.classList.add('active');
+}
+modalClose.addEventListener('click', ()=> modal.classList.remove('active'));
+modal.addEventListener('click', e => { if(e.target === modal) modal.classList.remove('active'); });
+
+// Copiar e-mail com animação de tooltip
+const copyTooltip = document.getElementById('copy-tooltip');
+copyBtn.addEventListener('click', ()=>{
+  navigator.clipboard.writeText(emailText.textContent);
+
+  // Mostrar tooltip
+  copyTooltip.classList.add('show');
+  setTimeout(()=> copyTooltip.classList.remove('show'), 1500);
+});
+
+// Contador caracteres
+messageInput.addEventListener('input', ()=>{
+  charCount.textContent = `${messageInput.value.length} / 500`;
+});
+
+// Form contato
+document.getElementById('contact-form').addEventListener('submit', e=>{
+  e.preventDefault();
+  alert('Mensagem enviada!');
+  e.target.reset();
+  charCount.textContent = '0 / 500';
+});
+
+// Preencher projetos
+projects.forEach(p=>{
+  const card = document.createElement('div');
+  card.className = 'project-card';
+  card.innerHTML = `<img src="${p.img}" alt="${p.title}"><h3>${p.title}</h3><p>${p.desc}</p>`;
+  card.addEventListener('click', ()=> openModal(p));
+  projectsGrid.appendChild(card);
+});
+
+// Navegação abas
+tabs.forEach(btn=> btn.addEventListener('click', ()=> showTab(btn.dataset.tab)));
+
+// Voltar ao terminal com animação
+backBtn.addEventListener('click', ()=>{
+  backBtn.classList.add('clicked'); // adiciona animação
+  setTimeout(()=> {
+    window.location.href = 'index.html';
+  }, 500); // aguarda o tempo da animação
+});
+
+// Função digitar texto
+function typeText(element, text, delay=50, callback){
+  let i=0;
+  const interval = setInterval(()=>{
+    element.textContent += text[i];
+    i++;
+    if(i >= text.length){ clearInterval(interval); if(callback) callback(); }
+  }, delay);
+}
+
+// Boot linhas
+const bootLines = ["Iniciando sistema...", "Carregando módulos...", "Portfólio pronto."];
+
+function typeLines(lines, index=0){
+  if(index >= lines.length){
+    setTimeout(()=>{
+      terminal.style.transition='opacity 0.8s';
+      terminal.style.opacity=0;
+      setTimeout(()=>{
+        terminal.style.display='none';
+        guiContainer.style.display='flex';
+        guiContainer.style.opacity=0;
+        setTimeout(()=>{ guiContainer.style.transition='opacity 0.8s'; guiContainer.style.opacity=1; },50);
+      },800);
+    },1000);
+    return;
+  }
+  const line = document.createElement('p');
+  terminal.appendChild(line);
+  typeText(line, lines[index], 50, ()=> typeLines(lines, index+1));
+}
+
+// Iniciar terminal
+function startTerminal(){
+  terminal.innerHTML = '';
+  terminal.style.display = 'flex';
+  terminal.style.opacity = 1;
+  guiContainer.style.display = 'none';
+  typeLines(bootLines);
+}
+
+window.addEventListener('DOMContentLoaded', ()=> startTerminal());
+
+</script>
 </body>
 </html>
