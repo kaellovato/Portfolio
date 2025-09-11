@@ -1,205 +1,271 @@
-#gui {
-  max-width: 800px;
-  margin: auto;
-  background: #141414;
-  padding: 2rem;
-  border-radius: 8px;
-  margin-top: 2rem;
-}
-
-.section {
-  margin-bottom: 2rem;
-}
-
-.section h2 {
-  margin-bottom: 0.5rem;
-  color: #33ff33;
-}
-
-ul {
-  padding-left: 1rem;
-}
-
-.toggle-button {
-  display: block;
-  margin: 1rem auto;
-  background: #33ff33;
-  color: #0d0d0d;
-  border: none;
-  padding: 0.5rem 0.5rem;
-  font-family: monospace;
-  cursor: pointer;
-}
-
-@media (max-width: 600px) {
-  body {
-    font-size: 0.9rem;
-    padding: 1rem;
-  }
-
-  .toggle-button {
-    padding: 0.3rem 0.7rem;
-  }
+:root {
+  --color-bg: #0d0d0d;
+  --color-text: #33ff33;
+  --color-accent: #00ffcc;
+  --color-hover: #33ff33;
 }
 
 * {
   user-select: none;
-}
-
-a {
-  color: inherit;
-  text-decoration: underline;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: monospace;
 }
 
 body {
-  background: #0d0d0d;
-  color: #e0e0e0;
-  font-family: 'Courier New', Courier, monospace;
-  margin: 0;
-  padding: 2rem;
-  line-height: 1.6;
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.5;
+  overflow-x: hidden;
 }
 
-#gui {
-  max-width: 960px;
-  margin: auto;
-  background: #1a1a1a;
-  padding: 2rem;
-  border-radius: 16px;
-  box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
-}
-
-.section {
-  margin-bottom: 3rem;
-}
-
-.section h2 {
-  font-size: 1.6rem;
-  color: #33ff33;
-  border-bottom: 2px solid #33ff33;
-  padding-bottom: 0.3rem;
-  margin-bottom: 1rem;
-}
-
-.section img {
-  max-width: 100%;
-  border-radius: 12px;
-  margin-top: 1rem;
-  box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
-}
-
-ul {
-  padding-left: 1.2rem;
-}
-
-a {
-  color: #33ff33;
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-.toggle-button {
-  background: #33ff33;
-  color: #0d0d0d;
-  border: none;
-  padding: 0.7rem 1rem;
-  font-family: monospace;
-  font-size: 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-top: 2rem;
-}
-
-.toggle-button:hover {
-  background: #28cc28;
-}
-
-@media (max-width: 600px) {
-  body {
-    padding: 1rem;
-    font-size: 0.95rem;
-  }
-}
-
-.sobre-conteudo {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-}
-
-/* Estilo padrão: lado a lado */
-.sobre-conteudo img {
-  max-width: 200px;
-  border-radius: 12px;
-  flex-shrink: 0;
-}
-
-.sobre-conteudo p {
-  flex: 1;
-  min-width: 250px;
-}
-
-/* Para telas pequenas: centraliza imagem */
-@media (max-width: 600px) {
-  .sobre-conteudo {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .sobre-conteudo img {
-    margin-top: 10px;
-  }
-
-  .sobre-conteudo p {
-    min-width: unset;
-  }
-}
-
-.copy-btn {
-  margin-left: 10px;
-  background-color: transparent;
-  border: 2px solid #33ff33;
-  color: #33ff33;
-  padding: 4px 10px;
-  border-radius: 5px;
-  font-family: monospace;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.copy-btn:hover {
-  background-color: #33ff33;
-  color: #141414;
-}
-
-/* Popup estilo */
-.popup {
-  visibility: hidden;
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #33ff33;
-  color: #141414;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-family: monospace;
-  font-weight: bold;
-  box-shadow: 0 0 10px #33ff33aa;
-  z-index: 9999;
-  transition: visibility 0s linear 0.3s, opacity 0.3s ease;
+/* Header */
+header {
+  text-align: center;
+  margin-bottom: 2rem;
   opacity: 0;
+  animation: fadeIn 1s forwards 0.5s;
 }
+header h1 { font-size: 3rem; color: var(--color-accent); }
+header p { font-size: 1.5rem; }
 
-.popup.show {
-  visibility: visible;
+/* GUI container */
+#gui-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  min-height: 100vh;
   opacity: 1;
-  transition-delay: 0s;
+  transition: opacity 0.5s ease;
 }
 
+/* Botão voltar */
+#back-terminal {
+  padding: 0.5rem 1rem;
+  background: #000;
+  border: 1px solid var(--color-text);
+  color: var(--color-text);
+  cursor: pointer;
+  border-radius: 5px;
+  margin-bottom: 16px;
+  transition: background 0.2s, color 0.2s;
+}
+#back-terminal:hover { background: var(--color-hover); color: #000; }
+
+/* Navegação */
+#main-buttons {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 2rem;
+}
+#main-buttons button {
+  padding: 10px 16px;
+  background: #000;
+  border: 1px solid var(--color-text);
+  color: var(--color-text);
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s, color 0.3s, transform 0.3s;
+}
+#main-buttons button:hover {
+  background: var(--color-hover);
+  color: #000;
+  transform: scale(1.05);
+}
+
+/* Conteúdo das abas */
+#tab-content {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+  transition: opacity 0.5s ease;
+}
+
+/* Seções */
+.section { display: none; animation: fadeIn 0.5s ease-in; }
+.section.active { display: block; }
+
+/* Sobre */
+.about-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: flex-start;
+}
+.about-img {
+  max-width: 250px;
+  border: 2px solid var(--color-accent);
+  border-radius: 10px;
+  box-shadow: 0 0 10px 2px #00ff0077;
+}
+.about-text { flex: 1; font-size: 1.2rem; text-align: left; }
+.about-text p { margin-bottom: 0.8rem; }
+.about-text a { color: var(--color-accent); text-decoration: underline; cursor: pointer; }
+#copy-btn {
+  margin-left: 0.5rem;
+  padding: 3px 8px;
+  background: #000;
+  border: 1px solid var(--color-text);
+  color: var(--color-text);
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+}
+#copy-btn:hover { background: var(--color-hover); color: #000; }
+
+/* Projetos */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+}
+.project-card {
+  background: #0a0a0a;
+  border: 1px solid var(--color-text);
+  border-radius: 10px;
+  padding: 1rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.project-card:hover { transform: scale(1.05); box-shadow: 0 0 15px var(--color-accent); }
+.project-card img { width: 100%; border-radius: 8px; margin-bottom: 0.5rem; }
+
+/* Modal de projetos */
+.project-modal {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top:0; left:0; width:100%; height:100%;
+  background: rgba(0,0,0,0.9);
+  z-index: 1000;
+  padding:1rem;
+}
+.project-modal.active { display: flex; }
+.project-modal .modal-content {
+  max-width: 600px;
+  text-align: center;
+  background: #000;
+  border: 2px solid var(--color-accent);
+  border-radius: 10px;
+  padding: 2rem;
+  position: relative;
+}
+.project-modal img { max-width:100%; border-radius:8px; margin-bottom:1rem; }
+.close-btn { position:absolute; top:10px; right:15px; font-size:2rem; cursor:pointer; color: var(--color-text); transition: color 0.2s; }
+.close-btn:hover { color: var(--color-accent); }
+
+/* Contato */
+.contact-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Alinha no topo, não muito para baixo */
+  min-height: 60vh; /* Ocupa boa parte da tela */
+  padding-top: 2rem; /* Espaço superior */
+}
+
+#contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 450px;          /* Ocupa quase toda a largura */
+  max-width: 700px;    /* Limite máximo */
+}
+
+#contact-form input,
+#contact-form textarea {
+  padding: 12px;           /* Campos maiores */
+  font-size: 1rem;
+  background: #000;
+  border: 1px solid var(--color-text);
+  color: var(--color-text);
+  border-radius: 5px;
+  font-family: monospace;
+}
+
+#contact-form textarea {
+  resize: none;
+  min-height: 170px;       /* Deixa a caixa maior verticalmente */
+}
+
+#contact-form button {
+  padding: 12px;
+  font-size: 1rem;
+  background: #000;
+  border: 1px solid var(--color-text);
+  color: var(--color-text);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+#contact-form button:hover {
+  background: var(--color-hover);
+  color: #000;
+  transform: scale(1.05);
+}
+
+/* Terminal */
+#terminal {
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:#000;
+  color: var(--color-text);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:2rem;
+  font-family: monospace;
+  z-index: 10000;
+  overflow-y: auto;
+  text-align: center;  /* centraliza texto */
+}
+
+/* Animações */
+@keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+@keyframes fadeInUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+
+/* Responsividade */
+@media(max-width:600px){
+  .about-container { flex-direction: column; align-items:center; }
+  .about-text { text-align:center; }
+  #main-buttons { flex-direction: column; gap: 10px; }
+}
+
+/* Tooltip de cópia de e-mail */
+#copy-tooltip {
+  position: absolute;
+  background: var(--color-accent);
+  color: #000;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  transform: translateY(-25px);
+}
+#copy-tooltip.show { opacity: 1; }
+
+/* Animação ao clicar no botão "Voltar ao Terminal" */
+#back-terminal.clicked {
+  animation: backBtnClick 0.5s forwards;
+}
+
+@keyframes backBtnClick {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(0.9); opacity: 0.7; }
+  100% { transform: scale(1.2); opacity: 0; }
+}
