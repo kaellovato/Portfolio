@@ -12,8 +12,8 @@
 
   <!-- Terminal principal onde tudo aparece -->
   <div id="terminal">
-    <div>Bem-vindo ao portfólio de Kael Lovato</div>
-    <div>Digite <code>help</code> para ver os comandos disponíveis.</div>
+  <div>Bem-vindo ao <a href="gui.html" class="portfolio-link"> portfólio <span class="tooltip">Clique aqui para ir para interface gráfica</span> </a> de Kael Lovato</div>
+  <div>Digite <code>help</code> para ver os comandos disponíveis.</div>
     
     <!-- Aqui ficam os comandos digitados e a resposta do sistema -->
     <div id="history"></div>
@@ -56,9 +56,7 @@
     help: `Comandos disponíveis:
     about       - Sobre mim
     projects    - Meus projetos
-    certs       - Certificados
     contact     - Me envie mensagem
-    gui         - Abrir interface gráfica
     clear       - Limpar terminal`,
 
     // Comando "about": mostra imagem e texto com animação
@@ -221,8 +219,6 @@ Email: <a href="mailto:kaellovato5@gmail.com">kaellovato5@gmail.com</a><span id=
       },
 
     projects: 'PROJECTS_SUBMENU', // Manipulado em outra função
-    certs: `Certificados:\n  CS50 – Introduction to Computer Science – HarvardX\n  Link: Ainda não concluído`,
-    gui: 'REDIRECT_GUI',
     clear: 'CLEAR'
   };
 
@@ -309,9 +305,7 @@ Email: <a href="mailto:kaellovato5@gmail.com">kaellovato5@gmail.com</a><span id=
     const helpMessage = `Comandos disponíveis:
     about       - Sobre mim
     projects    - Meus projetos
-    certs       - Certificados
     contact     - Me envie mensagem
-    gui         - Abrir interface gráfica
     clear       - Limpar terminal`;
 
     const helpResponse = document.createElement('div');
@@ -429,8 +423,6 @@ Email: <a href="mailto:kaellovato5@gmail.com">kaellovato5@gmail.com</a><span id=
         const cmd = commands[input.toLowerCase()];
         if (cmd === 'CLEAR') {
           clearWithGlitch();
-        } else if (cmd === 'REDIRECT_GUI') {
-          window.location.href = 'gui.html';
         } else if (cmd === 'PROJECTS_SUBMENU') {
           showProjectMenu(response);
         } else if (typeof cmd === 'function') {
@@ -493,7 +485,6 @@ observer.observe(document.getElementById('terminal'), {
   childList: true,
   subtree: true
 });
-
 
 </script>
 </body>
