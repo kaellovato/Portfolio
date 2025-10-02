@@ -1,0 +1,445 @@
+
+  // ELEMENTOS GLOBAIS
+  const history = document.getElementById('history');
+  const commandInput = document.getElementById('command');
+  const keySound = document.getElementById('keySound');
+  const errorSound = document.getElementById('errorSound');
+  const clearSound = document.getElementById('clearSound');
+
+  // ESTADO DO TERMINAL (ex: "root", "projects", etc.)
+  let terminalState = "root";
+
+  // OBJETO COM COMANDOS SUPORTADOS NO TERMINAL
+  const commands = {
+    help: `Comandos disponíveis:
+    about       - Sobre mim
+    projects    - Meus projetos
+    contact     - Me envie mensagem
+    clear       - Limpar terminal`,
+
+    // Comando "about": mostra imagem e texto com animação
+    about: function (container) {
+      const aboutContainer = document.createElement('div');
+      aboutContainer.className = 'about-container';
+
+      const img = document.createElement('img');
+      img.src = 'KaelBg.png';
+      img.alt = 'Kael Lovato';
+      img.className = 'about-img';
+
+      const textContainer = document.createElement('div');
+      textContainer.className = 'about-text-terminal';
+
+      aboutContainer.appendChild(img);
+      aboutContainer.appendChild(textContainer);
+      container.appendChild(aboutContainer);
+
+      setTimeout(() => {
+const text = `Sou Kael Lovato, desenvolvedor apaixonado por tecnologia, aprendizado contínuo e experiências imersivas.
+Trabalho com jogos, web e design interativo.<br>
+LinkedIn: <a href="https://linkedin.com/in/kael-lovato" target="_blank" rel="noopener noreferrer">linkedin.com/in/kael-lovato</a>
+Email: <a href="mailto:kaellovato5@gmail.com">kaellovato5@gmail.com</a><span id="email-line"></span><br>`;
+
+        typeEffect(text, textContainer, () => {
+          setTimeout(() => {
+            const emailLine = document.getElementById('email-line');
+
+             // Cria botão
+            const copyButton = document.createElement('button');
+            copyButton.textContent = 'Copiar e-mail';
+            copyButton.onclick = copyEmail;
+            copyButton.className = 'copy-btn';
+            copyButton.style.marginLeft = '8px'; // espaço entre o link e o botão
+
+            emailLine.appendChild(copyButton); // adiciona ao lado do e-mail
+
+            // Cria popup se não existir
+            if (!document.getElementById('copyPopup')) {
+              const popup = document.createElement('div');
+              popup.id = 'copyPopup';
+              popup.className = 'popup'; // Usa sua classe CSS existente
+              popup.textContent = 'E-mail copiado!';
+              document.body.appendChild(popup);
+            }
+          }, 25); // Pequeno atraso para garantir que o DOM renderize
+        });
+      }, 500);
+    },
+
+      contact: function(container) {
+        const contactContainer = document.createElement('div');
+        contactContainer.className = 'contact-container fade-in';
+        container.appendChild(contactContainer);
+
+        const textContainer = document.createElement('div');
+        contactContainer.appendChild(textContainer);
+
+        // Texto inicial que será digitado
+        const text = `Me envie uma mensagem:\nPreencha os campos abaixo.\n`;
+
+        typeEffect(text, textContainer, () => {
+          // Depois que a digitação termina, criamos os inputs
+          const nameInput = document.createElement('input');
+          nameInput.type = 'text';
+          nameInput.placeholder = 'Seu nome';
+          nameInput.className = 'contact-input';
+          contactContainer.appendChild(nameInput);
+
+          const emailInput = document.createElement('input');
+          emailInput.type = 'email';
+          emailInput.placeholder = 'Seu e-mail';
+          emailInput.className = 'contact-input';
+          contactContainer.appendChild(emailInput);
+
+          const messageInput = document.createElement('textarea');
+          messageInput.placeholder = 'Sua mensagem (máx. 500 caracteres)...';
+          messageInput.className = 'contact-textarea';
+          messageInput.maxLength = 500;
+          contactContainer.appendChild(messageInput);
+
+          // Contador de caracteres
+          const charCount = document.createElement('p');
+          charCount.className = 'char-count';
+          charCount.textContent = "0 / 500";
+          contactContainer.appendChild(charCount);
+
+          messageInput.addEventListener("input", () => {
+            charCount.textContent = `${messageInput.value.length} / 500`;
+          });
+
+          // Botão enviar
+          const sendButton = document.createElement('button');
+          sendButton.textContent = 'Enviar';
+          sendButton.className = 'contact-btn';
+          contactContainer.appendChild(sendButton);
+
+          const feedback = document.createElement('p');
+          feedback.className = 'contact-feedback';
+          contactContainer.appendChild(feedback);
+
+          // Função de validação
+          function isValidEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email.toLowerCase());
+          }
+
+          function validateField(field, isValid) {
+            if (isValid) {
+              field.classList.remove('invalid');
+              field.classList.add('valid');
+            } else {
+              field.classList.remove('valid');
+              field.classList.add('invalid');
+            }
+          }
+
+          sendButton.onclick = () => {
+            const nameValid = nameInput.value.trim() !== "";
+            const emailValid = isValidEmail(emailInput.value);
+            const messageValid = messageInput.value.trim() !== "";
+
+            validateField(nameInput, nameValid);
+            validateField(emailInput, emailValid);
+            validateField(messageInput, messageValid);
+
+            if (!nameValid || !emailValid || !messageValid) {
+              feedback.textContent = "Preencha corretamente todos os campos.";
+              feedback.style.color = "yellow";
+              return;
+            }
+
+            // Envio via FormSubmit
+            fetch("https://formsubmit.co/ajax/kaellovato5@gmail.com", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                name: nameInput.value,
+                email: emailInput.value,
+                message: messageInput.value
+              })
+            })
+            .then(res => res.json())
+            .then(() => {
+              feedback.textContent = "Mensagem enviada com sucesso!";
+              feedback.style.color = "#33ff33";
+              nameInput.value = "";
+              emailInput.value = "";
+              messageInput.value = "";
+              charCount.textContent = "0 / 500";
+              [nameInput, emailInput, messageInput].forEach(i => i.classList.remove('valid', 'invalid'));
+            })
+            .catch(() => {
+              feedback.textContent = "Erro ao enviar mensagem.";
+              feedback.style.color = "red";
+            });
+          };
+        });
+      },
+
+    projects: 'PROJECTS_SUBMENU', // Manipulado em outra função
+    clear: 'CLEAR'
+  };
+
+  // Função que simula o efeito de digitação caractere por caractere
+  function typeEffect(text, element, callback) {
+    let i = 0;
+
+    function tick() {
+      if (i >= text.length) {
+        // Finaliza com o HTML completo 1x para garantir DOM estável
+        element.innerHTML = text;
+        if (callback) callback();
+        return;
+      }
+
+      const char = text[i];
+
+      if (char === '<') {
+        // Insere a TAG inteira de uma vez (abrindo/fechando)
+        const close = text.indexOf('>', i);
+        const tag = text.slice(i, close + 1);
+        element.insertAdjacentHTML('beforeend', tag);
+        i = close + 1;
+      } else {
+        // Insere texto visível como TextNode (não reparseia tudo)
+        element.appendChild(document.createTextNode(char));
+
+        // som de digitação só em caracteres visíveis
+        if (![' ', '\n'].includes(char) && i % 5 === 0) {
+          keySound.currentTime = 0;
+          keySound.volume = 0.1;
+          keySound.play().catch(() => {});
+        }
+
+        i++;
+      }
+
+      setTimeout(tick, 10); // velocidade
+    }
+
+    tick();
+  }
+
+  function copyEmail() {
+    requestAnimationFrame(() => {
+      const email = 'kaellovato5@gmail.com';
+      navigator.clipboard.writeText(email).then(() => {
+        const popup = document.getElementById('copyPopup');
+        popup.classList.add('show');
+        setTimeout(() => {
+          popup.classList.remove('show');
+        }, 2000);
+      }).catch(() => {
+        alert('Falha ao copiar o e-mail.');
+      });
+    });
+  }
+
+  // Função que remove o terminal com efeito de "glitch"
+  function clearWithGlitch(callback) {
+    const lines = [...history.children];
+    let currentLine = lines.length - 1;
+    function eraseLine() {
+      if (currentLine < 0) {
+        if (callback) callback();
+        return;
+      }
+      const line = lines[currentLine];
+      line.classList.add("glitch-out");
+      clearSound.currentTime = 0;
+      clearSound.volume = 0.5;
+      clearSound.play().catch(() => {});
+      setTimeout(() => {
+        line.remove();
+        currentLine--;
+        eraseLine();
+      }, 130);
+    }
+    eraseLine();
+  }
+
+  // Função chamada quando o comando "help" é digitado
+  function showHelp(callback) {
+    const helpMessage = `Comandos disponíveis:
+    about       - Sobre mim
+    projects    - Meus projetos
+    contact     - Me envie mensagem
+    clear       - Limpar terminal`;
+
+    const helpResponse = document.createElement('div');
+    helpResponse.style.whiteSpace = 'pre-wrap';
+    history.appendChild(helpResponse);
+    typeEffect(helpMessage, helpResponse, callback);
+  }
+
+  // Projeto 1 (RV): estrutura visual e conteúdo
+  function project1(container) {
+    const projectContainer = document.createElement('div');
+    projectContainer.className = 'project-container';
+
+    const img = document.createElement('img');
+    img.src = 'rvprojeto.png';
+    img.alt = 'Projeto RV';
+    img.className = 'project-img';
+
+    const title = document.createElement('div');
+    title.textContent = 'Projeto: Experiência em Realidade Virtual';
+
+    const textContainer = document.createElement('div');
+    textContainer.className = 'project-text';
+
+    projectContainer.appendChild(img);
+    projectContainer.appendChild(textContainer);
+    container.appendChild(projectContainer);
+
+    setTimeout(() => {
+      const text = `
+  Recriação do Terremoto de Lisboa (1755) na Unreal Engine 5.\n
+  Destaques:
+  - Ambientação histórica realista com modelagem 3D
+  - Efeitos visuais e sonoros imersivos
+  - Navegação em primeira pessoa\n
+  Ferramentas: Unreal Engine 5, Quixel, Unreal Engine | Fab\n
+  Status: Finalizado e apresentado em banca.\n
+  [Vídeo demonstrativo será inserido em breve]`;
+      typeEffect(text, textContainer);
+    }, 500);
+  }
+
+  function project2(container) {
+  const projectContainer = document.createElement('div');
+  projectContainer.className = 'project-container';
+
+  const img = document.createElement('img');
+  img.src = 'Terminal.png'; // imagem do projeto
+  img.alt = 'Projeto Terminal Interativo';
+  img.className = 'project-img';
+
+  const title = document.createElement('div');
+  title.textContent = 'Projeto: Terminal Interativo';
+
+  const textContainer = document.createElement('div');
+  textContainer.className = 'project-text';
+
+  projectContainer.appendChild(img);
+  projectContainer.appendChild(title);
+  projectContainer.appendChild(textContainer);
+  container.appendChild(projectContainer);
+
+  setTimeout(() => {
+    const text = `Este portfólio com som, animações e navegação textual.`;
+    typeEffect(text, textContainer);
+  }, 500);
+}
+
+  // Menu de projetos: aparece quando digita "projects"
+  function showProjectMenu(response) {
+    terminalState = "projects";
+    typeEffect("Projetos disponíveis:\n[1] Experiência em Realidade Virtual\n[2] Terminal Web\nDigite o número ou 'exit' para voltar.", response);
+  }
+
+  // Detalhes de cada projeto com base no número digitado
+  function showProjectDetails(option, response) {
+    switch(option) {
+      case '1':
+        project1(response);
+        break;
+      case '2':
+        project2(response);
+        break;
+      default:
+        typeEffect('Comando inválido. Use 1, 2 ou exit.', response);
+    }
+  }
+
+  // Captura de eventos ao pressionar Enter no terminal
+  commandInput.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') {
+      const input = commandInput.value.trim();
+      if (!input) return;
+
+      const output = document.createElement('div');
+      output.innerHTML = `\n> ${input}`;
+      history.appendChild(output);
+
+      const response = document.createElement('div');
+      history.appendChild(response);
+
+      // Se estiver dentro do submenu de projetos
+      if (terminalState === "projects") {
+        if (input.toLowerCase() === "exit") {
+          terminalState = "root";
+          typeEffect("Saindo da seção de projetos...", response, () => {
+            setTimeout(() => {
+              showHelp();
+            }, 500);
+          });
+        } else {
+          showProjectDetails(input, response);
+        }
+      } else {
+        const cmd = commands[input.toLowerCase()];
+        if (cmd === 'CLEAR') {
+          clearWithGlitch();
+        } else if (cmd === 'PROJECTS_SUBMENU') {
+          showProjectMenu(response);
+        } else if (typeof cmd === 'function') {
+          cmd(response);
+        } else if (cmd) {
+          typeEffect(cmd, response);
+        } else {
+          errorSound.currentTime = 0;
+          errorSound.volume = 1.0;
+          errorSound.play().catch(() => {});
+          typeEffect(`Comando não reconhecido: ${input}`, response);
+        }
+      }
+
+      commandInput.value = '';
+      window.scrollTo(0, document.body.scrollHeight);
+    }
+  });
+
+  // Adiciona zoom ao clicar em imagens dentro de containers específicos
+document.addEventListener('click', function (e) {
+  if (
+    e.target.tagName === 'IMG' &&
+    (e.target.closest('.project-container') || e.target.closest('.about-container'))
+  ) {
+    const imgSrc = e.target.src;
+
+    const overlay = document.createElement('div');
+    overlay.className = 'image-modal-overlay';
+
+    const zoomedImg = document.createElement('img');
+    zoomedImg.src = imgSrc;
+
+    overlay.appendChild(zoomedImg);
+    document.body.appendChild(overlay);
+
+    // Fecha o modal ao clicar em qualquer parte dele
+    overlay.addEventListener('click', () => {
+      overlay.remove();
+    });
+  }
+});
+
+// Aplica classe .fade-in automaticamente a todas as imagens adicionadas dinamicamente
+const observer = new MutationObserver(mutations => {
+  mutations.forEach(mutation => {
+    mutation.addedNodes.forEach(node => {
+      if (node.nodeType === 1) {
+        const imgs = node.querySelectorAll('img');
+        imgs.forEach(img => {
+          img.classList.add('fade-in');
+        });
+      }
+    });
+  });
+});
+
+// Começa a observar o terminal por mudanças (onde os projetos são carregados)
+observer.observe(document.getElementById('terminal'), {
+  childList: true,
+  subtree: true
+});
