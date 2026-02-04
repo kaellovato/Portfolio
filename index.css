@@ -114,8 +114,8 @@ body {
 .terminal-body {
   padding: 20px;
   min-height: 500px;
-  max-height: 80vh;
-  overflow-y: auto;
+  max-height: none;
+  overflow-y: visible;
 }
 
 /* Scrollbar */
@@ -927,16 +927,20 @@ code {
 @media (max-width: 768px) {
   body {
     padding: 15px;
+    min-height: 100vh;
+    height: auto;
   }
 
   #terminal {
     border-radius: 8px;
+    min-height: auto;
   }
 
   .terminal-body {
     padding: 16px;
-    min-height: 400px;
-    max-height: 75vh;
+    min-height: auto;
+    max-height: none;
+    overflow-y: visible;
   }
 
   .ascii-art {
@@ -1025,10 +1029,17 @@ code {
 @media (max-width: 600px) {
   body {
     padding: 8px;
+    min-height: 100vh;
+    height: auto;
   }
 
   .scanlines {
     opacity: 0.2;
+  }
+
+  #terminal {
+    min-height: auto;
+    height: auto;
   }
 
   .terminal-header {
@@ -1050,7 +1061,10 @@ code {
 
   .terminal-body {
     padding: 12px;
-    min-height: 350px;
+    min-height: auto;
+    max-height: none;
+    overflow-y: visible;
+    height: auto;
   }
 
   .ascii-art {

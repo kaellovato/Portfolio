@@ -32,14 +32,14 @@ Status: Finalizado e apresentado em banca.
     id: 2,
     title: "Plugies Dreamy Chaos",
     image: "ProjetoProg/IMGS/logo.png",
-    description: `Jogo interativo desenvolvido em p5.js com mecanica de coleta e evasao.
+    description: `Jogo interativo desenvolvido em p5.js.
 
 Destaques:
 - Arte com personagens carismaticos
 - Sistema de dificuldade progressiva (quanto mais vezes passa os minijogos, mais rapido fica)
 - Trilha sonora e efeitos imersivos
 
-Conceito: Criado para estudo de logica e interatividade.
+Conceito: Criado para um projeto de disciplina universitária focado em programação em JavaScript.
 
 [Disponivel apenas para Desktop - requer teclado]`,
     tech: "p5.js / JavaScript",
@@ -48,17 +48,16 @@ Conceito: Criado para estudo de logica e interatividade.
   },
   {
     id: 3,
-    title: "CACB - Controle Assistido para Consumo de Bebidas",
+    title: "CACB - Centro Academico Clínico das Beiras",
     image: "projeto_final/IMGS/cacb-removebg-preview.png",
-    description: `Sistema web para monitoramento de consumo de alcool em festas.
+    description: `Sistema web para o Centro Academico Clínico das Beiras, desenvolvido com HTML, CSS e JavaScript.
 
 Destaques:
-- Interface intuitiva para registro de doses
-- Calculo de BAC (Blood Alcohol Content)
-- Alertas visuais sobre nivel de embriaguez
+- Interface intuitiva
+- Remodelação do site original
 - Design responsivo para uso mobile
 
-Objetivo: Conscientizacao e seguranca em ambientes festivos.`,
+Objetivo: Melhorar a experiencia do usuario e facilitar o acesso a informações.`,
     tech: "HTML / CSS / JavaScript",
     link: "projeto_final/HTML/index.html",
     mobilePlayable: true,
@@ -126,7 +125,6 @@ Email: <a href="mailto:kaellovato5@gmail.com">kaellovato5@gmail.com</a><span id=
     const header = document.createElement("div");
     header.className = "contact-header";
     header.innerHTML = `
-      <span class="contact-header-icon">📨</span>
       <span class="contact-header-title">Envie uma mensagem</span>
     `;
     contactContainer.appendChild(header);
@@ -278,6 +276,22 @@ Email: <a href="mailto:kaellovato5@gmail.com">kaellovato5@gmail.com</a><span id=
   clear: "CLEAR",
 };
 
+// Função de auto-scroll para acompanhar o texto
+function autoScroll() {
+  // Scroll suave para o final da página (funciona em mobile e desktop)
+  const inputLine = document.querySelector(".input-line");
+  if (inputLine) {
+    inputLine.scrollIntoView({ behavior: "smooth", block: "end" });
+  }
+
+  // Fallback para garantir scroll em todos os casos
+  const terminalBody = document.querySelector(".terminal-body");
+  if (terminalBody) {
+    terminalBody.scrollTop = terminalBody.scrollHeight;
+  }
+  window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+}
+
 // Efeito de digitacao
 function typeEffect(text, element, callback) {
   let i = 0;
@@ -285,6 +299,7 @@ function typeEffect(text, element, callback) {
   function tick() {
     if (i >= text.length) {
       element.innerHTML = text;
+      autoScroll();
       if (callback) callback();
       return;
     }
@@ -304,6 +319,11 @@ function typeEffect(text, element, callback) {
         keySound.play().catch(() => {});
       }
       i++;
+    }
+
+    // Auto-scroll a cada 3 caracteres para acompanhar em tempo real
+    if (i % 3 === 0) {
+      autoScroll();
     }
 
     setTimeout(tick, 10);
@@ -534,7 +554,7 @@ commandInput.addEventListener("keydown", function (e) {
     }
 
     commandInput.value = "";
-    window.scrollTo(0, document.body.scrollHeight);
+    autoScroll();
   }
 });
 
