@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CACB</title>
+    <link rel="stylesheet" href="../CSS/index.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="page-content">
+      <header class="header">
+        <div class="header-conteudo">
+          <!-- Logo / Imagem -->
+          <div class="logo">
+            <a href="index.html">
+              <img src="../IMGS/cacb-removebg-preview.png" alt="Logo do site" />
+            </a>
+          </div>
+
+          <!-- Menu Toggle (Hamburger) -->
+          <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <!-- Menu -->
+          <nav class="menu">
+            <a href="missao.html">Grupos de Missão</a>
+            <a href="linhas_acao.html">Linhas de Ação</a>
+            <a href="ensaios_clinicos.html">Ensaios Clínicos</a>
+            <a href="eventos.html">Eventos</a>
+            <a href="medias.html">Media</a>
+            <a href="contatos.html">Contactos</a>
+            <a href="#">Login</a>
+          </nav>
+        </div>
+      </header>
+
+      <!-- Espaço para carrosel-->
+      <section class="imagem-destaque">
+        <div class="carrossel">
+          <div class="slide ativo">
+            <img src="../IMGS/ubi.jpg" alt="Imagem 1" />
+          </div>
+          <div class="slide">
+            <img src="../IMGS/hospital_castelo_branco.png" alt="Imagem 2" />
+          </div>
+          <div class="slide">
+            <img src="../IMGS/essv_principal.png" alt="Imagem 3" />
+          </div>
+          <div class="slide">
+            <img src="../IMGS/ipg.jpg" alt="Imagem 3" />
+          </div>
+          <div class="slide">
+            <img src="../IMGS/unidade_s_guarda.jpg" alt="Imagem 3" />
+          </div>
+          <div class="slide">
+            <img src="../IMGS/hospital_cova_da_beira.jpg" alt="Imagem 3" />
+          </div>
+          <div class="slide">
+            <img src="../IMGS/pcb.png" alt="Imagem 3" />
+          </div>
+          <div class="slide">
+            <img
+              src="../IMGS/hospital-de-viseu-uls-viseu-dao-lafoes-1024x768.jpeg"
+              alt="Imagem 3"
+            />
+          </div>
+        </div>
+
+        <!-- Overlay sobre o carrossel -->
+        <div class="overlay-carrossel">
+          <!-- Texto e botão (lado esquerdo) -->
+          <div class="overlay-esquerda">
+            <h1>
+              TODOS JUNTOS PELA<br />
+              SAÚDE NAS BEIRAS
+            </h1>
+
+            <a href="cacb.html" class="btn-cacb">O CACB</a>
+          </div>
+
+          <!-- Notícias (lado direito) -->
+          <div class="overlay-direita">
+            <div class="noticias-topo">
+              <h2>Notícias</h2>
+
+              <div class="noticias-botoes">
+                <button id="prevNoticia">&#10094;</button>
+                <button id="nextNoticia">&#10095;</button>
+              </div>
+            </div>
+
+            <div class="noticias-carrossel">
+              <div class="noticia ativa">
+                <p>
+                  INSCRIÇÕES para as V Jornadas de Investigação Clínica CACB |
+                  Da Inovação à Estratégia.
+                </p>
+              </div>
+
+              <div class="noticia">
+                <p>
+                  Dia Mundial da Saúde Mental | 10 outubro 2025; A Saúde Mental
+                  é um direito de todos. Falar sobre isso é o primeiro passo
+                  para quebrar o tabu!
+                </p>
+              </div>
+
+              <div class="noticia">
+                <p>
+                  Dia do Idoso | Debate Dia 1 de Outubro | 18 horas | Anfiteatro
+                  UBImedical
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- NOTÍCIAS -->
+      <section class="secao-noticias">
+        <h2 class="titulo-noticias">Notícias</h2>
+        <hr class="separador-noticias_1" />
+
+        <!-- NOTÍCIA 1 -->
+        <div class="noticia-item">
+          <a href="noticia.html" class="noticia-link">
+            <img src="../IMGS/placeholder_noticias.jpg" alt="Imagem da notícia" />
+
+            <div class="noticia-texto">
+              <h3>
+                INSCRIÇÕES para as V Jornadas de Investigação Clínica CACB | Da
+                Inovação à Estratégia.
+              </h3>
+            </div>
+          </a>
+          <span class="noticia-data">13/10/2025</span>
+        </div>
+
+        <hr class="separador-noticias" />
+
+        <!-- NOTÍCIA 2 -->
+        <div class="noticia-item">
+          <a href="noticia.html" class="noticia-link">
+            <img src="../IMGS/placeholder_noticias.jpg" alt="Imagem da notícia" />
+
+            <div class="noticia-texto">
+              <h3>Dia Mundial da Saúde Mental | 10 outubro 2025</h3>
+            </div>
+          </a>
+
+          <span class="noticia-data">10/10/2025</span>
+        </div>
+
+        <hr class="separador-noticias" />
+
+        <!-- NOTÍCIA 3 -->
+        <div class="noticia-item">
+          <a href="noticia.html" class="noticia-link">
+            <img src="../IMGS/placeholder_noticias.jpg" alt="Imagem da notícia" />
+
+            <div class="noticia-texto">
+              <h3>Dia do Idoso | Debate</h3>
+            </div>
+          </a>
+
+          <span class="noticia-data">25/09/2025</span>
+        </div>
+
+        <!-- NOTÍCIAS EXTRAS (hiden) -->
+        <div class="noticias-extra">
+          <hr class="separador-noticias" />
+
+          <div class="noticia-item">
+            <a href="noticia.html" class="noticia-link">
+              <img src="../IMGS/placeholder_noticias.jpg" alt="" />
+              <div class="noticia-texto">
+                <h3>
+                  Visita do Bastonário da Ordem dos Fisioterapeutas ao Centro
+                  Académico Clínico das Beiras
+                </h3>
+              </div>
+            </a>
+
+            <span class="noticia-data">20 Mai 2025</span>
+          </div>
+
+          <hr class="separador-noticias" />
+
+          <div class="noticia-item">
+            <a href="noticia.html" class="noticia-link">
+              <img src="../IMGS/placeholder_noticias.jpg" alt="" />
+              <div class="noticia-texto">
+                <h3>Bolsa CUF D. Manuel de Mello 2025</h3>
+              </div>
+            </a>
+            <span class="noticia-data">12 Mai 2025</span>
+          </div>
+        </div>
+
+        <!-- Botão pra ver mais -->
+        <div class="ver-mais-container">
+          <button id="btn-ver-mais">Ver todas as notícias</button>
+        </div>
+      </section>
+
+      <!-- EVENTOS -->
+      <section class="secao-eventos">
+        <h2 class="titulo-eventos">Eventos</h2>
+        <hr class="separador-eventos" />
+
+        <div class="eventos-lista">
+          <!-- EVENTO 1 -->
+          <div class="evento-item">
+            <a href="eventos.html" class="evento-link">
+              <img src="../IMGS/placeholder_eventos.jpg" alt="Evento 1" />
+
+              <div class="evento-overlay">
+                <h3>V Jornadas de Investigação Clínica</h3>
+
+                <span>21/11/2025</span>
+              </div>
+            </a>
+          </div>
+
+          <!-- EVENTO 2 -->
+          <div class="evento-item">
+            <a href="eventos.html" class="evento-link">
+              <img src="../IMGS/placeholder_eventos.jpg" alt="Evento 2" />
+
+              <div class="evento-overlay">
+                <h3>IV Encontro de Cuidados Paliativos da Serra da Estrela</h3>
+                <span>04/12/2025</span>
+              </div>
+            </a>
+          </div>
+
+          <!-- EVENTO 3 -->
+          <div class="evento-item">
+            <a href="eventos.html" class="evento-link">
+              <img src="../IMGS/placeholder_eventos.jpg" alt="Evento 3" />
+
+              <div class="evento-overlay">
+                <h3>III Encontro Ibérico de Medicina Preventiva</h3>
+                <span>06/11/2025</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="secao-eventos">
+        <h2 class="titulo-eventos">Formações</h2>
+        <hr class="separador-eventos" />
+
+        <div class="eventos-lista">
+          <!-- FORMAÇÃO 1 -->
+          <div class="evento-item">
+            <a href="formacoes.html" class="evento-link">
+              <img src="../IMGS/placeholder_formacoes.png" alt="Formação 1" />
+
+              <div class="evento-overlay">
+                <h3>Curso de Formação para Atividade de Pacientes Simulados</h3>
+                <span>01/04/2025</span>
+              </div>
+            </a>
+          </div>
+
+          <!-- FORMAÇÃO 2 -->
+          <div class="evento-item">
+            <a href="formacoes.html" class="evento-link">
+              <img src="../IMGS/placeholder_formacoes.png" alt="Formação 2" />
+
+              <div class="evento-overlay">
+                <h3>Curso Transporte do Doente Crítico</h3>
+                <span>01/06/2024</span>
+              </div>
+            </a>
+          </div>
+
+          <!-- FORMAÇÃO 3 -->
+          <div class="evento-item">
+            <a href="formacoes.html" class="evento-link">
+              <img src="../IMGS/placeholder_formacoes.png" alt="Formação 3" />
+
+              <div class="evento-overlay">
+                <h3>Ferramentas para Uma Vida Saudável</h3>
+                <span>17/07/2024</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <script>
+        const btnVerMais = document.getElementById("btn-ver-mais");
+        const noticiasExtra = document.querySelector(".noticias-extra");
+
+        let aberto = false;
+
+        btnVerMais.addEventListener("click", () => {
+          if (!aberto) {
+            noticiasExtra.style.maxHeight = noticiasExtra.scrollHeight + "px";
+            btnVerMais.textContent = "Ver menos";
+            aberto = true;
+          } else {
+            noticiasExtra.style.maxHeight = "0";
+            btnVerMais.textContent = "Ver todas as notícias";
+            aberto = false;
+          }
+        });
+      </script>
+
+      <script src="../JS/carrosel.js"></script>
+      <script src="../JS/noticias.js"></script>
+    </div>
+  </body>
+
+  <footer class="footer">
+    <div class="footer-conteudo">
+      <!-- LADO ESQUERDO -->
+      <div class="footer-esquerda">
+        <p>
+          © 2023 Centro Académico Clínico das Beiras |<a
+            href="#"
+            id="footer-link"
+          >
+            Política de Privacidade</a
+          >
+        </p>
+      </div>
+
+      <!-- CENTRO – ÍCONES -->
+      <div class="footer-centro">
+        <a href="#"><i class="ri-instagram-line"></i></a>
+        <a href="#"><i class="ri-linkedin-box-line"></i></a>
+        <a href="#"><i class="ri-facebook-circle-line"></i></a>
+      </div>
+
+      <!-- LADO DIREITO -->
+      <div class="footer-direita">
+        <p>Centro Académico Clínico das Beiras</p>
+        <p>UBImedical - Estrada Principal 506, 6200-284 Covilhã, Portugal</p>
+        <p>Tel.275 241 275 E-mail: cacb@fcsaude.ubi.pt</p>
+      </div>
+    </div>
+  </footer>
+  <script src="../JS/carrosel.js"></script>
+  <script src="../JS/noticias.js"></script>
+  <script src="../JS/menu-mobile.js"></script>
+</body>
+</html>

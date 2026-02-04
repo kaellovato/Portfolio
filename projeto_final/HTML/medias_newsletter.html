@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CACB - Newsletter</title>
+    <link rel="stylesheet" href="../CSS/index.css" />
+    <link rel="stylesheet" href="../CSS/cssMissoes.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* Estilos para Newsletter */
+      .newsletter-item {
+        border: 1px solid #ddd;
+        padding: 25px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        background-color: #fcfcfc;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .newsletter-item h3 {
+        font-size: 20px;
+        color: #333;
+        margin-bottom: 15px;
+        margin-top: 0;
+      }
+
+      .newsletter-data {
+        font-size: 14px;
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      .newsletter-data span {
+        font-weight: bold;
+      }
+
+      .newsletter-descricao {
+        font-size: 15px;
+        color: #093249;
+        margin-bottom: 20px;
+      }
+
+      .btn-documento {
+        display: inline-block;
+        padding: 10px 20px;
+        border: none;
+        text-decoration: none;
+        color: #f8f8f8;
+        background-color: #093249;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s;
+      }
+
+      .btn-documento:hover {
+        background-color: #0a4060;
+      }
+
+      /* Responsivo */
+      @media (max-width: 768px) {
+        .newsletter-item {
+          padding: 20px;
+        }
+
+        .newsletter-item h3 {
+          font-size: 18px;
+        }
+
+        .newsletter-descricao {
+          font-size: 14px;
+        }
+
+        .btn-documento {
+          width: 100%;
+          text-align: center;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .newsletter-item {
+          padding: 15px;
+        }
+
+        .newsletter-item h3 {
+          font-size: 16px;
+        }
+
+        .newsletter-data,
+        .newsletter-descricao {
+          font-size: 13px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page-content">
+      <header class="header" style="background-color: #093249; opacity: 0.9">
+        <div class="header-conteudo">
+          <!-- Logo / Imagem -->
+          <div class="logo">
+            <a href="index.html">
+              <img src="../IMGS/cacb-removebg-preview.png" alt="Logo do site" />
+            </a>
+          </div>
+
+          <!-- Menu Toggle (Hamburger) -->
+          <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <!-- Menu -->
+          <nav class="menu">
+            <a href="missao.html">Grupos de Missão</a>
+            <a href="linhas_acao.html">Linhas de Ação</a>
+            <a href="ensaios_clinicos.html">Ensaios Clínicos</a>
+            <a href="eventos.html">Eventos</a>
+            <a href="medias.html">Media</a>
+            <a href="contatos.html">Contactos</a>
+            <a href="#">Login</a>
+          </nav>
+        </div>
+      </header>
+
+      <!-- Conteúdo principal -->
+      <main class="missao-container">
+        <!-- Título da página -->
+        <h1 class="missao-titulo-pagina">Media</h1>
+
+        <div class="missao-conteudo">
+          <!-- Menu lateral esquerdo -->
+          <aside class="missao-sidebar">
+            <a href="medias.html" class="missao-menu-item">Notícias</a>
+            <a href="medias_imprensa.html" class="missao-menu-item"
+              >Notas de Imprensa</a
+            >
+            <a href="medias_newsletter.html" class="missao-menu-item ativo"
+              >Newsletter</a
+            >
+          </aside>
+
+          <!-- Conteúdo principal - Newsletter -->
+          <section class="missao-detalhe">
+            <h2>Newsletter</h2>
+
+            <!-- Newsletter 1 -->
+            <div class="newsletter-item">
+              <h3>Boletim Informativo CACB</h3>
+              <p class="newsletter-data">
+                <span>Data de Publicação:</span> 2024-05-03
+              </p>
+              <p class="newsletter-descricao">
+                Boletim Informativo CACB (Jan a Mai 2024)
+              </p>
+              <a
+                href="../PDFS/1714725680780.pdf"
+                target="_blank"
+                class="btn-documento"
+                >Documento</a
+              >
+            </div>
+
+            <!-- ADICIONAR MAIS NEWSLETTERS AQUI -->
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-conteudo">
+        <!-- LADO ESQUERDO -->
+        <div class="footer-esquerda">
+          <p>
+            © 2023 Centro Académico Clínico das Beiras |<a
+              href="#"
+              id="footer-link"
+            >
+              Política de Privacidade</a
+            >
+          </p>
+        </div>
+
+        <!-- CENTRO – ÍCONES -->
+        <div class="footer-centro">
+          <a href="#"><i class="ri-instagram-line"></i></a>
+          <a href="#"><i class="ri-linkedin-box-line"></i></a>
+          <a href="#"><i class="ri-facebook-circle-line"></i></a>
+        </div>
+
+        <!-- LADO DIREITO -->
+        <div class="footer-direita">
+          <p>Centro Académico Clínico das Beiras</p>
+          <p>UBImedical - Estrada Principal 506, 6200-284 Covilhã, Portugal</p>
+          <p>Tel.275 241 275 E-mail: cacb@fcsaude.ubi.pt</p>
+        </div>
+      </div>
+    </footer>
+    <script src="../JS/menu-mobile.js"></script>
+  </body>
+</html>

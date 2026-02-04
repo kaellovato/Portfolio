@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plugies Dreamy Chaos</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- ============================================================
+         TELA DE LOGIN / SELEÇÃO DE UTILIZADOR
+         ============================================================ -->
+    <div id="loginScreen">
+      <div id="loginContainer">
+        <h1 id="loginTitle">Plugies Dreamy Chaos</h1>
+        <p id="loginSubtitle">Escolhe ou cria o teu perfil</p>
+
+        <!-- Input para novo nome -->
+        <div id="newUserSection">
+          <input
+            type="text"
+            id="usernameInput"
+            placeholder="Escreve o teu nome..."
+            maxlength="20"
+            autocomplete="off"
+          />
+          <button id="createUserBtn">Entrar</button>
+        </div>
+
+        <!-- Lista de utilizadores existentes -->
+        <div id="userListSection">
+          <h3 id="userListTitle">Perfis Existentes</h3>
+          <div id="userList">
+            <!-- Utilizadores serão adicionados aqui via JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <main id="menu" style="display: none">
+      <img id="logoTitle" src="IMGS/logo.png" alt="Plugies Dreamy Chaos" />
+
+      <div id="rightSide">
+        <div id="VidaMenuGif">
+          <img src="GIFS/Vida.gif" alt="Vida Gif" />
+          <img src="GIFS/Vida.gif" alt="Vida Gif" />
+          <img src="GIFS/Vida.gif" alt="Vida Gif" />
+          <img src="GIFS/Vida.gif" alt="Vida Gif" />
+        </div>
+        <div id="PlugieMenuGif">
+          <img src="GIFS/plug_anim3.gif" alt="Dreamy Chaos Gif" />
+        </div>
+      </div>
+
+      <div id="menuButtons">
+        <img id="playButton" src="IMGS/PLAY.png" alt="Play" />
+        <img id="creditsButton" src="IMGS/CRETIDOS.png" alt="Credits" />
+        <img id="scoresButton" src="IMGS/scorebotao.png" alt="Scores" />
+      </div>
+
+      <img id="settingsButton" src="IMGS/engrenagem.png" alt="Settings" />
+
+      <!-- Modal de Scoreboard -->
+      <div id="scoresModal" class="modal-hidden">
+        <div id="scoresContent">
+          <h1>🏆 Ranking</h1>
+          <div id="scoreboardList">
+            <!-- Scores serão adicionados via JS -->
+          </div>
+          <button id="closeScores">Voltar ao Menu</button>
+        </div>
+      </div>
+
+      <!-- Menu de Configurações de Som -->
+      <div id="settingsModal" class="modal-hidden">
+        <div id="settingsContent">
+          <h2>Configurações de Som</h2>
+
+          <div class="volume-control">
+            <label for="masterVolume">Volume Geral</label>
+            <input
+              type="range"
+              id="masterVolume"
+              min="0"
+              max="100"
+              value="50"
+            />
+            <span id="masterVolumeValue">50%</span>
+          </div>
+
+          <div class="volume-control">
+            <label for="musicVolume">Música</label>
+            <input type="range" id="musicVolume" min="0" max="100" value="40" />
+            <span id="musicVolumeValue">40%</span>
+          </div>
+
+          <div class="volume-control">
+            <label for="sfxVolume">Efeitos Sonoros</label>
+            <input type="range" id="sfxVolume" min="0" max="100" value="70" />
+            <span id="sfxVolumeValue">70%</span>
+          </div>
+
+          <button id="closeSettings">Fechar</button>
+        </div>
+      </div>
+
+      <!-- Modal de Créditos -->
+      <div id="creditsModal" class="modal-hidden">
+        <!-- Animações em volta da tela -->
+        <div class="credits-decoration">
+          <img src="GIFS/Vida.gif" class="floating-item item-1" alt="" />
+          <img src="GIFS/Vida.gif" class="floating-item item-2" alt="" />
+          <img src="GIFS/Vida.gif" class="floating-item item-3" alt="" />
+          <img src="GIFS/Vida.gif" class="floating-item item-4" alt="" />
+          <img src="IMGS/setinhacima.png" class="floating-item item-5" alt="" />
+          <img
+            src="IMGS/setinhabaixo.png"
+            class="floating-item item-6"
+            alt=""
+          />
+          <img
+            src="IMGS/setinhaesquerda.png"
+            class="floating-item item-7"
+            alt=""
+          />
+          <img
+            src="IMGS/setinhadireita.png"
+            class="floating-item item-8"
+            alt=""
+          />
+          <img
+            src="IMGS/icone_do_labiringto.png"
+            class="floating-item item-9"
+            alt=""
+          />
+          <img src="GIFS/plug_anim3.gif" class="floating-item item-10" alt="" />
+        </div>
+
+        <div id="creditsContent">
+          <h1>📝 Créditos</h1>
+
+          <div class="credits-text">
+            <p class="intro">
+              Projeto desenvolvido para a disciplina de
+              <strong>Programação Criativa</strong>.
+            </p>
+
+            <p>
+              As tarefas foram divididas igualmente entre todos os membros do
+              grupo tendo sido da seguinte forma:
+            </p>
+
+            <div class="credit-person">
+              <h3>💻 Humberto Rabelo</h3>
+              <p>
+                Foi encarregue de fazer o código (minigame
+                <em>LabirintGame</em> e a estrutura básica do
+                <em>GoblinGame</em>) e a busca de sons e música para o jogo.
+              </p>
+            </div>
+
+            <div class="credit-person">
+              <h3>🖥️ Kael Lovato</h3>
+              <p>
+                Foi encarregue de fazer o código (o resto dos minijogos e o
+                <em>GameManager</em>), a compilação do código do jogo e pela
+                estrutura básica do relatório.
+              </p>
+            </div>
+
+            <div class="credit-person">
+              <h3>🎨 Lourenço Baptista</h3>
+              <p>
+                Foi encarregue pelo conceito do jogo e dos minigames, pela arte
+                feita para o jogo, do relatório e da apresentação.
+              </p>
+            </div>
+          </div>
+
+          <button id="closeCredits">Voltar ao Menu</button>
+        </div>
+      </div>
+    </main>
+    <div id="gameContainer" style="display: none"></div>
+    <script src="userSystem.js"></script>
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
+    <script src="GameOver.js"></script>
+    <script src="gameManager.js"></script>
+    <script src="Minigames/Arrows.js"></script>
+    <script src="Minigames/Goblin.js"></script>
+    <script src="Minigames/Labirint.js"></script>
+    <script src="sketch.js"></script>
+  </body>
+</html>

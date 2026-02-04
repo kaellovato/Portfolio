@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CACB - Contactos</title>
+    <link rel="stylesheet" href="../CSS/index.css" />
+    <link rel="stylesheet" href="../CSS/cssMissoes.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <style>
+      .contatos-container {
+        padding: 40px 70px;
+        padding-top: 115px;
+        min-height: 60vh;
+        display: flex;
+        gap: 60px;
+        flex-wrap: wrap;
+      }
+
+      /* Lado Esquerdo - Informações de Contacto */
+      .contatos-info {
+        flex: 1;
+        min-width: 300px;
+      }
+
+      .contatos-info h2 {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 25px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #093249;
+      }
+
+      .contatos-info h3 {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 5px;
+      }
+
+      .contatos-info p {
+        font-size: 15px;
+        color: #444;
+        line-height: 1.6;
+        margin-bottom: 15px;
+      }
+
+      .contatos-info .nota {
+        font-size: 13px;
+        color: #666;
+        font-style: italic;
+        margin-bottom: 20px;
+      }
+
+      .contatos-info .endereco {
+        margin-top: 20px;
+      }
+
+      .contatos-info .endereco p {
+        margin-bottom: 5px;
+      }
+
+      .contatos-info .coordenadas {
+        margin-top: 15px;
+        font-size: 14px;
+        color: #555;
+      }
+
+      /* Lado Direito - Formulário */
+      .contatos-form {
+        flex: 1;
+        min-width: 300px;
+      }
+
+      .contatos-form h2 {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 25px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #093249;
+      }
+
+      .contatos-form form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .contatos-form input,
+      .contatos-form textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border: none;
+        border-bottom: 1px solid #ccc;
+        font-size: 15px;
+        font-family: inherit;
+        background-color: transparent;
+        transition: border-color 0.3s;
+      }
+
+      .contatos-form input:focus,
+      .contatos-form textarea:focus {
+        outline: none;
+        border-bottom-color: #093249;
+      }
+
+      .contatos-form input::placeholder,
+      .contatos-form textarea::placeholder {
+        color: #888;
+      }
+
+      .contatos-form textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+
+      .contatos-form .btn-enviar {
+        align-self: flex-end;
+        background-color: #093249;
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        font-size: 15px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .contatos-form .btn-enviar:hover {
+        background-color: #0a4060;
+      }
+
+      @media (max-width: 768px) {
+        .contatos-container {
+          padding: 20px 20px;
+          padding-top: 100px;
+          flex-direction: column;
+          gap: 40px;
+        }
+
+        .contatos-info,
+        .contatos-form {
+          min-width: 100%;
+        }
+
+        .contatos-info h2,
+        .contatos-form h2 {
+          font-size: 20px;
+        }
+
+        .contatos-form .btn-enviar {
+          width: 100%;
+          align-self: center;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .contatos-container {
+          padding: 15px;
+          padding-top: 90px;
+        }
+
+        .contatos-info h2,
+        .contatos-form h2 {
+          font-size: 18px;
+        }
+
+        .contatos-info p,
+        .contatos-form input,
+        .contatos-form textarea {
+          font-size: 14px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page-content">
+      <header class="header" style="background-color: #093249; opacity: 0.9">
+        <div class="header-conteudo">
+          <!-- Logo / Imagem -->
+          <div class="logo">
+            <a href="index.html">
+              <img src="../IMGS/cacb-removebg-preview.png" alt="Logo do site" />
+            </a>
+          </div>
+
+          <!-- Menu Toggle (Hamburger) -->
+          <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <!-- Menu -->
+          <nav class="menu">
+            <a href="missao.html">Grupos de Missão</a>
+            <a href="linhas_acao.html">Linhas de Ação</a>
+            <a href="ensaios_clinicos.html">Ensaios Clínicos</a>
+            <a href="eventos.html">Eventos</a>
+            <a href="medias.html">Media</a>
+            <a href="contatos.html">Contactos</a>
+            <a href="#">Login</a>
+          </nav>
+        </div>
+      </header>
+
+      <!-- Conteúdo principal -->
+      <main class="contatos-container">
+        <!-- Lado Esquerdo - Informações -->
+        <div class="contatos-info">
+          <h2>Contactos e Localização</h2>
+
+          <h3>Presidente do Conselho Diretivo</h3>
+          <p>Professor Doutor Miguel Castelo-Branco</p>
+
+          <p>
+            Tel: 275 241 275<br />
+            Email: cacb@fcsaude.ubi.pt
+          </p>
+
+          <p class="nota">
+            (As chamadas efetuadas para os números externos que constam desta
+            lista/ página serão taxadas ao preço de uma comunicação para a rede
+            fixa nacional.)
+          </p>
+
+          <div class="endereco">
+            <p><strong>Centro Académico Clínico das Beiras</strong></p>
+            <p>UBImedical</p>
+            <p>Estrada Municipal 506, 6200-284 Covilhã</p>
+          </div>
+
+          <p class="coordenadas">
+            Coordenadas GPS: N 40°16'13.02" W -7°29'21.95"
+          </p>
+        </div>
+
+        <!-- Lado Direito - Formulário -->
+        <div class="contatos-form">
+          <h2>Contacte-nos</h2>
+
+          <form action="#" method="post">
+            <input type="text" name="nome" placeholder="O seu nome" required />
+            <input
+              type="text"
+              name="apelido"
+              placeholder="O seu apelido"
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="O seu e-mail"
+              required
+            />
+            <input type="text" name="assunto" placeholder="Assunto" required />
+            <textarea
+              name="mensagem"
+              placeholder="A sua mensagem"
+              required
+            ></textarea>
+            <button type="submit" class="btn-enviar">Enviar Mensagem</button>
+          </form>
+        </div>
+      </main>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-conteudo">
+        <!-- LADO ESQUERDO -->
+        <div class="footer-esquerda">
+          <p>
+            © 2023 Centro Académico Clínico das Beiras |<a
+              href="#"
+              id="footer-link"
+            >
+              Política de Privacidade</a
+            >
+          </p>
+        </div>
+
+        <!-- CENTRO – ÍCONES -->
+        <div class="footer-centro">
+          <a href="#"><i class="ri-instagram-line"></i></a>
+          <a href="#"><i class="ri-linkedin-box-line"></i></a>
+          <a href="#"><i class="ri-facebook-circle-line"></i></a>
+        </div>
+
+        <!-- LADO DIREITO -->
+        <div class="footer-direita">
+          <p>Centro Académico Clínico das Beiras</p>
+          <p>UBImedical - Estrada Principal 506, 6200-284 Covilhã, Portugal</p>
+          <p>Tel.275 241 275 E-mail: cacb@fcsaude.ubi.pt</p>
+        </div>
+      </div>
+    </footer>
+    <script src="../JS/menu-mobile.js"></script>
+  </body>
+</html>

@@ -1,0 +1,199 @@
+/* Estilos específicos para a página Missão */
+.missao-container {
+  padding: 40px 70px;
+  padding-top: 115px; /* Compensa a altura do header (75px) + espaço extra */
+  min-height: 60vh;
+}
+
+.missao-titulo-pagina {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  padding-bottom: 15px;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #ddd;
+}
+
+.missao-conteudo {
+  display: flex;
+  gap: 50px;
+}
+
+.missao-sidebar {
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+}
+
+.missao-menu-item {
+  padding: 15px 20px;
+  background-color: #4a5568;
+  color: white;
+  text-decoration: none;
+  margin-bottom: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  border-radius: 8px;
+}
+
+.missao-menu-item:hover,
+.missao-menu-item.ativo {
+  background-color: #093249;
+}
+
+.missao-detalhe {
+  flex: 1;
+}
+
+.missao-detalhe h2 {
+  font-size: 32px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.missao-detalhe p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.missao-info {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.missao-imagem {
+  width: 450px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.missao-lista {
+  list-style-type: disc;
+  padding-left: 20px;
+  font-size: 16px;
+  line-height: 2;
+  color: #333;
+}
+
+.missao-lista li {
+  margin-bottom: 5px;
+}
+
+/* ========== RESPONSIVO ========== */
+
+/* TABLET (até 1024px) */
+@media (max-width: 1024px) {
+  .missao-container {
+    padding: 40px 40px;
+    padding-top: 115px;
+  }
+
+  .missao-conteudo {
+    gap: 30px;
+  }
+
+  .missao-sidebar {
+    min-width: 180px;
+  }
+
+  .missao-info {
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .missao-imagem {
+    width: 100%;
+    max-width: 450px;
+  }
+}
+
+/* MOBILE (até 768px) */
+@media (max-width: 768px) {
+  .missao-container {
+    padding: 20px;
+    padding-top: 95px;
+  }
+
+  .missao-titulo-pagina {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  .missao-conteudo {
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .missao-sidebar {
+    flex-direction: row;
+    flex-wrap: wrap;
+    min-width: 100%;
+    gap: 8px;
+  }
+
+  .missao-menu-item {
+    flex: 1;
+    min-width: calc(50% - 4px);
+    padding: 12px 15px;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  .missao-detalhe h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+
+  .missao-detalhe p {
+    font-size: 15px;
+    margin-bottom: 20px;
+  }
+
+  .missao-info {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .missao-imagem {
+    width: 100%;
+  }
+
+  .missao-lista {
+    font-size: 14px;
+    line-height: 1.8;
+  }
+}
+
+/* MOBILE PEQUENO (até 480px) */
+@media (max-width: 480px) {
+  .missao-container {
+    padding: 15px;
+    padding-top: 90px;
+  }
+
+  .missao-titulo-pagina {
+    font-size: 20px;
+  }
+
+  .missao-menu-item {
+    flex: 0 0 100%;
+    font-size: 13px;
+  }
+
+  .missao-detalhe h2 {
+    font-size: 20px;
+  }
+
+  .missao-detalhe p {
+    font-size: 14px;
+  }
+
+  .missao-lista {
+    font-size: 13px;
+  }
+}

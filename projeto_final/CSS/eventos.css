@@ -1,0 +1,492 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
+/* COR DO HEADER — ALTERE AQUI */
+:root {
+  --cor-header: #093249; /* escolha a cor que quiser */
+}
+
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-content {
+  flex: 1; /* empurra o footer para o fundo */
+}
+
+/* HEADER */
+.header {
+  background-color: var(--cor-header);
+  opacity: 0.9;
+  width: 100%;
+  height: 75px;
+  position: absolute; /* Fica por cima do carrossel */
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+/* Conteúdo do header */
+.header-conteudo {
+  display: flex;
+  align-items: center; /* centraliza verticalmente */
+  height: 100%; /* usa toda a altura do header */
+  opacity: 1;
+  padding: 0 30px; /* remove padding vertical */
+}
+
+/* Logo */
+.logo img {
+  height: 70px; /* ajuste se quiser */
+  width: auto;
+  margin-right: 225px;
+  margin-left: 30px;
+}
+
+/* Menu */
+.menu {
+  margin-left: 100px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.menu a {
+  color: white;
+  text-decoration: none;
+  margin-right: 25px; /* mais espaço entre textos */
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.menu a:hover {
+  text-decoration: underline;
+}
+
+.secao-eventos-expand {
+  margin-top: 75px; /* empurra para baixo do header */
+  padding: 80px 70px;
+  background-color: #ffffff;
+}
+
+.separador-eventos {
+  border: none;
+  height: 2px;
+  background-color: var(--cor-header);
+  opacity: 0.2;
+  margin-bottom: 35px;
+}
+
+.separador-eventos1 {
+  border: none;
+  height: 1px;
+  background-color: #e5e5e5;
+  margin: 70px 0;
+}
+
+.titulo-eventos {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--cor-header);
+}
+
+.eventos-expand-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 40px; /* diminui o espaçamento entre eventos */
+}
+
+.evento-expand {
+  border: none;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  position: relative;
+}
+
+.evento-cabecalho {
+  display: flex;
+  gap: 30px; /* distância entre imagem e texto */
+  padding: 25px;
+  align-items: center; /* títulos centralizados verticalmente com a imagem */
+}
+
+/* IMAGEM MAIS ALTA QUE LARGA */
+.evento-cabecalho img {
+  width: 260px;
+  height: 360px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.4s ease;
+}
+
+.evento-info {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* centraliza verticalmente o conteúdo */
+}
+
+.evento-info h3 {
+  font-size: 23px;
+  font-weight: 700;
+  color: var(--cor-header);
+  margin-bottom: 12px;
+  transition: transform 0.45s ease;
+}
+
+.evento-data {
+  position: absolute;
+  top: 18px;
+  right: 25px;
+  font-size: 14px;
+  color: #777;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.btn-inscricao {
+  position: absolute;
+  bottom: 25px; /* mantém um espaço do rodapé do bloco */
+  right: 25px;
+  background-color: var(--cor-header);
+  color: white;
+  border: none;
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-inscricao:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.evento-descricao {
+  max-width: 850px;
+  margin-top: 20px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, opacity 0.4s ease;
+  opacity: 0;
+}
+
+.evento-expand.ativo .evento-descricao {
+  max-height: 600px;
+  opacity: 1;
+}
+
+.evento-expand.ativo .evento-info h3 {
+  transform: translateY(-18px); /* ainda sobe quando expandido */
+}
+
+.evento-descricao p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.evento-expand.ativo .evento-cabecalho img {
+  transform: scale(1.06);
+}
+
+.evento-cabecalho img:hover {
+  transform: scale(1.06);
+}
+
+.evento-expand.ativo .evento-info h3 {
+  transform: translateY(-18px);
+}
+
+/* FOOTER */
+.footer {
+  background-color: var(--cor-header);
+  opacity: 0.9;
+  padding: 40px 70px;
+  color: white;
+}
+
+/* CONTEÚDO */
+.footer-conteudo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ESQUERDA / DIREITA */
+.footer-esquerda,
+.footer-direita {
+  width: 40%;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.footer-direita {
+  width: 40%;
+  font-size: 13px;
+  line-height: 1.6;
+  text-align: right;
+}
+
+/* CENTRO */
+.footer-centro {
+  display: flex;
+  gap: 25px;
+}
+
+/* ÍCONES */
+.footer-centro a {
+  color: white;
+  font-size: 36px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.footer-centro a:visited,
+.footer-centro a:active {
+  color: white;
+}
+
+.footer-centro a:hover {
+  transform: translateY(-4px);
+  opacity: 0.8;
+}
+
+#footer-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 800;
+}
+
+#footer-link:hover {
+  opacity: 0.8;
+}
+
+/* ========== RESPONSIVO ========== */
+
+/* Menu Hamburger */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 28px;
+  height: 3px;
+  background-color: white;
+  margin: 4px 0;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* TABLET (até 1024px) */
+@media (max-width: 1024px) {
+  .header-conteudo {
+    padding: 0 20px;
+  }
+
+  .logo img {
+    margin-right: 50px;
+    margin-left: 10px;
+  }
+
+  .menu {
+    margin-left: 20px;
+    gap: 15px;
+  }
+
+  .menu a {
+    font-size: 14px;
+    margin-right: 10px;
+  }
+
+  .secao-eventos-expand {
+    padding: 60px 40px;
+  }
+
+  .evento-cabecalho {
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .evento-cabecalho img {
+    width: 200px;
+    height: 280px;
+  }
+
+  .footer {
+    padding: 30px 40px;
+  }
+}
+
+/* MOBILE (até 768px) */
+@media (max-width: 768px) {
+  .header {
+    height: auto;
+    min-height: 75px;
+    position: fixed;
+  }
+
+  .header-conteudo {
+    flex-wrap: wrap;
+    padding: 10px 15px;
+    justify-content: space-between;
+  }
+
+  .logo img {
+    height: 50px;
+    margin: 0;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  .menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    margin-left: 0;
+    gap: 0;
+    background-color: var(--cor-header);
+    padding: 15px 0;
+  }
+
+  .menu.ativo {
+    display: flex;
+  }
+
+  .menu a {
+    padding: 12px 20px;
+    margin: 0;
+    font-size: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .menu a:last-child {
+    border-bottom: none;
+  }
+
+  /* Seção Eventos */
+  .secao-eventos-expand {
+    margin-top: 75px;
+    padding: 40px 20px;
+  }
+
+  .titulo-eventos {
+    font-size: 22px;
+  }
+
+  .evento-cabecalho {
+    flex-direction: column;
+    padding: 15px;
+    align-items: center;
+  }
+
+  .evento-cabecalho img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    aspect-ratio: 3/4;
+  }
+
+  .evento-info {
+    width: 100%;
+    text-align: center;
+  }
+
+  .evento-info h3 {
+    font-size: 18px;
+  }
+
+  .evento-data {
+    position: static;
+    margin-top: 10px;
+  }
+
+  .btn-inscricao {
+    position: static;
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  .evento-descricao {
+    max-width: 100%;
+  }
+
+  .evento-descricao p {
+    font-size: 14px;
+  }
+
+  /* Remover transformação do título no mobile */
+  .evento-expand.ativo .evento-info h3 {
+    transform: none;
+  }
+
+  /* Aumentar max-height para textos longos no mobile */
+  .evento-expand.ativo .evento-descricao {
+    max-height: 1000px;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 30px 20px;
+  }
+
+  .footer-conteudo {
+    flex-direction: column;
+    text-align: center;
+    gap: 25px;
+  }
+
+  .footer-esquerda,
+  .footer-direita {
+    width: 100%;
+    text-align: center;
+  }
+
+  .footer-centro {
+    order: -1;
+  }
+}
+
+/* MOBILE PEQUENO (até 480px) */
+@media (max-width: 480px) {
+  .titulo-eventos {
+    font-size: 20px;
+  }
+
+  .evento-cabecalho img {
+    max-width: 250px;
+  }
+
+  .evento-info h3 {
+    font-size: 16px;
+  }
+
+  .footer-centro a {
+    font-size: 28px;
+  }
+}

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CACB</title>
+    <link rel="stylesheet" href="../CSS/ensaios.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="page-content">
+      <header class="header">
+        <div class="header-conteudo">
+          <!-- Logo / Imagem -->
+          <div class="logo">
+            <a href="index.html">
+              <img src="../IMGS/cacb-removebg-preview.png" alt="Logo do site" />
+            </a>
+          </div>
+
+          <!-- Menu Toggle (Hamburger) -->
+          <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <!-- Menu -->
+          <nav class="menu">
+            <a href="missao.html">Grupos de Missão</a>
+            <a href="linhas_acao.html">Linhas de Ação</a>
+            <a href="ensaios_clinicos.html">Ensaios Clínicos</a>
+            <a href="eventos.html">Eventos</a>
+            <a href="medias.html">Media</a>
+            <a href="contatos.html">Contactos</a>
+            <a href="#">Login</a>
+          </nav>
+        </div>
+      </header>
+
+      <section class="secao-ccicb">
+        <h2 class="titulo-ccicb">
+          Centro de Coordenação de Investigação Clínica das Beiras
+        </h2>
+
+        <hr class="separador-ccicb" />
+
+        <p class="texto-ccicb">
+          O Centro de Coordenação de Investigação Clínica das Beiras (C2ICB) é
+          uma estrutura multipolar de promoção da investigação clínica, que cria
+          sinergias entre a academia, a indústria farmacêutica e as entidades
+          clínicas das Beiras. Apoia os investigadores durante todo o processo
+          de desenvolvimento de investigação clínica e translacional, desde o
+          desenvolvimento do protocolo do ensaio, assim como, submissão às
+          entidades competentes, seguimento e encerramento do ensaio. Coopera
+          com a indústria farmacêutica na implementação de ensaios clínicos
+          multicêntricos com foco nas diversas instituições de saúde das beiras.
+        </p>
+      </section>
+
+      <section class="bloco-destaque">
+        <div class="bloco-destaque-conteudo">
+          <!-- IMAGEM -->
+          <div class="bloco-imagem">
+            <img
+              src="../IMGS/placeholder_ensaios.jpeg"
+              alt="Imagem ilustrativa"
+            />
+          </div>
+
+          <!-- TEXTO -->
+          <div class="bloco-texto">
+            <p>
+              <!-- Texto principal que vais introduzir -->
+              O C2ICB promove ainda, anualmente, formações para investigadores e
+              equipas de investigação. A equipa multidisciplinar do C2ICB tem
+              como finalidade estimular os profissionais para o desafio da
+              investigação clínica através de ferramentas que facilitam o seu
+              quotidiano:
+            </p>
+
+            <ul>
+              <li>Captação de Financiamento</li>
+              <li>Desenho do estudo</li>
+              <li>Submissão às autoridades competentes</li>
+              <li>
+                Implementação de Ensaios Clínicos e estudos de iniciativa do
+                investigador
+              </li>
+              <li>Acompanhamento e avaliação dos resultados</li>
+              <li>Formação</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="secao-ccicb">
+        <div class="texto-ccicb">
+          <p>
+            O C2ICB é um agente facilitador entre os Investigadores, os
+            Promotores, as Entidades Competentes e as Instituições de Saúde.
+            Integram a estrutura multipolar de Investigação Clínica do Interior:
+          </p>
+
+          <ul>
+            <li>Universidade da Beira Interior;</li>
+            <li>Unidade Local de Saúde de Viseu Dão-Lafões;</li>
+            <li>Unidade Local de Saúde da Guarda;</li>
+            <li>Unidade Local de Saúde da Cova da Beira;</li>
+            <li>Unidade Local de Saúde de Castelo Branco;</li>
+            <li>Instituto Politécnico de Castelo Branco;</li>
+            <li>Instituto Politécnico da Guarda;</li>
+            <li>Instituto Politécnico de Viseu;</li>
+          </ul>
+
+          <p>
+            <b>Coordenador:</b> Professor Doutor Miguel Castelo-Branco<br />
+            <b>Morada:</b> UBImedical – Estrada Municipal 506, 6200-084
+            Covilhã<br />
+            <b>Email:</b> c2icb@fcsaude.ubi.pt
+          </p>
+        </div>
+      </section>
+
+      <section class="secao-ccicb">
+        <h2 class="titulo-ccicb">Organograma C2ICB</h2>
+
+        <hr class="separador-ccicb" />
+
+        <div style="text-align: center">
+          <img
+            src="../IMGS/organograma_c2cib.jpeg"
+            alt="Organograma C2ICB"
+            class="img-zoom"
+            onclick="abrirLightbox(this.src)"
+            style="cursor: pointer; max-width: 100%; height: auto"
+          />
+        </div>
+      </section>
+
+      <!-- Lightbox Overlay -->
+      <div class="lightbox-overlay" id="lightbox" onclick="fecharLightbox()">
+        <img
+          src=""
+          alt="Imagem ampliada"
+          class="lightbox-image"
+          id="lightbox-img"
+        />
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-conteudo">
+        <!-- LADO ESQUERDO -->
+        <div class="footer-esquerda">
+          <p>
+            © 2023 Centro Académico Clínico das Beiras |<a
+              href="#"
+              id="footer-link"
+            >
+              Política de Privacidade</a
+            >
+          </p>
+        </div>
+
+        <!-- CENTRO – ÍCONES -->
+        <div class="footer-centro">
+          <a href="#"><i class="ri-instagram-line"></i></a>
+          <a href="#"><i class="ri-linkedin-box-line"></i></a>
+          <a href="#"><i class="ri-facebook-circle-line"></i></a>
+        </div>
+
+        <!-- LADO DIREITO -->
+        <div class="footer-direita">
+          <p>Centro Académico Clínico das Beiras</p>
+          <p>UBImedical - Estrada Principal 506, 6200-284 Covilhã, Portugal</p>
+          <p>Tel.275 241 275 E-mail: cacb@fcsaude.ubi.pt</p>
+        </div>
+      </div>
+    </footer>
+    <script src="../JS/menu-mobile.js"></script>
+    <script>
+      // Lightbox simples para imagem do organograma
+      function abrirLightbox(src) {
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImg = document.getElementById("lightbox-img");
+        lightboxImg.src = src;
+        lightbox.classList.add("active");
+        document.body.style.overflow = "hidden";
+      }
+
+      function fecharLightbox() {
+        const lightbox = document.getElementById("lightbox");
+        lightbox.classList.remove("active");
+        document.body.style.overflow = "";
+      }
+
+      // Fechar com tecla ESC
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          fecharLightbox();
+        }
+      });
+    </script>
+  </body>
+</html>

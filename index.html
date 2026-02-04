@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kael Lovato - Terminal</title>
+    <link rel="stylesheet" href="index.css" />
+    <link rel="icon" href="icon.ico" type="image/x-icon" />
+  </head>
+  <body>
+    <!-- Scanlines sutil -->
+    <div class="scanlines"></div>
+
+    <!-- Terminal principal -->
+    <div id="terminal">
+      <div class="terminal-header">
+        <span class="header-dots">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+        </span>
+        <span class="header-title">kael@portfolio: ~</span>
+      </div>
+      <div class="terminal-body">
+        <div class="welcome-block">
+          <pre class="ascii-art">
+ _  __          _   _                 _        
+| |/ /__ _  ___| | | |   _____   ____ | |_ ___  
+| ' // _` |/ _ \ | | |  / _ \ \ / / _` | __/ _ \ 
+| . \ (_| |  __/ | | |_| (_) \ V / (_| | || (_) |
+|_|\_\__,_|\___|_| |____\___/ \_/ \__,_|\__\___/ 
+        </pre
+          >
+          <div class="welcome-text">
+            Bem-vindo ao
+            <a href="gui.html" class="portfolio-link"
+              >portfólio<span class="tooltip always-visible"
+                >Clique aqui para a interface gráfica</span
+              ></a
+            >
+            de Kael Lovato
+          </div>
+          <div class="system-info">
+            Sistema v1.0 | Digite <code>help</code> para comandos
+          </div>
+        </div>
+
+        <div id="history"></div>
+
+        <div class="input-line">
+          <span class="prompt"
+            ><span class="prompt-user">guest</span
+            ><span class="prompt-at">@</span
+            ><span class="prompt-host">portfolio</span
+            ><span class="prompt-colon">:</span
+            ><span class="prompt-path">~</span
+            ><span class="prompt-symbol">$</span></span
+          >
+          <input
+            autocomplete="off"
+            type="text"
+            id="command"
+            class="cmd-input"
+            autofocus
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal de Preview -->
+    <div id="preview-modal" class="preview-modal">
+      <div class="preview-overlay"></div>
+      <div class="preview-content">
+        <div class="preview-header">
+          <span class="preview-title" id="preview-title">Preview</span>
+          <div class="preview-controls">
+            <a
+              id="preview-new-tab"
+              href="#"
+              target="_blank"
+              class="preview-btn"
+              title="Abrir em nova aba"
+              >⬈</a
+            >
+            <button class="preview-close" id="preview-close" title="Fechar">
+              ✕
+            </button>
+          </div>
+        </div>
+        <div class="preview-body">
+          <div class="preview-loader">
+            <div class="loader-spinner"></div>
+            <span>Carregando...</span>
+          </div>
+          <iframe id="preview-iframe" src="" frameborder="0"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <!-- Áudios -->
+    <audio id="keySound" preload="auto">
+      <source src="KeyboardType.wav" type="audio/wav" />
+    </audio>
+    <audio id="errorSound" preload="auto">
+      <source src="error.ogg" type="audio/ogg" />
+    </audio>
+    <audio id="clearSound" preload="auto">
+      <source src="ClearTerminal.wav" type="audio/wav" />
+    </audio>
+
+    <script src="index.js"></script>
+  </body>
+</html>

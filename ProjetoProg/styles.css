@@ -1,0 +1,826 @@
+@font-face {
+  font-family: Monogram;
+  src: url("Fonts/monogram.ttf");
+}
+
+body {
+  margin: 0;
+  background: #fdf0f0;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* ============================================================
+   TELA DE LOGIN / SELEÇÃO DE UTILIZADOR
+   ============================================================ */
+
+#loginScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #0a0a0a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+#loginContainer {
+  background: linear-gradient(145deg, #1a1a1a 0%, #2a2a2a 100%);
+  border: 3px solid #3d3d3d;
+  border-radius: 20px;
+  padding: 40px 50px;
+  min-width: 400px;
+  max-width: 500px;
+  box-shadow: 0 0 60px rgba(240, 192, 64, 0.1), 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#loginTitle {
+  font-family: "Monogram", Arial, sans-serif;
+  color: #f0c040;
+  text-align: center;
+  font-size: 42px;
+  margin: 0 0 10px 0;
+  text-shadow: 0 0 20px rgba(240, 192, 64, 0.3);
+  letter-spacing: 2px;
+}
+
+#loginSubtitle {
+  font-family: Arial, sans-serif;
+  color: #888;
+  text-align: center;
+  font-size: 16px;
+  margin: 0 0 30px 0;
+}
+
+/* Seção de novo utilizador */
+#newUserSection {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+#usernameInput {
+  flex: 1;
+  padding: 15px 20px;
+  font-family: "Monogram", Arial, sans-serif;
+  font-size: 20px;
+  background: #0f0f0f;
+  border: 2px solid #3d3d3d;
+  border-radius: 10px;
+  color: #fff;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#usernameInput:focus {
+  border-color: #f0c040;
+  box-shadow: 0 0 15px rgba(240, 192, 64, 0.2);
+}
+
+#usernameInput::placeholder {
+  color: #555;
+}
+
+#createUserBtn {
+  padding: 15px 25px;
+  font-family: "Monogram", Arial, sans-serif;
+  font-size: 20px;
+  background: linear-gradient(145deg, #f0c040, #d4a030);
+  border: none;
+  border-radius: 10px;
+  color: #1a1a1a;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#createUserBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 20px rgba(240, 192, 64, 0.4);
+}
+
+#createUserBtn:active {
+  transform: scale(0.98);
+}
+
+/* Lista de utilizadores */
+#userListSection {
+  border-top: 1px solid #3d3d3d;
+  padding-top: 20px;
+}
+
+#userListTitle {
+  font-family: Arial, sans-serif;
+  color: #888;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0 0 15px 0;
+}
+
+#userList {
+  max-height: 250px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#userList::-webkit-scrollbar {
+  width: 0;
+  display: none;
+}
+
+#userList {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.user-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 18px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 2px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.user-item:hover {
+  background: rgba(240, 192, 64, 0.1);
+  border-color: #f0c040;
+  box-shadow: 0 0 15px rgba(240, 192, 64, 0.4), 0 0 30px rgba(240, 192, 64, 0.2);
+}
+
+.user-item .user-name {
+  font-family: "Monogram", Arial, sans-serif;
+  font-size: 22px;
+  color: #fff;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-item .user-score {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #f0c040;
+  background: rgba(240, 192, 64, 0.15);
+  padding: 5px 12px;
+  border-radius: 15px;
+}
+
+.user-item .delete-user {
+  background: transparent;
+  border: none;
+  color: #ff6b6b;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 5px;
+  opacity: 0;
+  transition: opacity 0.2s ease, background 0.2s ease;
+}
+
+.user-item:hover .delete-user {
+  opacity: 1;
+}
+
+.user-item .delete-user:hover {
+  background: rgba(255, 107, 107, 0.2);
+}
+
+/* Mensagem quando não há utilizadores */
+#noUsersMessage {
+  font-family: Arial, sans-serif;
+  color: #555;
+  text-align: center;
+  padding: 30px;
+  font-style: italic;
+}
+
+main {
+  position: relative;
+  background-image: url("IMGS/PrimeirosDarwins11.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* Logo no canto superior esquerdo da área direita (a partir do meio) */
+main > #logoTitle {
+  position: absolute;
+  top: 30px;
+  left: 40%;
+  width: 400px;
+  height: auto;
+}
+
+/* Container do lado direito (vidas + plugie) */
+#rightSide {
+  position: absolute;
+  top: 70px;
+  right: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+/* Vidas no topo direito */
+#VidaMenuGif {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+#VidaMenuGif > img {
+  width: 80px;
+  height: auto;
+}
+
+/* Plugie abaixo das vidas */
+#PlugieMenuGif > img {
+  width: 350px;
+  height: auto;
+}
+
+/* Container dos botões centralizado entre logo e plugie */
+#menuButtons {
+  position: absolute;
+  top: 65%;
+  left: 73%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 100px;
+}
+
+/* Botões com hitbox exata e leve rotação */
+#playButton {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 400px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  transform: rotate(-3deg);
+}
+
+#playButton:hover {
+  transform: rotate(-3deg) scale(1.1);
+}
+
+#creditsButton {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 400px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  transform: rotate(2deg);
+}
+
+#creditsButton:hover {
+  transform: rotate(2deg) scale(1.1);
+}
+
+#scoresButton {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 400px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  transform: rotate(-2deg);
+}
+
+#scoresButton:hover {
+  transform: rotate(-2deg) scale(1.1);
+}
+
+/* Engrenagem no canto inferior direito */
+#settingsButton {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  width: 80px;
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+#settingsButton:hover {
+  transform: rotate(90deg) scale(1.1);
+}
+
+/* ============================================================
+   MODAL DE CONFIGURAÇÕES DE SOM
+   ============================================================ */
+
+.modal-hidden {
+  display: none !important;
+}
+
+#settingsModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#settingsContent {
+  background: #3d3d3d;
+  border: 4px solid #5a5a5a;
+  border-radius: 15px;
+  padding: 30px 40px;
+  min-width: 350px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+#settingsContent h2 {
+  font-family: Arial, sans-serif;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 28px;
+  letter-spacing: 1px;
+}
+
+.volume-control {
+  margin-bottom: 20px;
+}
+
+.volume-control label {
+  font-family: Arial, sans-serif;
+  color: #ddd;
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+.volume-control input[type="range"] {
+  width: 100%;
+  height: 10px;
+  border-radius: 5px;
+  background: #555;
+  outline: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.volume-control input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #f0c040;
+  cursor: pointer;
+  border: 2px solid #fff;
+}
+
+.volume-control input[type="range"]::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #f0c040;
+  cursor: pointer;
+  border: 2px solid #fff;
+}
+
+.volume-control span {
+  font-family: Arial, sans-serif;
+  color: #f0c040;
+  font-size: 16px;
+  float: right;
+  margin-top: -35px;
+}
+
+#closeSettings {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  background: #5a5a5a;
+  color: #fff;
+  border: 2px solid #777;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+#closeSettings:hover {
+  background: #6a6a6a;
+  transform: scale(1.02);
+}
+
+/* ============================================================
+   MODAL DE CRÉDITOS
+   ============================================================ */
+
+#creditsModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #252525 0%, #313131 50%, #3d3d3d 100%);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Decorações flutuantes em volta da tela */
+.credits-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.floating-item {
+  position: absolute;
+  opacity: 0.7;
+  animation: float 6s ease-in-out infinite;
+}
+
+.item-1 {
+  top: 5%;
+  left: 5%;
+  width: 60px;
+  animation-delay: 0s;
+}
+.item-2 {
+  top: 10%;
+  right: 8%;
+  width: 60px;
+  animation-delay: 1s;
+}
+.item-3 {
+  bottom: 15%;
+  left: 3%;
+  width: 60px;
+  animation-delay: 2s;
+}
+.item-4 {
+  bottom: 8%;
+  right: 5%;
+  width: 60px;
+  animation-delay: 0.5s;
+}
+.item-5 {
+  top: 30%;
+  left: 2%;
+  width: 50px;
+  animation-delay: 1.5s;
+  animation-name: floatRotate;
+}
+.item-6 {
+  top: 50%;
+  right: 2%;
+  width: 50px;
+  animation-delay: 2.5s;
+  animation-name: floatRotate;
+}
+.item-7 {
+  bottom: 40%;
+  left: 1%;
+  width: 50px;
+  animation-delay: 3s;
+  animation-name: floatRotate;
+}
+.item-8 {
+  top: 20%;
+  right: 3%;
+  width: 50px;
+  animation-delay: 0.8s;
+  animation-name: floatRotate;
+}
+.item-9 {
+  bottom: 25%;
+  right: 8%;
+  width: 70px;
+  animation-delay: 1.2s;
+}
+.item-10 {
+  top: 60%;
+  left: 5%;
+  width: 120px;
+  animation-delay: 0.3s;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+}
+
+@keyframes floatRotate {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-10deg) scale(1);
+  }
+  50% {
+    transform: translateY(-25px) rotate(10deg) scale(1.1);
+  }
+}
+
+/* Conteúdo dos créditos */
+#creditsContent {
+  background: rgba(49, 49, 49, 0.98);
+  border: 3px solid #5a5a5a;
+  border-radius: 20px;
+  padding: 40px 50px;
+  max-width: 700px;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 0 50px rgba(90, 90, 90, 0.3), 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: slideIn 0.5s ease-out;
+  z-index: 1001;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+#creditsContent h1 {
+  font-family: Arial, sans-serif;
+  color: #fff;
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 25px;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.credits-text {
+  font-family: Arial, sans-serif;
+  color: #ddd;
+  line-height: 1.7;
+}
+
+.credits-text .intro {
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.credits-text > p {
+  font-size: 16px;
+  margin-bottom: 25px;
+  text-align: center;
+  color: #bbb;
+}
+
+.credit-person {
+  background: rgba(90, 90, 90, 0.3);
+  border-left: 4px solid #8f8f8f;
+  padding: 15px 20px;
+  margin-bottom: 20px;
+  border-radius: 0 10px 10px 0;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.credit-person:hover {
+  transform: translateX(10px);
+  background: rgba(90, 90, 90, 0.5);
+}
+
+.credit-person h3 {
+  font-family: Arial, sans-serif;
+  color: #fff;
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.credit-person p {
+  font-size: 15px;
+  color: #ccc;
+  margin: 0;
+}
+
+.credit-person em {
+  color: #aaa;
+  font-style: italic;
+  font-weight: bold;
+}
+
+#closeCredits {
+  display: block;
+  width: 100%;
+  margin-top: 30px;
+  padding: 15px;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  background: #5a5a5a;
+  color: #fff;
+  border: 2px solid #777;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+#closeCredits:hover {
+  transform: scale(1.05);
+  background: #6a6a6a;
+}
+
+/* ============================================================
+   MODAL DE SCOREBOARD
+   ============================================================ */
+
+#scoresModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#scoresContent {
+  background: linear-gradient(145deg, #1a1a1a 0%, #2a2a2a 100%);
+  border: 3px solid #f0c040;
+  border-radius: 20px;
+  padding: 40px 50px;
+  min-width: 450px;
+  max-width: 550px;
+  max-height: 80vh;
+  box-shadow: 0 0 60px rgba(240, 192, 64, 0.2), 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: slideIn 0.5s ease-out;
+}
+
+#scoresContent h1 {
+  font-family: "Monogram", Arial, sans-serif;
+  color: #f0c040;
+  text-align: center;
+  font-size: 48px;
+  margin: 0 0 30px 0;
+  text-shadow: 0 0 20px rgba(240, 192, 64, 0.3);
+}
+
+#scoreboardList {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+#scoreboardList::-webkit-scrollbar {
+  width: 8px;
+}
+
+#scoreboardList::-webkit-scrollbar-track {
+  background: #1a1a1a;
+  border-radius: 4px;
+}
+
+#scoreboardList::-webkit-scrollbar-thumb {
+  background: #3d3d3d;
+  border-radius: 4px;
+}
+
+.score-entry {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  margin-bottom: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  transition: transform 0.2s ease;
+}
+
+.score-entry:hover {
+  transform: translateX(5px);
+  background: rgba(240, 192, 64, 0.05);
+}
+
+.score-entry.current-user {
+  border: 2px solid #f0c040;
+  background: rgba(240, 192, 64, 0.1);
+}
+
+.score-rank {
+  font-family: "Monogram", Arial, sans-serif;
+  font-size: 32px;
+  color: #666;
+  min-width: 50px;
+  text-align: center;
+}
+
+.score-entry:nth-child(1) .score-rank {
+  color: #ffd700; /* Ouro */
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.score-entry:nth-child(2) .score-rank {
+  color: #c0c0c0; /* Prata */
+}
+
+.score-entry:nth-child(3) .score-rank {
+  color: #cd7f32; /* Bronze */
+}
+
+.score-name {
+  font-family: "Monogram", Arial, sans-serif;
+  font-size: 26px;
+  color: #fff;
+  flex: 1;
+  margin-left: 15px;
+}
+
+.score-value {
+  font-family: "Monogram", Arial, sans-serif;
+  font-size: 28px;
+  color: #f0c040;
+}
+
+.no-scores-message {
+  font-family: Arial, sans-serif;
+  color: #666;
+  text-align: center;
+  padding: 40px;
+  font-style: italic;
+}
+
+#closeScores {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  padding: 15px;
+  font-family: "Monogram", Arial, sans-serif;
+  font-size: 22px;
+  background: linear-gradient(145deg, #f0c040, #d4a030);
+  color: #1a1a1a;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#closeScores:hover {
+  transform: scale(1.03);
+  box-shadow: 0 5px 20px rgba(240, 192, 64, 0.4);
+}
+
+#gameContainer {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}

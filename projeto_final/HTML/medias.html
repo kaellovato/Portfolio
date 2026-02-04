@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CACB - Media</title>
+    <link rel="stylesheet" href="../CSS/index.css" />
+    <link rel="stylesheet" href="../CSS/cssMissoes.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* Estilos para sec��o de noticias */
+      .media-noticias-lista {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .noticia-expand {
+        background: #fff;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .noticia-expand:hover {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      }
+
+      .noticia-cabecalho {
+        display: flex;
+        gap: 20px;
+        padding: 20px;
+        align-items: flex-start;
+        flex-wrap: wrap;
+      }
+
+      .noticia-imagem {
+        flex-shrink: 0;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .noticia-imagem img {
+        width: 150px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 6px;
+        transition: width 0.5s ease-in-out, height 0.5s ease-in-out,
+          max-width 0.5s ease-in-out;
+      }
+
+      /* Quando a noticia esta ativa, a imagem fica grande */
+      .noticia-expand.ativo .noticia-imagem img {
+        width: 100%;
+        max-width: 500px;
+        height: auto;
+      }
+
+      .noticia-cabecalho {
+        transition: all 0.5s ease-in-out;
+      }
+
+      .noticia-expand.ativo .noticia-cabecalho {
+        flex-direction: column;
+      }
+
+      .noticia-imagem {
+        transition: width 0.5s ease-in-out;
+      }
+
+      .noticia-expand.ativo .noticia-imagem {
+        width: 100%;
+        text-align: center;
+      }
+
+      .noticia-info {
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .noticia-info h3 {
+        font-size: 18px;
+        color: #093249;
+        margin-bottom: 10px;
+        cursor: pointer;
+        transition: color 0.3s;
+      }
+
+      .noticia-info h3:hover {
+        color: #0a4060;
+      }
+
+      .noticia-autor-data {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 10px;
+      }
+
+      .noticia-autor-data .autor {
+        color: #333;
+        font-weight: 500;
+      }
+
+      .noticia-descricao {
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        margin-top: 0;
+        transition: max-height 0.5s ease-in-out, opacity 0.35s ease-in-out,
+          margin-top 0.35s ease-in-out;
+      }
+
+      .noticia-descricao p {
+        font-size: 14px;
+        color: #555;
+        line-height: 1.8;
+      }
+
+      .noticia-descricao a {
+        color: #093249;
+        text-decoration: underline;
+        word-break: break-all;
+      }
+
+      .noticia-descricao a:hover {
+        color: #0a4060;
+      }
+
+      .noticia-descricao .info-linha {
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .noticia-descricao .info-linha i {
+        margin-right: 8px;
+        color: #093249;
+      }
+
+      .noticia-descricao strong {
+        color: #333;
+      }
+
+      .noticia-expand.ativo .noticia-descricao {
+        max-height: 500px;
+        opacity: 1;
+        margin-top: 15px;
+      }
+
+      .btn-ler-mais {
+        background-color: #093249;
+        color: white;
+        border: none;
+        padding: 8px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        margin-top: 15px;
+        transition: background-color 0.3s;
+      }
+
+      .btn-ler-mais:hover {
+        background-color: #0a4060;
+      }
+
+      .separador-noticias {
+        border: none;
+        border-top: 1px solid #e0e0e0;
+        margin: 10px 0;
+      }
+
+      /* Estilos para pagina vazia */
+      .media-vazio {
+        text-align: center;
+        padding: 60px 20px;
+        color: #666;
+      }
+
+      .media-vazio h2 {
+        font-size: 22px;
+        color: #333;
+        margin-bottom: 15px;
+      }
+
+      .media-vazio p {
+        font-size: 16px;
+      }
+
+      /* Responsivo */
+      @media (max-width: 768px) {
+        .noticia-cabecalho {
+          flex-direction: column;
+          padding: 15px;
+        }
+
+        .noticia-imagem img {
+          width: 100%;
+          height: auto;
+        }
+
+        .noticia-info h3 {
+          font-size: 16px;
+        }
+
+        .noticia-autor-data {
+          font-size: 13px;
+        }
+
+        .noticia-descricao p {
+          font-size: 13px;
+        }
+
+        .btn-ler-mais {
+          width: 100%;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .media-vazio h2 {
+          font-size: 18px;
+        }
+
+        .media-vazio p {
+          font-size: 14px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page-content">
+      <header class="header" style="background-color: #093249; opacity: 0.9">
+        <div class="header-conteudo">
+          <!-- Logo / Imagem -->
+          <div class="logo">
+            <a href="index.html">
+              <img src="../IMGS/cacb-removebg-preview.png" alt="Logo do site" />
+            </a>
+          </div>
+          <!-- Menu Toggle (Hamburger) -->
+          <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <!-- Menu -->
+          <nav class="menu">
+            <a href="missao.html">Grupos de Missao</a>
+            <a href="linhas_acao.html">Linhas de Acao</a>
+            <a href="ensaios_clinicos.html">Ensaios Clinicos</a>
+            <a href="eventos.html">Eventos</a>
+            <a href="medias.html">Media</a>
+            <a href="contatos.html">Contactos</a>
+            <a href="#">Login</a>
+          </nav>
+        </div>
+      </header>
+
+      <!-- Conteudo principal -->
+      <main class="missao-container">
+        <!-- Titulo da pagina -->
+        <h1 class="missao-titulo-pagina">Media</h1>
+
+        <div class="missao-conteudo">
+          <!-- Menu lateral esquerdo -->
+          <aside class="missao-sidebar">
+            <a href="medias.html" class="missao-menu-item ativo">Noticias</a>
+            <a href="medias_imprensa.html" class="missao-menu-item"
+              >Notas de Imprensa</a
+            >
+            <a href="medias_newsletter.html" class="missao-menu-item"
+              >Newsletter</a
+            >
+          </aside>
+
+          <!-- Conteudo principal - Noticias -->
+          <section class="missao-detalhe">
+            <h2>Noticias</h2>
+
+            <div class="media-noticias-lista">
+              <!-- NOTICIA 1 -->
+              <div class="noticia-expand">
+                <div class="noticia-cabecalho">
+                  <div class="noticia-imagem noticia-click">
+                    <img src="../IMGS/placeholder_noticias.jpg" alt="Noticia" />
+                  </div>
+
+                  <div class="noticia-info">
+                    <h3 class="noticia-click">
+                      INSCRIÇÕES para as V Jornadas de Investigação Clínica CACB
+                      | Da Inovação à Estratégia
+                    </h3>
+
+                    <p class="noticia-autor-data">
+                      <span class="autor">CACB</span> | Data de Publicação:
+                      2025-10-13
+                    </p>
+
+                    <div class="noticia-descricao">
+                      <p>
+                        <span class="info-linha"
+                          ><strong>Inscrições:</strong>
+                          <a
+                            href="https://ubi.up.events/activities/view/V-Jornadas-de-Investigacao-Clinica-do-CACB"
+                            target="_blank"
+                            >Clique aqui para se inscrever</a
+                          ></span
+                        >
+                        <span class="info-linha"
+                          ><strong>Apresentação de trabalhos:</strong></span
+                        >
+                        <span class="info-linha"
+                          >O resumo dos posters devem ser enviados até dia 15 de
+                          Novembro.</span
+                        >
+                        <span class="info-linha"
+                          >As regras de submissão e o template encontram-se
+                          disponíveis no seguinte link:
+                          <a href="https://shorturl.at/4ijWK" target="_blank"
+                            >https://shorturl.at/4ijWK</a
+                          ></span
+                        >
+                      </p>
+                    </div>
+
+                    <button class="btn-ler-mais">Ler mais</button>
+                  </div>
+                </div>
+              </div>
+
+              <hr class="separador-noticias" />
+
+              <!-- NOTICIA 2 -->
+              <div class="noticia-expand">
+                <div class="noticia-cabecalho">
+                  <div class="noticia-imagem noticia-click">
+                    <img src="../IMGS/placeholder_noticias.jpg" alt="Noticia" />
+                  </div>
+
+                  <div class="noticia-info">
+                    <h3 class="noticia-click">
+                      Dia Mundial da Saúde Mental | 10 outubro 2025
+                    </h3>
+
+                    <p class="noticia-autor-data">
+                      <span class="autor">CACB</span> | Data de Publicação:
+                      2025-10-10
+                    </p>
+
+                    <div class="noticia-descricao">
+                      <p>
+                        <span class="info-linha"
+                          >A Saúde Mental é um direito de todos.</span
+                        >
+                        <span class="info-linha"
+                          ><strong
+                            >Falar sobre isso é o primeiro passo para quebrar o
+                            tabu!</strong
+                          ></span
+                        >
+                      </p>
+                    </div>
+
+                    <button class="btn-ler-mais">Ler mais</button>
+                  </div>
+                </div>
+              </div>
+
+              <hr class="separador-noticias" />
+
+              <!-- NOTICIA 3 -->
+              <div class="noticia-expand">
+                <div class="noticia-cabecalho">
+                  <div class="noticia-imagem noticia-click">
+                    <img src="../IMGS/placeholder_noticias.jpg" alt="Noticia" />
+                  </div>
+
+                  <div class="noticia-info">
+                    <h3 class="noticia-click">Dia do Idoso | Debate</h3>
+
+                    <p class="noticia-autor-data">
+                      <span class="autor">CACB</span> | Data de Publicação:
+                      2025-09-25
+                    </p>
+
+                    <div class="noticia-descricao">
+                      <p>
+                        <span class="info-linha"
+                          ><i class="ri-calendar-line"></i
+                          ><strong>Dia 1 de Outubro</strong> | 18 horas</span
+                        >
+                        <span class="info-linha"
+                          ><i class="ri-map-pin-line"></i>Anfiteatro
+                          UBImedical</span
+                        >
+                        <span class="info-linha" style="margin-top: 10px"
+                          >Que futuro queremos para os nossos séniores?</span
+                        >
+                        <span class="info-linha"
+                          >No Dia do Idoso, juntamos os candidatos à Câmara
+                          Municipal da Covilhã para ouvir e debater as suas
+                          propostas.</span
+                        >
+                        <span class="info-linha"
+                          ><strong
+                            >A sua participação faz a diferença!</strong
+                          ></span
+                        >
+                        <span
+                          class="info-linha"
+                          style="margin-top: 10px; font-size: 13px; color: #777"
+                          >Organização: CACB - Grupo de Missão Demências e
+                          AgeINfuture</span
+                        >
+                      </p>
+                    </div>
+
+                    <button class="btn-ler-mais">Ler mais</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ADICIONAR MAIS NOTICIAS AQUI -->
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-conteudo">
+        <!-- LADO ESQUERDO -->
+        <div class="footer-esquerda">
+          <p>
+            (c) 2023 Centro Academico Clinico das Beiras |<a
+              href="#"
+              id="footer-link"
+            >
+              Politica de Privacidade</a
+            >
+          </p>
+        </div>
+
+        <!-- CENTRO - ICONES -->
+        <div class="footer-centro">
+          <a href="#"><i class="ri-instagram-line"></i></a>
+          <a href="#"><i class="ri-linkedin-box-line"></i></a>
+          <a href="#"><i class="ri-facebook-circle-line"></i></a>
+        </div>
+
+        <!-- LADO DIREITO -->
+        <div class="footer-direita">
+          <p>Centro Academico Clinico das Beiras</p>
+          <p>UBImedical - Estrada Principal 506, 6200-284 Covilha, Portugal</p>
+          <p>Tel.275 241 275 E-mail: cacb@fcsaude.ubi.pt</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      document.querySelectorAll(".noticia-expand").forEach((noticia) => {
+        const clicks = noticia.querySelectorAll(".noticia-click");
+        const btnLerMais = noticia.querySelector(".btn-ler-mais");
+
+        clicks.forEach((el) => {
+          el.addEventListener("click", (e) => {
+            e.stopPropagation();
+            noticia.classList.toggle("ativo");
+            if (noticia.classList.contains("ativo")) {
+              btnLerMais.textContent = "Ler menos";
+            } else {
+              btnLerMais.textContent = "Ler mais";
+            }
+          });
+        });
+
+        if (btnLerMais) {
+          btnLerMais.addEventListener("click", () => {
+            noticia.classList.toggle("ativo");
+            if (noticia.classList.contains("ativo")) {
+              btnLerMais.textContent = "Ler menos";
+            } else {
+              btnLerMais.textContent = "Ler mais";
+            }
+          });
+        }
+      });
+    </script>
+    <script src="../JS/menu-mobile.js"></script>
+  </body>
+</html>

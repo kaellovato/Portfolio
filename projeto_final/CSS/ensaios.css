@@ -1,0 +1,478 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
+/* COR DO HEADER — ALTERE AQUI */
+:root {
+  --cor-header: #093249; /* escolha a cor que quiser */
+}
+
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-content {
+  flex: 1; /* empurra o footer para o fundo */
+}
+
+/* HEADER */
+.header {
+  background-color: var(--cor-header);
+  opacity: 0.9;
+  width: 100%;
+  height: 75px;
+  position: absolute; /* Fica por cima do carrossel */
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+/* Conteúdo do header */
+.header-conteudo {
+  display: flex;
+  align-items: center; /* centraliza verticalmente */
+  height: 100%; /* usa toda a altura do header */
+  opacity: 1;
+  padding: 0 30px; /* remove padding vertical */
+}
+
+/* Logo */
+.logo img {
+  height: 70px; /* ajuste se quiser */
+  width: auto;
+  margin-right: 225px;
+  margin-left: 30px;
+}
+
+/* Menu */
+.menu {
+  margin-left: 100px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.menu a {
+  color: white;
+  text-decoration: none;
+  margin-right: 25px; /* mais espaço entre textos */
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.menu a:hover {
+  text-decoration: underline;
+}
+
+/* SEÇÃO CCICB */
+/* SEÇÃO CCICB */
+.secao-ccicb {
+  margin-top: 60px;
+  padding: 60px 70px;
+  background-color: #ffffff;
+}
+
+/* TÍTULO */
+.titulo-ccicb {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--cor-header);
+}
+
+/* SEPARADOR */
+.separador-ccicb {
+  border: none;
+  height: 2px;
+  background-color: var(--cor-header);
+  opacity: 0.2;
+  margin-top: 5px;
+  margin-bottom: 35px;
+}
+
+/* TEXTO */
+.texto-ccicb {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #333;
+}
+
+.secao-ccicb ul {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #333;
+  max-width: 900px;
+  margin-bottom: 16px;
+}
+
+.secao-ccicb ul {
+  padding-left: 20px;
+}
+
+.secao-ccicb li {
+  margin-bottom: 8px;
+}
+
+/* BLOCO DESTAQUE */
+.bloco-destaque {
+  width: 100%;
+  background-color: var(--cor-header);
+  padding: 35px 0; /* antes: 40px ou 50px */
+}
+
+/* CONTEÚDO ALINHADO */
+.bloco-destaque-conteudo {
+  padding: 0 70px;
+  display: flex;
+  align-items: center;
+  gap: 80px;
+}
+
+/* IMAGEM */
+.bloco-imagem {
+  flex: 0 0 580px;
+}
+
+.bloco-imagem img {
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.bloco-imagem img:hover {
+  transform: scale(1.02);
+}
+
+/* TEXTO */
+.bloco-texto {
+  flex: 1;
+  color: #ffffff;
+}
+
+.bloco-texto p {
+  font-size: 17px;
+  line-height: 1.8;
+  margin-bottom: 25px;
+}
+
+/* LISTA */
+.bloco-texto ul {
+  padding-left: 18px;
+}
+
+.bloco-texto li {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+/* FOOTER */
+.footer {
+  background-color: var(--cor-header);
+  opacity: 0.9;
+  padding: 40px 70px;
+  color: white;
+}
+
+/* CONTEÚDO */
+.footer-conteudo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ESQUERDA / DIREITA */
+.footer-esquerda,
+.footer-direita {
+  width: 40%;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.footer-direita {
+  width: 40%;
+  font-size: 13px;
+  line-height: 1.6;
+  text-align: right;
+}
+
+/* CENTRO */
+.footer-centro {
+  display: flex;
+  gap: 25px;
+}
+
+/* ÍCONES */
+.footer-centro a {
+  color: white;
+  font-size: 36px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.footer-centro a:visited,
+.footer-centro a:active {
+  color: white;
+}
+
+.footer-centro a:hover {
+  transform: translateY(-4px);
+  opacity: 0.8;
+}
+
+#footer-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 800;
+}
+
+#footer-link:hover {
+  opacity: 0.8;
+}
+
+/* Lightbox para imagens */
+.lightbox-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.95);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.lightbox-overlay.active {
+  display: flex;
+}
+
+.lightbox-image {
+  max-width: 95%;
+  max-height: 95%;
+  border-radius: 8px;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Imagem com zoom */
+.img-zoom {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.img-zoom:hover {
+  transform: scale(1.02);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* ========== RESPONSIVO ========== */
+
+/* Menu Hamburger */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: 20px;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 28px;
+  height: 3px;
+  background-color: white;
+  margin: 4px 0;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* TABLET (até 1024px) */
+@media (max-width: 1024px) {
+  .header-conteudo {
+    padding: 0 20px;
+  }
+
+  .logo img {
+    margin-right: 50px;
+    margin-left: 10px;
+  }
+
+  .menu {
+    margin-left: 20px;
+    gap: 15px;
+  }
+
+  .menu a {
+    font-size: 14px;
+    margin-right: 10px;
+  }
+
+  .secao-ccicb {
+    padding: 50px 40px;
+  }
+
+  .bloco-destaque-conteudo {
+    padding: 0 40px;
+    gap: 40px;
+  }
+
+  .bloco-imagem {
+    flex: 0 0 400px;
+  }
+
+  .footer {
+    padding: 30px 40px;
+  }
+}
+
+/* MOBILE (até 768px) */
+@media (max-width: 768px) {
+  .header {
+    height: auto;
+    min-height: 75px;
+    position: fixed;
+  }
+
+  .header-conteudo {
+    flex-wrap: wrap;
+    padding: 10px 15px;
+    justify-content: space-between;
+  }
+
+  .logo img {
+    height: 50px;
+    margin: 0;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  .menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    margin-left: 0;
+    gap: 0;
+    background-color: var(--cor-header);
+    padding: 15px 0;
+  }
+
+  .menu.ativo {
+    display: flex;
+  }
+
+  .menu a {
+    padding: 12px 20px;
+    margin: 0;
+    font-size: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .menu a:last-child {
+    border-bottom: none;
+  }
+
+  /* Seção CCICB */
+  .secao-ccicb {
+    margin-top: 75px;
+    padding: 40px 20px;
+  }
+
+  .titulo-ccicb {
+    font-size: 22px;
+  }
+
+  .texto-ccicb {
+    font-size: 15px;
+  }
+
+  /* Organograma responsivo */
+  .secao-ccicb img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Bloco Destaque */
+  .bloco-destaque {
+    padding: 30px 0;
+  }
+
+  .bloco-destaque-conteudo {
+    flex-direction: column;
+    padding: 0 20px;
+    gap: 30px;
+  }
+
+  .bloco-imagem {
+    flex: none;
+    width: 100%;
+  }
+
+  .bloco-imagem img {
+    border-radius: 12px;
+  }
+
+  .bloco-texto p {
+    font-size: 15px;
+  }
+
+  .bloco-texto li {
+    font-size: 14px;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 30px 20px;
+  }
+
+  .footer-conteudo {
+    flex-direction: column;
+    text-align: center;
+    gap: 25px;
+  }
+
+  .footer-esquerda,
+  .footer-direita {
+    width: 100%;
+    text-align: center;
+  }
+
+  .footer-centro {
+    order: -1;
+  }
+}
+
+/* MOBILE PEQUENO (até 480px) */
+@media (max-width: 480px) {
+  .titulo-ccicb {
+    font-size: 20px;
+  }
+
+  .texto-ccicb {
+    font-size: 14px;
+  }
+
+  .bloco-texto p {
+    font-size: 14px;
+  }
+
+  .footer-centro a {
+    font-size: 28px;
+  }
+}

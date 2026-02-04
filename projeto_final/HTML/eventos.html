@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CACB</title>
+    <link rel="stylesheet" href="../CSS/eventos.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <div class="page-content">
+      <header class="header">
+        <div class="header-conteudo">
+          <!-- Logo / Imagem -->
+          <div class="logo">
+            <a href="index.html">
+              <img src="../IMGS/cacb-removebg-preview.png" alt="Logo do site" />
+            </a>
+          </div>
+
+          <!-- Menu Toggle (Hamburger) -->
+          <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <!-- Menu -->
+          <nav class="menu">
+            <a href="missao.html">Grupos de Missão</a>
+            <a href="linhas_acao.html">Linhas de Ação</a>
+            <a href="ensaios_clinicos.html">Ensaios Clínicos</a>
+            <a href="eventos.html">Eventos</a>
+            <a href="medias.html">Media</a>
+            <a href="contatos.html">Contactos</a>
+            <a href="#">Login</a>
+          </nav>
+        </div>
+      </header>
+
+      <section class="secao-eventos-expand">
+        <h2 class="titulo-eventos">Eventos</h2>
+        <hr class="separador-eventos" />
+
+        <div class="eventos-expand-lista">
+          <div class="evento-expand">
+            <div class="evento-cabecalho">
+              <div class="evento-click">
+                <img src="../IMGS/placeholder_eventos_2.jpeg" alt="Evento" />
+              </div>
+
+              <span class="evento-data">04/12/2025</span>
+
+              <div class="evento-info">
+                <h3 class="evento-click">
+                  IV Encontro de Cuidados Paliativos da Serra da Estrela
+                </h3>
+
+                <div class="evento-descricao">
+                  <p>
+                    Irá decorrer nos dias 4, 5 e 6 de dezembro de 2025, em Seia.
+                    Este encontro, organizado pela UCP da AGI de Cuidados
+                    Paliativos da ULS Guarda em parceria com a Associação
+                    Paliar, pretende promover a reflexão, partilha de
+                    conhecimento e integração de boas práticas no âmbito dos
+                    cuidados paliativos, reunindo profissionais de saúde,
+                    entidades públicas, académicos e organizações da sociedade
+                    civil. Conferências temáticas sobre espiritualidade,
+                    identidade dos cuidados paliativos, desafios do serviço
+                    social, canábis medicinal, inteligência artificial entre
+                    outros; Mesas redondas dedicadas a diferentes abordagens do
+                    doente paliativo; Workshops especializados, incluindo luto,
+                    espiritualidade e capacitação de equipas; Momentos
+                    culturais, como o espetáculo de Carlos Vidal; Oportunidades
+                    para partilha de experiências, networking e apresentação de
+                    posters científicos. Inscrições e mais informações
+                    disponíveis em: encontropaliativos@gmail.com
+                  </p>
+                </div>
+
+                <button class="btn-inscricao">Inscrições</button>
+              </div>
+            </div>
+          </div>
+
+          <hr class="separador-eventos1" />
+
+          <div class="evento-expand">
+            <div class="evento-cabecalho">
+              <div class="evento-click">
+                <img src="../IMGS/placeholder_eventos_2.jpeg" alt="Evento" />
+              </div>
+
+              <span class="evento-data">21/11/2025</span>
+
+              <div class="evento-info">
+                <h3 class="evento-click">
+                  V Jornadas de Investigação Clínica do CACB: Da Inovação à
+                  Estratégia
+                </h3>
+
+                <div class="evento-descricao">
+                  <p>
+                    Junte-se a nós no dia 21 de novembro no Instituto
+                    Politécnico de Viseu. Inscrições:
+                    https://ubi.up.events/activities/view/V-Jornadas-de-Investigacao-Clinica-do-CACB
+                    Apresentação de trabalhos: O resumo dos posters devem ser
+                    enviados até dia 15 Novembro. As regras de submissão e o
+                    template encontram-se disponíveis no seguinte link:
+                    https://shorturl.at/4ijWK
+                  </p>
+                </div>
+
+                <button class="btn-inscricao">Inscrições</button>
+              </div>
+            </div>
+          </div>
+
+          <hr class="separador-eventos1" />
+
+          <div class="evento-expand">
+            <div class="evento-cabecalho">
+              <div class="evento-click">
+                <img src="../IMGS/placeholder_eventos.jpg" alt="Evento" />
+              </div>
+
+              <span class="evento-data">06/11/2025</span>
+
+              <div class="evento-info">
+                <h3 class="evento-click">
+                  III Encontro Ibérico de Medicina Preventiva
+                </h3>
+
+                <div class="evento-descricao">
+                  <p>
+                    III Encontro Ibérico de Medicina Preventiva, que se irá
+                    realizar nos dias 6 e 7 de novembro, no Teatro Municipal da
+                    Guarda. Um Encontro aberto a todos os profissionais de saúde
+                    e onde se pretende criar a oportunidade de conhecer os
+                    recentes avanços na Medicina Preventiva, incentivar debates
+                    inspiradores sobre os desafios do futuro, e impulsionar
+                    conexões com entre os profissionais de saúde.
+                  </p>
+                </div>
+
+                <button class="btn-inscricao">Inscrições</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- DUPLICAR PARA MAIS EVENTOS -->
+        </div>
+      </section>
+
+      <script>
+        document.querySelectorAll(".evento-expand").forEach((evento) => {
+          const clicks = evento.querySelectorAll(".evento-click");
+
+          clicks.forEach((el) => {
+            el.addEventListener("click", (e) => {
+              e.stopPropagation();
+              evento.classList.toggle("ativo");
+            });
+          });
+        });
+      </script>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-conteudo">
+        <!-- LADO ESQUERDO -->
+        <div class="footer-esquerda">
+          <p>
+            © 2023 Centro Académico Clínico das Beiras |<a
+              href="#"
+              id="footer-link"
+            >
+              Política de Privacidade</a
+            >
+          </p>
+        </div>
+
+        <!-- CENTRO – ÍCONES -->
+        <div class="footer-centro">
+          <a href="#"><i class="ri-instagram-line"></i></a>
+          <a href="#"><i class="ri-linkedin-box-line"></i></a>
+          <a href="#"><i class="ri-facebook-circle-line"></i></a>
+        </div>
+
+        <!-- LADO DIREITO -->
+        <div class="footer-direita">
+          <p>Centro Académico Clínico das Beiras</p>
+          <p>UBImedical - Estrada Principal 506, 6200-284 Covilhã, Portugal</p>
+          <p>Tel.275 241 275 E-mail: cacb@fcsaude.ubi.pt</p>
+        </div>
+      </div>
+    </footer>
+    <script src="../JS/menu-mobile.js"></script>
+  </body>
+</html>

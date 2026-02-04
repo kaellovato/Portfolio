@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CACB - Formações</title>
+    <link rel="stylesheet" href="../CSS/index.css" />
+    <link rel="stylesheet" href="../CSS/cssMissoes.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <style>
+      .formacoes-container {
+        padding: 40px 70px;
+        padding-top: 115px;
+        min-height: 60vh;
+      }
+
+      .formacoes-titulo {
+        font-size: 28px;
+        font-weight: bold;
+        color: #333;
+        padding-bottom: 15px;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #ddd;
+      }
+
+      .formacao {
+        border: 1px solid #ddd;
+        padding: 30px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        background-color: #fcfcfc;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .formacao h2 {
+        font-size: 22px;
+        color: #333;
+        margin-bottom: 15px;
+      }
+
+      .formacao-descricao {
+        color: #262626;
+        font-size: 15px;
+        line-height: 1.7;
+        margin-bottom: 15px;
+      }
+
+      .formacao-entidade {
+        font-size: 14px;
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      .formacao-data {
+        font-size: 14px;
+        color: #333;
+        margin-bottom: 15px;
+      }
+
+      .botoes-container {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      .botao-link {
+        padding: 10px 20px;
+        border: none;
+        text-decoration: none;
+        color: #f8f8f8;
+        background-color: #093249;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s;
+      }
+
+      .botao-link:hover {
+        background-color: #0a4060;
+      }
+
+      .botao-maisinfo {
+        padding: 10px 20px;
+        border: none;
+        text-decoration: none;
+        color: #f8f8f8;
+        background-color: #4a5568;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background-color 0.3s;
+      }
+
+      .botao-maisinfo:hover {
+        background-color: #2d3748;
+      }
+
+      .formacao-cartaz-container {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .formacao-cartaz-placeholder {
+        width: 35%;
+        height: 300px;
+        background-color: #ddd;
+        border-radius: 8px;
+        display: inline-block;
+      }
+
+      .formacao-cartaz {
+        max-width: 35%;
+        height: auto;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      .formacao-cartaz:hover {
+        transform: scale(1.02);
+      }
+
+      /* Lightbox */
+      .lightbox-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.85);
+        z-index: 9999;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+      }
+
+      .lightbox-overlay.active {
+        display: flex;
+      }
+
+      .lightbox-image {
+        max-width: 90%;
+        max-height: 90%;
+        border-radius: 8px;
+        box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+      }
+
+      /* Responsivo */
+      @media (max-width: 768px) {
+        .formacoes-container {
+          padding: 20px;
+          padding-top: 100px;
+        }
+
+        .formacoes-titulo {
+          font-size: 22px;
+        }
+
+        .formacao {
+          padding: 20px;
+        }
+
+        .formacao h2 {
+          font-size: 18px;
+        }
+
+        .formacao-descricao {
+          font-size: 14px;
+        }
+
+        .botoes-container {
+          flex-direction: column;
+        }
+
+        .botao-link,
+        .botao-maisinfo {
+          width: 100%;
+          text-align: center;
+        }
+
+        .formacao-cartaz-placeholder,
+        .formacao-cartaz {
+          width: 100%;
+          max-width: 100%;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .formacoes-container {
+          padding: 15px;
+          padding-top: 90px;
+        }
+
+        .formacoes-titulo {
+          font-size: 20px;
+        }
+
+        .formacao h2 {
+          font-size: 16px;
+        }
+
+        .formacao-descricao,
+        .formacao-entidade,
+        .formacao-data {
+          font-size: 13px;
+        }
+
+        .botao-link,
+        .botao-maisinfo {
+          font-size: 13px;
+          padding: 10px 15px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Lightbox Overlay -->
+    <div class="lightbox-overlay" id="lightbox">
+      <img
+        src=""
+        alt="Imagem ampliada"
+        class="lightbox-image"
+        id="lightbox-img"
+      />
+    </div>
+
+    <div class="page-content">
+      <header class="header" style="background-color: #093249; opacity: 0.9">
+        <div class="header-conteudo">
+          <!-- Logo / Imagem -->
+          <div class="logo">
+            <a href="index.html">
+              <img src="../IMGS/cacb-removebg-preview.png" alt="Logo do site" />
+            </a>
+          </div>
+
+          <!-- Menu Toggle (Hamburger) -->
+          <div class="menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+
+          <!-- Menu -->
+          <nav class="menu">
+            <a href="missao.html">Grupos de Missão</a>
+            <a href="linhas_acao.html">Linhas de Ação</a>
+            <a href="ensaios_clinicos.html">Ensaios Clínicos</a>
+            <a href="eventos.html">Eventos</a>
+            <a href="medias.html">Media</a>
+            <a href="contatos.html">Contactos</a>
+            <a href="#">Login</a>
+          </nav>
+        </div>
+      </header>
+
+      <!-- Conteúdo principal -->
+      <main class="formacoes-container">
+        <!-- Título da página -->
+        <h1 class="formacoes-titulo">Formação</h1>
+
+        <div id="formacao-container">
+          <!-- Formação 1 -->
+          <div class="formacao">
+            <h2>Curso de Formação para Atividade de Pacientes Simulados</h2>
+            <p class="formacao-descricao">
+              Este curso é uma oportunidade para os participantes desenvolverem
+              os seus conhecimentos sobre saúde e a importância da interação
+              médico-paciente, através da representação e simulação. O curso
+              está integrado num projeto da FCS-UBI e alguns formandos serão
+              convidados a participar em atividades formativas do curso de
+              Medicina, representando o papel de doentes simulados. Os Pacientes
+              Simulados são uma estratégia pedagógica efetiva, com
+              características únicas (próximos da realidade, experienciais e
+              emocionais), para promover a aprendizagem de competências de
+              comunicação clínica, para melhorar a eficácia da educação médica e
+              para aumentar a qualidade da avaliação da formação em medicina.
+            </p>
+            <p class="formacao-entidade">
+              <strong>Entidade Organizadora:</strong> CACB
+            </p>
+            <p class="formacao-data">
+              <strong>Data da formação:</strong> 2025-04-01
+            </p>
+            <div class="botoes-container">
+              <button
+                class="botao-link"
+                onclick="window.open('https://www.ubi.pt/curso/1322', '_blank', 'noopener,noreferrer')"
+              >
+                Inscrições
+              </button>
+            </div>
+            <div class="formacao-cartaz-container">
+              <img
+                src="../IMGS/curso_pacientes_simulados.jpg"
+                alt="Cartaz da formação"
+                class="formacao-cartaz"
+                onclick="openLightbox(this.src)"
+              />
+            </div>
+          </div>
+
+          <!-- Formação 2 -->
+          <div class="formacao">
+            <h2>Curso Transporte do Doente Crítico</h2>
+            <p class="formacao-descricao">
+              O Curso de Transporte do Doente Crítico pretende promover o
+              desenvolvimento de habilidades e conhecimentos necessários ao
+              transporte intra e inter-hospitalar de doentes críticos. É um
+              curso intensivo de um dia baseado em guidelines nacionais e
+              internacionais atualizadas e que fornece, através da prática
+              simulada, a oportunidade de treino e consolidação de conhecimentos
+              e habilidades necessárias para efetuar o transporte de doentes
+              críticos de forma segura e eficiente. O Transporte do Doente
+              Critico continua a ser um verdadeiro desafio para os profissionais
+              de saúde.
+            </p>
+            <p class="formacao-entidade">
+              <strong>Entidade Organizadora:</strong> CACB e Healthway
+            </p>
+            <p class="formacao-data">
+              <strong>Data da formação:</strong> 2024-06-01
+            </p>
+            <div class="botoes-container">
+              <button
+                class="botao-link"
+                onclick="window.open('https://centrodeformacao.ubi.pt/index.php/727575?lang=pt', '_blank', 'noopener,noreferrer')"
+              >
+                Inscrições
+              </button>
+              <a
+                class="botao-maisinfo"
+                href="../PDFS/1715350254232.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Mais Informação</a
+              >
+            </div>
+            <div class="formacao-cartaz-container">
+              <img
+                src="../IMGS/curso_transporte_doente_critico.jpg"
+                alt="Cartaz da formação"
+                class="formacao-cartaz"
+                onclick="openLightbox(this.src)"
+              />
+            </div>
+          </div>
+
+          <!-- Formação 3 -->
+          <div class="formacao">
+            <h2>Ferramentas para Uma Vida Saudável</h2>
+            <p class="formacao-descricao">
+              Este curso foi desenvolvido especificamente para capacitar
+              profissionais de saúde e fornecer orientação abrangente sobre os
+              pilares fundamentais da saúde: exercício físico, nutrição, sono e
+              bem-estar psicológico. Ao explorar esses temas essenciais, os
+              participantes aprenderão a aplicar estratégias práticas e baseadas
+              em evidências para promover hábitos saudáveis. Desde a compreensão
+              da importância do movimento e da alimentação equilibrada até a
+              gestão do stress e a promoção de um sono reparador, este curso
+              oferece as ferramentas necessárias para orientar os profissionais
+              de saúde em direção a uma vida mais saudável e gratificante.
+            </p>
+            <p class="formacao-entidade">
+              <strong>Entidade Organizadora:</strong> CACB
+            </p>
+            <p class="formacao-data">
+              <strong>Data da formação:</strong> 2024-05-17
+            </p>
+            <div class="botoes-container">
+              <button
+                class="botao-link"
+                onclick="window.open('https://www.ubi.pt/Curso/1382', '_blank', 'noopener,noreferrer')"
+              >
+                Inscrições
+              </button>
+              <a
+                class="botao-maisinfo"
+                href="../PDFS/1714725547330.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Mais Informação</a
+              >
+            </div>
+            <div class="formacao-cartaz-container">
+              <img
+                src="../IMGS/ferramentas_vida_saudavel.jpg"
+                alt="Cartaz da formação"
+                class="formacao-cartaz"
+                onclick="openLightbox(this.src)"
+              />
+            </div>
+          </div>
+
+          <!-- Formação 4 -->
+          <div class="formacao">
+            <h2>Curso Avançado em Metodologias de Investigação Clínica</h2>
+            <p class="formacao-descricao">
+              O curso avançado em Metodologias de Investigação Clínica pretende
+              dotar profissionais de saúde e investigadores de uma visão
+              integrada e multidisciplinar da Investigação Clínica. A formação
+              sobre a legislação atual, boas práticas clínicas, desenho e
+              implementação de um ensaio dotará os profissionais de competências
+              para que possam desenvolver investigação clínica com excelência
+              nas suas áreas de atuação.
+            </p>
+            <p class="formacao-entidade">
+              <strong>Entidade Organizadora:</strong> CACB
+            </p>
+            <p class="formacao-data">
+              <strong>Data da formação:</strong> 2024-01-05
+            </p>
+            <div class="botoes-container">
+              <button
+                class="botao-link"
+                onclick="window.open('https://www.ubi.pt/Curso/1307', '_blank', 'noopener,noreferrer')"
+              >
+                Inscrições
+              </button>
+            </div>
+            <div class="formacao-cartaz-container">
+              <img
+                src="../IMGS/curso_metodologias_investigacao.jpg"
+                alt="Cartaz da formação"
+                class="formacao-cartaz"
+                onclick="openLightbox(this.src)"
+              />
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+
+  <footer class="footer">
+    <div class="footer-conteudo">
+      <!-- LADO ESQUERDO -->
+      <div class="footer-esquerda">
+        <p>
+          © 2023 Centro Académico Clínico das Beiras |<a
+            href="#"
+            id="footer-link"
+          >
+            Política de Privacidade</a
+          >
+        </p>
+      </div>
+
+      <!-- CENTRO – ÍCONES -->
+      <div class="footer-centro">
+        <a href="#"><i class="ri-instagram-line"></i></a>
+        <a href="#"><i class="ri-linkedin-box-line"></i></a>
+        <a href="#"><i class="ri-facebook-circle-line"></i></a>
+      </div>
+
+      <!-- LADO DIREITO -->
+      <div class="footer-direita">
+        <p>Centro Académico Clínico das Beiras</p>
+        <p>UBImedical - Estrada Principal 506, 6200-284 Covilhã, Portugal</p>
+        <p>Tel.275 241 275 E-mail: cacb@fcsaude.ubi.pt</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Lightbox functions
+    function openLightbox(imageSrc) {
+      const lightbox = document.getElementById("lightbox");
+      const lightboxImg = document.getElementById("lightbox-img");
+      lightboxImg.src = imageSrc;
+      lightbox.classList.add("active");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeLightbox() {
+      const lightbox = document.getElementById("lightbox");
+      lightbox.classList.remove("active");
+      document.body.style.overflow = "";
+    }
+
+    // Close lightbox when clicking anywhere
+    document.getElementById("lightbox").addEventListener("click", function () {
+      closeLightbox();
+    });
+
+    // Close lightbox with Escape key
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") {
+        closeLightbox();
+      }
+    });
+  </script>
+  <script src="../JS/menu-mobile.js"></script>
+</html>

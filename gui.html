@@ -1,37 +1,954 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kael Lovato - GUI</title>
-  <link rel="stylesheet" href="gui.css">
-</head>
-<body>
-  <div id="gui">
-    <div class="section">
-      <h2>Sobre</h2>
-      <p>Sou Kael Lovato, um desenvolvedor apaixonado por tecnologia, aprendizado contínuo e criatividade...</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kael Lovato - Portfólio</title>
+    <link rel="stylesheet" href="gui.css" />
+    <link rel="icon" href="Icon.png" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Scanlines overlay -->
+    <div class="scanlines"></div>
+
+    <!-- Matrix rain background -->
+    <canvas id="matrix-bg"></canvas>
+
+    <!-- Terminal de inicialização -->
+    <div id="terminal"></div>
+
+    <!-- Navegação -->
+    <nav class="site-nav container fade-in">
+      <div class="brand">
+        <span class="brand-bracket">[</span>
+        <span class="brand-text">KAEL<span class="accent">_</span>LOVATO</span>
+        <span class="brand-bracket">]</span>
+        <span class="cursor-blink">_</span>
+      </div>
+      <div class="menu">
+        <a href="#about" class="nav-link" data-text="SOBRE">
+          <span class="nav-icon">&gt;</span>SOBRE
+        </a>
+        <a href="#projects" class="nav-link" data-text="PROJETOS">
+          <span class="nav-icon">&gt;</span>PROJETOS
+        </a>
+        <a href="#contact" class="nav-link" data-text="CONTATO">
+          <span class="nav-icon">&gt;</span>CONTATO
+        </a>
+        <a href="index.html" class="nav-link terminal-btn" data-text="TERMINAL">
+          <span class="nav-icon">$</span>TERMINAL
+        </a>
+      </div>
+      <button class="mobile-toggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero fade-in">
+      <div class="hero-grid"></div>
+      <div class="inner">
+        <div class="hero-status">
+          <span class="status-indicator"></span>
+          <span class="status-text">SISTEMA ONLINE</span>
+        </div>
+        <h1 class="glitch" data-text="DESENVOLVEDOR">DESENVOLVEDOR</h1>
+        <div class="hero-subtitle">
+          <span class="typing-wrapper">
+            <span class="typing-text"></span>
+            <span class="typing-cursor">|</span>
+          </span>
+        </div>
+        <p class="hero-desc">
+          Explorando tecnologia, aprendizado contínuo e experiências imersivas.
+        </p>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-value" data-count="3">0</span>
+            <span class="stat-label">PROJETOS</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value" data-count="5">0</span>
+            <span class="stat-label">TECNOLOGIAS</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value" data-count="100">0</span>
+            <span class="stat-label">% PAIXÃO</span>
+          </div>
+        </div>
+        <div class="hero-cta">
+          <a href="#projects" class="btn-primary">
+            <span class="btn-icon">►</span>
+            <span>EXPLORAR PROJETOS</span>
+          </a>
+          <a href="#contact" class="btn-secondary">
+            <span class="btn-icon">◈</span>
+            <span>CONTATO</span>
+          </a>
+        </div>
+      </div>
+      <div class="scroll-indicator">
+        <span class="scroll-text">SCROLL</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- Conteúdo principal -->
+    <main id="gui-container" class="container fade-in">
+      <!-- Sobre mim -->
+      <section id="about" class="section-card fade-in">
+        <div class="section-header">
+          <span class="section-line"></span>
+          <span class="section-tag">// SOBRE</span>
+        </div>
+        <h2 class="section-title">
+          <span class="title-decorator">&lt;</span>
+          Quem sou
+          <span class="title-decorator">/&gt;</span>
+        </h2>
+        <div class="about-content">
+          <div class="about-terminal">
+            <div class="terminal-header">
+              <span class="terminal-dot red"></span>
+              <span class="terminal-dot yellow"></span>
+              <span class="terminal-dot green"></span>
+              <span class="terminal-title">about.exe</span>
+            </div>
+            <div class="terminal-body">
+              <p>
+                <span class="prompt-symbol">$</span>
+                <span class="cmd">whoami</span>
+              </p>
+              <p class="output">
+                <strong class="highlight">Kael Lovato</strong>
+              </p>
+              <p>
+                <span class="prompt-symbol">$</span>
+                <span class="cmd">cat skills.txt</span>
+              </p>
+              <p class="output">→ Jogos | Web | Design Interativo</p>
+              <p>
+                <span class="prompt-symbol">$</span>
+                <span class="cmd">cat description.txt</span>
+              </p>
+              <p class="output">
+                Desenvolvedor apaixonado por tecnologia, aprendizado contínuo e
+                experiências imersivas.
+              </p>
+            </div>
+          </div>
+          <div class="about-links">
+            <a
+              href="https://linkedin.com/in/kael-lovato"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-link"
+            >
+              <span class="link-icon">◆</span>
+              <span class="link-text">LinkedIn</span>
+              <span class="link-arrow">→</span>
+            </a>
+            <a
+              href="https://github.com/kaellovato"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="social-link"
+            >
+              <span class="link-icon">◆</span>
+              <span class="link-text">GitHub</span>
+              <span class="link-arrow">→</span>
+            </a>
+            <div class="email-box">
+              <span class="email-label">EMAIL:</span>
+              <span id="email-text" class="email-value"
+                >kaellovato5@gmail.com</span
+              >
+              <button
+                id="copy-btn"
+                type="button"
+                aria-label="Copiar e-mail"
+                class="copy-btn"
+              >
+                <span class="copy-icon">⎘</span>
+                <span class="copy-text">COPIAR</span>
+              </button>
+              <span
+                id="copy-tooltip"
+                role="status"
+                aria-live="polite"
+                class="copy-tooltip"
+                >✓ Copiado!</span
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projetos -->
+      <section id="projects" class="section-card fade-in">
+        <div class="section-header">
+          <span class="section-line"></span>
+          <span class="section-tag">// PROJETOS</span>
+        </div>
+        <h2 class="section-title">
+          <span class="title-decorator">&lt;</span>
+          Trabalhos em Destaque
+          <span class="title-decorator">/&gt;</span>
+        </h2>
+        <div class="projects-filter">
+          <button class="filter-btn active" data-filter="all">TODOS</button>
+          <button class="filter-btn" data-filter="game">GAMES</button>
+          <button class="filter-btn" data-filter="web">WEB</button>
+        </div>
+        <div class="gallery" id="projects-grid"></div>
+        <p class="lightbox-hint">
+          <span class="hint-icon">◈</span>
+          Clique em um projeto para ver detalhes
+        </p>
+      </section>
+
+      <!-- Skills / Tech -->
+      <section id="skills" class="section-card fade-in">
+        <div class="section-header">
+          <span class="section-line"></span>
+          <span class="section-tag">// TECNOLOGIAS</span>
+        </div>
+        <h2 class="section-title">
+          <span class="title-decorator">&lt;</span>
+          Stack
+          <span class="title-decorator">/&gt;</span>
+        </h2>
+        <div class="skills-grid">
+          <div class="skill-item" data-skill="90">
+            <div class="skill-icon">[UE5]</div>
+            <div class="skill-info">
+              <span class="skill-name">Unreal Engine 5</span>
+              <div class="skill-bar"><div class="skill-progress"></div></div>
+            </div>
+          </div>
+          <div class="skill-item" data-skill="85">
+            <div class="skill-icon">&lt;/&gt;</div>
+            <div class="skill-info">
+              <span class="skill-name">HTML / CSS / JS</span>
+              <div class="skill-bar"><div class="skill-progress"></div></div>
+            </div>
+          </div>
+          <div class="skill-item" data-skill="75">
+            <div class="skill-icon">[UI]</div>
+            <div class="skill-info">
+              <span class="skill-name">Design Interativo</span>
+              <div class="skill-bar"><div class="skill-progress"></div></div>
+            </div>
+          </div>
+          <div class="skill-item" data-skill="80">
+            <div class="skill-icon">&lt;~&gt;</div>
+            <div class="skill-info">
+              <span class="skill-name">Sound Design</span>
+              <div class="skill-bar"><div class="skill-progress"></div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA / Contato -->
+      <section id="contact" class="section-card cta fade-in">
+        <div class="cta-content">
+          <div class="cta-left">
+            <div class="cta-icon">&lt;/&gt;</div>
+            <h3 class="cta-title">Vamos criar algo incrível?</h3>
+            <p class="cta-desc">
+              Estou disponível para novos projetos e colaborações.
+            </p>
+          </div>
+          <div class="cta-actions">
+            <button class="btn-cta" id="open-contact" type="button">
+              <span class="btn-glow"></span>
+              <span class="btn-content">
+                <span class="btn-icon">►</span>
+                <span>INICIAR CONVERSA</span>
+              </span>
+            </button>
+            <div class="cta-hint">
+              <span class="hint-prefix">//</span> Resposta em até 24h
+            </div>
+          </div>
+        </div>
+        <div class="cta-decoration">
+          <div class="circuit-line"></div>
+          <div class="circuit-dot"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-content">
+          <span class="footer-text">©Kael Lovato</span>
+          <span class="footer-divider">|</span>
+          <span class="footer-status">
+            <span class="status-dot"></span>
+            Feito com código e muitas tentativas
+          </span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Modal de projetos -->
+    <div
+      id="project-modal"
+      class="project-modal"
+      aria-modal="true"
+      role="dialog"
+    >
+      <div class="modal-overlay"></div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-dots">
+            <span class="modal-dot"></span>
+            <span class="modal-dot"></span>
+            <span class="modal-dot"></span>
+          </div>
+          <span class="modal-title-bar">project_details.exe</span>
+          <button class="close-btn" title="Fechar" aria-label="Fechar modal">
+            ×
+          </button>
+        </div>
+        <div class="modal-body">
+          <img id="modal-img" src="" alt="" />
+          <div class="modal-info">
+            <h3 id="modal-title"></h3>
+            <p id="modal-desc"></p>
+            <div class="modal-meta">
+              <div class="meta-item">
+                <span class="meta-label">FERRAMENTAS:</span>
+                <span id="modal-tools"></span>
+              </div>
+              <div class="meta-item">
+                <span class="meta-label">STATUS:</span>
+                <span id="modal-status" class="status-badge"></span>
+              </div>
+            </div>
+            <button id="modal-link" class="btn-test" style="display: none">
+              <span class="btn-icon">►</span>
+              <span>TESTAR PROJETO</span>
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="section">
-      <h2>Projetos</h2>
-      <ul>
-        <li><strong>Sistema de combate Unreal:</strong> inspirado na série Batman Arkham, feito do zero.</li>
-        <li><strong>Dashboard Web:</strong> aplicativo completo com autenticação.</li>
-        <li><strong>Portfólio estilo Terminal:</strong> este site, mostrando criatividade e lógica.</li>
-      </ul>
+
+    <!-- Modal de Preview (iframe) -->
+    <div
+      id="preview-modal"
+      class="preview-modal"
+      aria-modal="true"
+      role="dialog"
+    >
+      <div class="modal-overlay"></div>
+      <div class="preview-content">
+        <div class="preview-header">
+          <div class="modal-dots">
+            <span class="modal-dot"></span>
+            <span class="modal-dot"></span>
+            <span class="modal-dot"></span>
+          </div>
+          <span class="preview-title-bar" id="preview-title">preview.exe</span>
+          <div class="preview-controls">
+            <a
+              id="preview-external"
+              href="#"
+              target="_blank"
+              class="preview-btn"
+              title="Abrir em nova aba"
+            >
+              ↗
+            </a>
+            <button
+              class="close-btn"
+              id="close-preview"
+              title="Fechar"
+              aria-label="Fechar preview"
+            >
+              ×
+            </button>
+          </div>
+        </div>
+        <div class="preview-body">
+          <div class="preview-loader">
+            <div class="loader-spinner"></div>
+            <span>CARREGANDO...</span>
+          </div>
+          <iframe id="preview-iframe" src="" frameborder="0"></iframe>
+        </div>
+      </div>
     </div>
-    <div class="section">
-      <h2>Certificados</h2>
-      <p>CS50 – Introduction to Computer Science – HarvardX<br>
-      <a href="https://cs50.harvard.edu/certificates/SEU_CERTIFICADO" target="_blank">Ver certificado</a></p>
+
+    <!-- Modal de contato -->
+    <div
+      id="contact-modal"
+      class="contact-modal"
+      aria-modal="true"
+      role="dialog"
+    >
+      <div class="modal-overlay"></div>
+      <div class="modal-content contact-content">
+        <div class="modal-header">
+          <div class="modal-dots">
+            <span class="modal-dot"></span>
+            <span class="modal-dot"></span>
+            <span class="modal-dot"></span>
+          </div>
+          <span class="modal-title-bar">contact.exe</span>
+          <button
+            class="close-btn"
+            id="close-contact"
+            title="Fechar"
+            aria-label="Fechar modal"
+          >
+            ×
+          </button>
+        </div>
+        <div class="modal-body contact-body">
+          <h3 class="contact-modal-title">$ iniciar_conversa</h3>
+          <form id="contact-form" class="contact-form">
+            <div class="form-group">
+              <label for="contact-name">NOME:</label>
+              <input
+                type="text"
+                id="contact-name"
+                name="name"
+                required
+                placeholder="Seu nome..."
+              />
+            </div>
+            <div class="form-group">
+              <label for="contact-email">EMAIL:</label>
+              <input
+                type="email"
+                id="contact-email"
+                name="email"
+                required
+                placeholder="seu@email.com"
+              />
+            </div>
+            <div class="form-group">
+              <label for="contact-message">MENSAGEM:</label>
+              <textarea
+                id="contact-message"
+                name="message"
+                required
+                placeholder="Digite sua mensagem..."
+                rows="4"
+              ></textarea>
+            </div>
+            <button type="submit" class="btn-submit">
+              <span class="btn-icon">►</span>
+              <span>ENVIAR MENSAGEM</span>
+            </button>
+          </form>
+          <div
+            id="contact-success"
+            class="contact-success"
+            style="display: none"
+          >
+            <span class="success-icon">✓</span>
+            <p>Mensagem enviada com sucesso!</p>
+            <p class="success-sub">Responderei em breve.</p>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="section">
-      <h2>Contato</h2>
-      <p>Email: <a href="mailto:kaellovato5@gmail.com">kaellovato5@gmail.com</a><br>
-      GitHub: <a href="https://github.com/seuusuario" target="_blank">github.com/seuusuario</a><br>
-      LinkedIn: <a href="https://linkedin.com/in/seuusuario" target="_blank">linkedin.com/in/seuusuario</a></p>
-      <button class="toggle-button" onclick="window.location.href='terminal.html'">Voltar para Terminal</button>
-    </div>
-  </div>
-</body>
+
+    <!-- Script -->
+    <script>
+      const terminal = document.getElementById("terminal");
+      const projectsGrid = document.getElementById("projects-grid");
+      const copyBtn = document.getElementById("copy-btn");
+      const emailText = document.getElementById("email-text");
+      const modal = document.getElementById("project-modal");
+      const modalImg = document.getElementById("modal-img");
+      const modalTitle = document.getElementById("modal-title");
+      const modalDesc = document.getElementById("modal-desc");
+      const modalTools = document.getElementById("modal-tools");
+      const modalStatus = document.getElementById("modal-status");
+      const modalClose = modal.querySelector(".close-btn");
+      const guiContainer = document.getElementById("gui-container");
+
+      // Lista de projetos
+      const projects = [
+        {
+          title: "Experiência em Realidade Virtual",
+          img: "rvprojeto.png",
+          desc: "Recriação do Terremoto de Lisboa na Unreal Engine 5. Ambientação histórica, efeitos sonoros imersivos e navegação em primeira pessoa.",
+          tools: "Unreal Engine 5, Quixel, Fab",
+          status: "Finalizado",
+          category: "game",
+          link: null,
+        },
+        {
+          title: "Plugies Dreamy Chaos",
+          img: "ProjetoProg/IMGS/logo.png",
+          desc: "Jogo de minigames desenvolvido com p5.js. Controle o Plugie através de desafios como setas rítmicas, quick-time events e labirinto com jumpscare. [Disponível apenas para Desktop - requer teclado]",
+          tools: "JavaScript, p5.js, HTML, CSS",
+          status: "Finalizado",
+          category: "game",
+          link: "ProjetoProg/Index.html",
+          mobilePlayable: false,
+        },
+        {
+          title: "CACB - Site Institucional",
+          img: "projeto_final/IMGS/cacb-removebg-preview.png",
+          desc: "Website institucional do Centro Académico Clínico das Beiras. Interface responsiva com carrossel, múltiplas seções e design moderno.",
+          tools: "HTML, CSS, JavaScript",
+          status: "Finalizado",
+          category: "web",
+          link: "projeto_final/HTML/index.html",
+          mobilePlayable: true,
+        },
+      ];
+
+      // Matrix Rain Background
+      const canvas = document.getElementById("matrix-bg");
+      const ctx = canvas.getContext("2d");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()";
+      const fontSize = 14;
+      const columns = canvas.width / fontSize;
+      const drops = Array(Math.floor(columns)).fill(1);
+
+      function drawMatrix() {
+        ctx.fillStyle = "rgba(10, 10, 10, 0.05)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#0f3";
+        ctx.font = fontSize + "px JetBrains Mono";
+
+        for (let i = 0; i < drops.length; i++) {
+          const text = chars[Math.floor(Math.random() * chars.length)];
+          ctx.fillStyle = `rgba(0, 255, 65, ${Math.random() * 0.3})`;
+          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i]++;
+        }
+      }
+
+      setInterval(drawMatrix, 50);
+
+      window.addEventListener("resize", () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      });
+
+      // Typing effect for hero
+      const typingTexts = [
+        "Jogos",
+        "Web",
+        "Design Interativo",
+        "Experiências Imersivas",
+      ];
+      let textIndex = 0;
+      let charIndex = 0;
+      let isDeleting = false;
+      const typingElement = document.querySelector(".typing-text");
+
+      function typeEffect() {
+        const currentText = typingTexts[textIndex];
+
+        if (isDeleting) {
+          typingElement.textContent = currentText.substring(0, charIndex - 1);
+          charIndex--;
+        } else {
+          typingElement.textContent = currentText.substring(0, charIndex + 1);
+          charIndex++;
+        }
+
+        let typeSpeed = isDeleting ? 50 : 100;
+
+        if (!isDeleting && charIndex === currentText.length) {
+          typeSpeed = 2000;
+          isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+          isDeleting = false;
+          textIndex = (textIndex + 1) % typingTexts.length;
+          typeSpeed = 500;
+        }
+
+        setTimeout(typeEffect, typeSpeed);
+      }
+
+      // Counter animation
+      function animateCounters() {
+        document.querySelectorAll(".stat-value").forEach((counter) => {
+          const target = parseInt(counter.getAttribute("data-count"));
+          const duration = 2000;
+          const step = target / (duration / 16);
+          let current = 0;
+
+          const updateCounter = () => {
+            current += step;
+            if (current < target) {
+              counter.textContent = Math.floor(current);
+              requestAnimationFrame(updateCounter);
+            } else {
+              counter.textContent = target;
+            }
+          };
+          updateCounter();
+        });
+      }
+
+      // Skill bars animation
+      function animateSkills() {
+        document.querySelectorAll(".skill-item").forEach((item) => {
+          const skill = item.getAttribute("data-skill");
+          const progress = item.querySelector(".skill-progress");
+          setTimeout(() => {
+            progress.style.width = skill + "%";
+          }, 500);
+        });
+      }
+
+      // Modal
+      const modalLink = document.getElementById("modal-link");
+      let mobileWarningEl = null;
+
+      function isMobileDevice() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+      }
+
+      function openModal(p) {
+        modalImg.src = p.img;
+        modalImg.alt = p.title;
+        modalTitle.textContent = p.title;
+        modalDesc.textContent = p.desc;
+        modalTools.textContent = p.tools || "";
+        modalStatus.textContent = p.status || "";
+
+        // Remove existing mobile warning if any
+        if (mobileWarningEl) {
+          mobileWarningEl.remove();
+          mobileWarningEl = null;
+        }
+
+        // Mostrar botão de testar se houver link
+        if (p.link) {
+          const isMobile = isMobileDevice();
+          
+          if (p.mobilePlayable === false && isMobile) {
+            // Hide test button and show warning
+            modalLink.style.display = "none";
+            
+            mobileWarningEl = document.createElement("div");
+            mobileWarningEl.className = "mobile-warning";
+            mobileWarningEl.innerHTML = `<span class="warning-icon">⚠</span> Este projeto requer teclado. Acesse pelo computador para testar.`;
+            modalLink.parentNode.insertBefore(mobileWarningEl, modalLink.nextSibling);
+          } else {
+            modalLink.setAttribute("data-link", p.link);
+            modalLink.href = p.link;
+            modalLink.style.display = "inline-flex";
+          }
+        } else {
+          modalLink.style.display = "none";
+        }
+
+        modal.classList.add("active");
+        document.body.style.overflow = "hidden";
+        modalClose.focus();
+      }
+
+      // Preview Modal
+      const previewModal = document.getElementById("preview-modal");
+      const previewIframe = document.getElementById("preview-iframe");
+      const previewTitle = document.getElementById("preview-title");
+      const previewExternal = document.getElementById("preview-external");
+      const closePreview = document.getElementById("close-preview");
+      const previewLoader = document.querySelector(".preview-loader");
+
+      function openPreview(link, title) {
+        previewTitle.textContent = title || "preview.exe";
+        previewExternal.href = link;
+        previewLoader.style.display = "flex";
+        previewIframe.style.opacity = "0";
+        previewIframe.src = link;
+
+        previewIframe.onload = () => {
+          previewLoader.style.display = "none";
+          previewIframe.style.opacity = "1";
+        };
+
+        previewModal.classList.add("active");
+        document.body.style.overflow = "hidden";
+      }
+
+      function closePreviewModal() {
+        previewModal.classList.remove("active");
+        previewIframe.src = "";
+        document.body.style.overflow = "hidden"; // Manter o scroll bloqueado pois o modal de projeto ainda está aberto
+      }
+
+      closePreview.addEventListener("click", closePreviewModal);
+
+      previewModal.addEventListener("click", (e) => {
+        if (
+          e.target === previewModal ||
+          e.target.classList.contains("modal-overlay")
+        ) {
+          closePreviewModal();
+        }
+      });
+
+      // Prevenir que o clique no botão de testar feche o modal e abrir preview
+      modalLink.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const link = modalLink.getAttribute("data-link");
+        const title = modalTitle.textContent;
+        if (link) {
+          openPreview(link, title);
+        }
+      });
+
+      modalClose.addEventListener("click", () => {
+        modal.classList.remove("active");
+        document.body.style.overflow = "";
+      });
+
+      modal.addEventListener("click", (e) => {
+        if (
+          e.target === modal ||
+          e.target.classList.contains("modal-overlay")
+        ) {
+          modal.classList.remove("active");
+          document.body.style.overflow = "";
+        }
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" || e.key === "Esc") {
+          if (previewModal.classList.contains("active")) {
+            closePreviewModal();
+          } else if (modal.classList.contains("active")) {
+            modal.classList.remove("active");
+            document.body.style.overflow = "";
+          }
+        }
+      });
+
+      // Copiar e-mail
+      const copyTooltip = document.getElementById("copy-tooltip");
+      copyBtn.addEventListener("click", () => {
+        navigator.clipboard.writeText(emailText.textContent);
+        copyTooltip.classList.add("show");
+        setTimeout(() => copyTooltip.classList.remove("show"), 2000);
+      });
+
+      // Filter buttons
+      document.querySelectorAll(".filter-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document
+            .querySelectorAll(".filter-btn")
+            .forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          const filter = btn.getAttribute("data-filter");
+
+          document.querySelectorAll(".gallery .item").forEach((item) => {
+            if (
+              filter === "all" ||
+              item.getAttribute("data-category") === filter
+            ) {
+              item.style.display = "";
+              item.classList.add("fade-in");
+            } else {
+              item.style.display = "none";
+            }
+          });
+        });
+      });
+
+      // Preenche projetos
+      projects.forEach((p, index) => {
+        const card = document.createElement("div");
+        card.className = "item";
+        card.tabIndex = 0;
+        card.setAttribute("role", "button");
+        card.setAttribute("aria-label", `Abrir detalhes do projeto ${p.title}`);
+        card.setAttribute("data-category", p.category);
+        card.style.animationDelay = `${index * 0.1}s`;
+        card.innerHTML = `
+        <div class="item-glow"></div>
+        <img src="${p.img}" alt="${p.title}" loading="lazy">
+        <div class="item-overlay">
+          <div class="item-content">
+            <span class="item-category">${p.category.toUpperCase()}</span>
+            <span class="item-title">${p.title}</span>
+            <span class="item-status">${p.status}</span>
+            <span class="item-view">VER PROJETO →</span>
+          </div>
+        </div>
+      `;
+        card.addEventListener("click", () => openModal(p));
+        card.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") openModal(p);
+        });
+        projectsGrid.appendChild(card);
+      });
+
+      // Mobile menu toggle
+      const mobileToggle = document.querySelector(".mobile-toggle");
+      const menu = document.querySelector(".site-nav .menu");
+
+      if (mobileToggle) {
+        mobileToggle.addEventListener("click", () => {
+          mobileToggle.classList.toggle("active");
+          menu.classList.toggle("active");
+        });
+      }
+
+      // Smooth scroll
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+            if (menu.classList.contains("active")) {
+              mobileToggle.classList.remove("active");
+              menu.classList.remove("active");
+            }
+          }
+        });
+      });
+
+      // Intersection Observer for animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            if (entry.target.id === "skills") animateSkills();
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll(".section-card").forEach((section) => {
+        observer.observe(section);
+      });
+
+      // Terminal de inicialização
+      function typeText(element, text, delay = 40, callback) {
+        let i = 0;
+        const interval = setInterval(() => {
+          element.textContent += text[i];
+          i++;
+          if (i >= text.length) {
+            clearInterval(interval);
+            if (callback) callback();
+          }
+        }, delay);
+      }
+
+      const bootLines = [
+        { text: "$ init portfolio.exe", delay: 800 },
+        { text: "[OK] Carregando módulos...", delay: 600 },
+        { text: "[OK] Verificando sistemas...", delay: 500 },
+        { text: "[OK] Conectando à matrix...", delay: 700 },
+        { text: ">>> ACESSO GARANTIDO <<<", delay: 1000 },
+      ];
+
+      function typeLines(lines, index = 0) {
+        if (index >= lines.length) {
+          setTimeout(() => {
+            terminal.classList.add("fade-out");
+            setTimeout(() => {
+              terminal.style.display = "none";
+              document.body.classList.add("loaded");
+              document.body.classList.remove("no-scroll");
+              typeEffect();
+              animateCounters();
+            }, 800);
+          }, 500);
+          return;
+        }
+
+        const line = document.createElement("p");
+        line.className = index === lines.length - 1 ? "success-line" : "";
+        terminal.appendChild(line);
+        typeText(line, lines[index].text, 30, () => {
+          setTimeout(() => typeLines(lines, index + 1), lines[index].delay);
+        });
+      }
+
+      function startTerminal() {
+        terminal.innerHTML = "";
+        terminal.style.display = "flex";
+        // Bloquear scroll durante intro
+        document.body.classList.add("no-scroll");
+        typeLines(bootLines);
+      }
+
+      // Modal de contato
+      const contactModal = document.getElementById("contact-modal");
+      const openContactBtn = document.getElementById("open-contact");
+      const closeContactBtn = document.getElementById("close-contact");
+      const contactForm = document.getElementById("contact-form");
+      const contactSuccess = document.getElementById("contact-success");
+
+      openContactBtn.addEventListener("click", () => {
+        contactModal.classList.add("active");
+        document.body.style.overflow = "hidden";
+        contactForm.style.display = "block";
+        contactSuccess.style.display = "none";
+      });
+
+      closeContactBtn.addEventListener("click", () => {
+        contactModal.classList.remove("active");
+        document.body.style.overflow = "";
+      });
+
+      contactModal.addEventListener("click", (e) => {
+        if (
+          e.target === contactModal ||
+          e.target.classList.contains("modal-overlay")
+        ) {
+          contactModal.classList.remove("active");
+          document.body.style.overflow = "";
+        }
+      });
+
+      contactForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        // Simular envio
+        contactForm.style.display = "none";
+        contactSuccess.style.display = "block";
+
+        // Abrir email no cliente padrão
+        const name = document.getElementById("contact-name").value;
+        const email = document.getElementById("contact-email").value;
+        const message = document.getElementById("contact-message").value;
+        const mailtoLink = `mailto:kaellovato5@gmail.com?subject=Contato do Portfólio - ${name}&body=Nome: ${name}%0AEmail: ${email}%0A%0AMensagem:%0A${encodeURIComponent(message)}`;
+        window.location.href = mailtoLink;
+
+        setTimeout(() => {
+          contactModal.classList.remove("active");
+          document.body.style.overflow = "";
+          contactForm.reset();
+        }, 3000);
+      });
+
+      window.addEventListener("DOMContentLoaded", () => startTerminal());
+    </script>
+  </body>
 </html>
