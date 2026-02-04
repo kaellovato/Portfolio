@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt">
   <head>
     <meta charset="UTF-8" />
@@ -49,7 +49,9 @@
         height: 100px;
         object-fit: cover;
         border-radius: 6px;
-        transition: width 0.5s ease-in-out, height 0.5s ease-in-out,
+        transition:
+          width 0.5s ease-in-out,
+          height 0.5s ease-in-out,
           max-width 0.5s ease-in-out;
       }
 
@@ -110,7 +112,9 @@
         overflow: hidden;
         opacity: 0;
         margin-top: 0;
-        transition: max-height 0.5s ease-in-out, opacity 0.35s ease-in-out,
+        transition:
+          max-height 0.5s ease-in-out,
+          opacity 0.35s ease-in-out,
           margin-top 0.35s ease-in-out;
       }
 
@@ -282,7 +286,7 @@
 
             <div class="media-noticias-lista">
               <!-- NOTICIA 1 -->
-              <div class="noticia-expand">
+              <div class="noticia-expand" id="noticia-jornadas">
                 <div class="noticia-cabecalho">
                   <div class="noticia-imagem noticia-click">
                     <img src="../IMGS/placeholder_noticias.jpg" alt="Noticia" />
@@ -334,7 +338,7 @@
               <hr class="separador-noticias" />
 
               <!-- NOTICIA 2 -->
-              <div class="noticia-expand">
+              <div class="noticia-expand" id="noticia-saude-mental">
                 <div class="noticia-cabecalho">
                   <div class="noticia-imagem noticia-click">
                     <img src="../IMGS/placeholder_noticias.jpg" alt="Noticia" />
@@ -372,7 +376,7 @@
               <hr class="separador-noticias" />
 
               <!-- NOTICIA 3 -->
-              <div class="noticia-expand">
+              <div class="noticia-expand" id="noticia-dia-idoso">
                 <div class="noticia-cabecalho">
                   <div class="noticia-imagem noticia-click">
                     <img src="../IMGS/placeholder_noticias.jpg" alt="Noticia" />
@@ -488,6 +492,28 @@
           });
         }
       });
+
+      // Abrir notícia automaticamente se houver hash na URL
+      if (window.location.hash) {
+        const targetNoticia = document.querySelector(window.location.hash);
+        if (
+          targetNoticia &&
+          targetNoticia.classList.contains("noticia-expand")
+        ) {
+          targetNoticia.classList.add("ativo");
+          const btnLerMais = targetNoticia.querySelector(".btn-ler-mais");
+          if (btnLerMais) {
+            btnLerMais.textContent = "Ler menos";
+          }
+          // Scroll suave até a notícia
+          setTimeout(() => {
+            targetNoticia.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            });
+          }, 100);
+        }
+      }
     </script>
     <script src="../JS/menu-mobile.js"></script>
   </body>
