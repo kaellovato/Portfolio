@@ -21,7 +21,10 @@
     <canvas id="matrix-bg"></canvas>
 
     <!-- Terminal de inicialização -->
-    <div id="terminal"></div>
+    <div id="terminal" class="terminal-boot-3d">
+      <canvas id="vortex-canvas"></canvas>
+      <div id="terminal-content"></div>
+    </div>
 
     <!-- Navegação -->
     <nav class="site-nav container fade-in">
@@ -311,81 +314,73 @@
       <div class="modal-content">
         <div class="modal-header">
           <div class="modal-dots">
-            <span class="modal-dot"></span>
-            <span class="modal-dot"></span>
-            <span class="modal-dot"></span>
+            <span class="modal-dot red"></span>
+            <span class="modal-dot yellow"></span>
+            <span class="modal-dot green"></span>
           </div>
-          <span class="modal-title-bar">project_details.exe</span>
-          <button class="close-btn" title="Fechar" aria-label="Fechar modal">
-            ×
+          <button
+            id="modal-back"
+            class="modal-back-btn"
+            title="Voltar para a síntese"
+            style="display: none"
+          >
+            ←
           </button>
-        </div>
-        <div class="modal-body">
-          <img id="modal-img" src="" alt="" />
-          <div class="modal-info">
-            <h3 id="modal-title"></h3>
-            <p id="modal-desc"></p>
-            <div class="modal-meta">
-              <div class="meta-item">
-                <span class="meta-label">FERRAMENTAS:</span>
-                <span id="modal-tools"></span>
-              </div>
-              <div class="meta-item">
-                <span class="meta-label">STATUS:</span>
-                <span id="modal-status" class="status-badge"></span>
-              </div>
-            </div>
-            <button id="modal-link" class="btn-test" style="display: none">
-              <span class="btn-icon">►</span>
-              <span>TESTAR PROJETO</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal de Preview (iframe) -->
-    <div
-      id="preview-modal"
-      class="preview-modal"
-      aria-modal="true"
-      role="dialog"
-    >
-      <div class="modal-overlay"></div>
-      <div class="preview-content">
-        <div class="preview-header">
-          <div class="modal-dots">
-            <span class="modal-dot"></span>
-            <span class="modal-dot"></span>
-            <span class="modal-dot"></span>
-          </div>
-          <span class="preview-title-bar" id="preview-title">preview.exe</span>
-          <div class="preview-controls">
+          <span class="modal-title-bar" id="modal-title-bar">project_details.exe</span>
+          <div class="modal-controls">
             <a
               id="preview-external"
               href="#"
               target="_blank"
               class="preview-btn"
               title="Abrir em nova aba"
+              style="display: none"
             >
               ↗
             </a>
-            <button
-              class="close-btn"
-              id="close-preview"
-              title="Fechar"
-              aria-label="Fechar preview"
-            >
+            <button class="close-btn" title="Fechar" aria-label="Fechar modal">
               ×
             </button>
           </div>
         </div>
-        <div class="preview-body">
-          <div class="preview-loader">
-            <div class="loader-spinner"></div>
-            <span>CARREGANDO...</span>
+        <div class="modal-body" id="modal-body-content">
+          <!-- Synthesis View -->
+          <div id="modal-synthesis" class="modal-synthesis">
+            <div class="synthesis-grid">
+              <div class="synthesis-image-container">
+                <img id="modal-img" src="" alt="" />
+                <div class="modal-meta">
+                  <div class="meta-item">
+                    <span class="meta-label">FERRAMENTAS:</span>
+                    <span id="modal-tools"></span>
+                  </div>
+                  <div class="meta-item">
+                    <span class="meta-label">STATUS:</span>
+                    <span id="modal-status" class="status-badge"></span>
+                  </div>
+                </div>
+              </div>
+              <div class="synthesis-info">
+                <h3 id="modal-title"></h3>
+                <div id="modal-desc" class="modal-desc"></div>
+                <div class="synthesis-actions">
+                  <button id="modal-link" class="btn-test">
+                    <span class="btn-icon">►</span>
+                    <span>VISUALIZAR PROJETO</span>
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
-          <iframe id="preview-iframe" src="" frameborder="0"></iframe>
+          
+          <!-- Test View (Iframe) -->
+          <div id="modal-test-area" class="modal-test-area" style="display: none">
+            <div class="preview-loader">
+              <div class="loader-spinner"></div>
+              <span>CARREGANDO AMBIENTE DE TESTE...</span>
+            </div>
+            <iframe id="preview-iframe" src="" frameborder="0"></iframe>
+          </div>
         </div>
       </div>
     </div>
@@ -465,6 +460,14 @@
         </div>
       </div>
     </div>
+
+    <!-- Áudios -->
+    <audio id="keySound" preload="auto">
+      <source src="KeyboardType.wav" type="audio/wav" />
+    </audio>
+    <audio id="clearSound" preload="auto">
+      <source src="ClearTerminal.wav" type="audio/wav" />
+    </audio>
 
     <!-- Script -->
     <script>
@@ -621,6 +624,13 @@
 
       // Modal
       const modalLink = document.getElementById("modal-link");
+      const modalBack = document.getElementById("modal-back");
+      const modalSynthesis = document.getElementById("modal-synthesis");
+      const modalTestArea = document.getElementById("modal-test-area");
+      const modalTitleBar = document.getElementById("modal-title-bar");
+      const previewIframe = document.getElementById("preview-iframe");
+      const previewExternal = document.getElementById("preview-external");
+      const previewLoader = document.querySelector(".preview-loader");
       let mobileWarningEl = null;
 
       function isMobileDevice() {
@@ -628,6 +638,14 @@
       }
 
       function openModal(p) {
+        // Reset View
+        modalSynthesis.style.display = "block";
+        modalTestArea.style.display = "none";
+        modalBack.style.display = "none";
+        previewExternal.style.display = "none";
+        modalTitleBar.textContent = "project_details.exe";
+        previewIframe.src = "";
+
         modalImg.src = p.img;
         modalImg.alt = p.title;
         modalTitle.textContent = p.title;
@@ -641,22 +659,30 @@
           mobileWarningEl = null;
         }
 
-        // Mostrar botão de testar se houver link
+        // Configurar botão de teste
         if (p.link) {
           const isMobile = isMobileDevice();
           
           if (p.mobilePlayable === false && isMobile) {
-            // Hide test button and show warning
             modalLink.style.display = "none";
-            
             mobileWarningEl = document.createElement("div");
             mobileWarningEl.className = "mobile-warning";
             mobileWarningEl.innerHTML = `<span class="warning-icon">⚠</span> Este projeto requer teclado. Acesse pelo computador para testar.`;
             modalLink.parentNode.insertBefore(mobileWarningEl, modalLink.nextSibling);
           } else {
-            modalLink.setAttribute("data-link", p.link);
-            modalLink.href = p.link;
             modalLink.style.display = "inline-flex";
+            modalLink.onclick = () => {
+              modalSynthesis.style.display = "none";
+              modalTestArea.style.display = "block";
+              modalBack.style.display = "block";
+              previewExternal.style.display = "flex";
+              previewExternal.href = p.link;
+              modalTitleBar.textContent = `visualizando: ${p.title.toLowerCase().replace(/\s+/g, '_')}.exe`;
+              
+              previewLoader.style.display = "flex";
+              previewIframe.style.opacity = "0";
+              previewIframe.src = p.link;
+            };
           }
         } else {
           modalLink.style.display = "none";
@@ -667,60 +693,24 @@
         modalClose.focus();
       }
 
-      // Preview Modal
-      const previewModal = document.getElementById("preview-modal");
-      const previewIframe = document.getElementById("preview-iframe");
-      const previewTitle = document.getElementById("preview-title");
-      const previewExternal = document.getElementById("preview-external");
-      const closePreview = document.getElementById("close-preview");
-      const previewLoader = document.querySelector(".preview-loader");
+      previewIframe.onload = () => {
+        previewLoader.style.display = "none";
+        previewIframe.style.opacity = "1";
+      };
 
-      function openPreview(link, title) {
-        previewTitle.textContent = title || "preview.exe";
-        previewExternal.href = link;
-        previewLoader.style.display = "flex";
-        previewIframe.style.opacity = "0";
-        previewIframe.src = link;
-
-        previewIframe.onload = () => {
-          previewLoader.style.display = "none";
-          previewIframe.style.opacity = "1";
-        };
-
-        previewModal.classList.add("active");
-        document.body.style.overflow = "hidden";
-      }
-
-      function closePreviewModal() {
-        previewModal.classList.remove("active");
+      modalBack.addEventListener("click", () => {
+        modalSynthesis.style.display = "block";
+        modalTestArea.style.display = "none";
+        modalBack.style.display = "none";
+        previewExternal.style.display = "none";
+        modalTitleBar.textContent = "project_details.exe";
         previewIframe.src = "";
-        document.body.style.overflow = "hidden"; // Manter o scroll bloqueado pois o modal de projeto ainda está aberto
-      }
-
-      closePreview.addEventListener("click", closePreviewModal);
-
-      previewModal.addEventListener("click", (e) => {
-        if (
-          e.target === previewModal ||
-          e.target.classList.contains("modal-overlay")
-        ) {
-          closePreviewModal();
-        }
-      });
-
-      // Prevenir que o clique no botão de testar feche o modal e abrir preview
-      modalLink.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const link = modalLink.getAttribute("data-link");
-        const title = modalTitle.textContent;
-        if (link) {
-          openPreview(link, title);
-        }
       });
 
       modalClose.addEventListener("click", () => {
         modal.classList.remove("active");
         document.body.style.overflow = "";
+        previewIframe.src = "";
       });
 
       modal.addEventListener("click", (e) => {
@@ -730,16 +720,16 @@
         ) {
           modal.classList.remove("active");
           document.body.style.overflow = "";
+          previewIframe.src = "";
         }
       });
 
       document.addEventListener("keydown", (e) => {
         if (e.key === "Escape" || e.key === "Esc") {
-          if (previewModal.classList.contains("active")) {
-            closePreviewModal();
-          } else if (modal.classList.contains("active")) {
+          if (modal.classList.contains("active")) {
             modal.classList.remove("active");
             document.body.style.overflow = "";
+            previewIframe.src = "";
           }
         }
       });
@@ -848,55 +838,173 @@
       });
 
       // Terminal de inicialização
-      function typeText(element, text, delay = 40, callback) {
+      function typeText(element, text, delay = 30, callback) {
         let i = 0;
+        const p = document.createElement("p");
+        element.appendChild(p);
+        
         const interval = setInterval(() => {
-          element.textContent += text[i];
+          p.textContent += text[i];
           i++;
           if (i >= text.length) {
             clearInterval(interval);
             if (callback) callback();
           }
         }, delay);
+        
+        // Auto-scroll
+        element.scrollTop = element.scrollHeight;
       }
 
-      const bootLines = [
-        { text: "$ init portfolio.exe", delay: 800 },
-        { text: "[OK] Carregando módulos...", delay: 600 },
-        { text: "[OK] Verificando sistemas...", delay: 500 },
-        { text: "[OK] Conectando à matrix...", delay: 700 },
-        { text: ">>> ACESSO GARANTIDO <<<", delay: 1000 },
-      ];
+      // Vórtice de Código via Canvas 3D (Máxima Performance)
+      function initVortex() {
+        const canvas = document.getElementById("vortex-canvas");
+        const ctx = canvas.getContext("2d");
+        const terminal = document.getElementById("terminal");
+        
+        let width, height, centerX, centerY;
+        const codeSamples = [
+          "0x882A_BOOT", "KERNEL_v2.0", "BYPASS_FW", "load_matrix()", 
+          "git_push_universe", "while(hacking)", "def_hack_reality()", 
+          "System.out.print", "fn_main()", "SELECT_*", "vec4_shader",
+          "access_granted", "root@hacker", "sudo_rm_limits", "go_func()",
+          "docker_up", "kubectl_apply", "curl_POST", "chmod_+x", "ssh_root",
+          "export_PATH", "yarn_deploy", "pip_install", "aws_sync", "openssl",
+          "import_neural", "const_soul", "if(dream)_build()", "npm_i_life",
+          "rustc_main.rs", "std::cout", "grep_r_idea", "find_purpose"
+        ];
 
-      function typeLines(lines, index = 0) {
-        if (index >= lines.length) {
-          setTimeout(() => {
-            terminal.classList.add("fade-out");
-            setTimeout(() => {
-              terminal.style.display = "none";
-              document.body.classList.add("loaded");
-              document.body.classList.remove("no-scroll");
-              typeEffect();
-              animateCounters();
-            }, 800);
-          }, 500);
-          return;
+        function resize() {
+          width = canvas.width = window.innerWidth;
+          height = canvas.height = window.innerHeight;
+          centerX = width / 2;
+          centerY = height / 2;
+        }
+        window.addEventListener("resize", resize);
+        resize();
+
+        // Partículas (Código voador)
+        const particles = [];
+        const particleCount = 80;
+        const speed = 15;
+        const perspective = 400;
+
+        for (let i = 0; i < particleCount; i++) {
+          particles.push({
+            x: (Math.random() - 0.5) * 2000,
+            y: (Math.random() - 0.5) * 2000,
+            z: Math.random() * 2000,
+            text: codeSamples[Math.floor(Math.random() * codeSamples.length)],
+            fontSize: 10 + Math.random() * 20
+          });
         }
 
-        const line = document.createElement("p");
-        line.className = index === lines.length - 1 ? "success-line" : "";
-        terminal.appendChild(line);
-        typeText(line, lines[index].text, 30, () => {
-          setTimeout(() => typeLines(lines, index + 1), lines[index].delay);
-        });
+        let animationFrame;
+        function animate() {
+          if (terminal.classList.contains("boot-complete") && !terminal.style.display) {
+            // Acelerar na saída
+            particles.forEach(p => p.z -= speed * 5);
+          } else {
+            particles.forEach(p => {
+              p.z -= speed;
+              if (p.z <= 0) {
+                p.z = 2000;
+                p.x = (Math.random() - 0.5) * 2000;
+                p.y = (Math.random() - 0.5) * 2000;
+                p.text = codeSamples[Math.floor(Math.random() * codeSamples.length)];
+              }
+            });
+          }
+
+          ctx.fillStyle = "black";
+          ctx.fillRect(0, 0, width, height);
+
+          particles.forEach(p => {
+            const scale = perspective / (perspective + p.z);
+            const x2d = p.x * scale + centerX;
+            const y2d = p.y * scale + centerY;
+            
+            const opacity = Math.min(1, (2000 - p.z) / 1500);
+            ctx.fillStyle = `rgba(0, 255, 65, ${opacity * scale * 2})`;
+            ctx.font = `${p.fontSize * scale}px JetBrains Mono`;
+            ctx.fillText(p.text, x2d, y2d);
+          });
+
+          if (!terminal.style.display || terminal.style.display === "flex") {
+            animationFrame = requestAnimationFrame(animate);
+          }
+        }
+
+        animate();
       }
 
       function startTerminal() {
-        terminal.innerHTML = "";
-        terminal.style.display = "flex";
-        // Bloquear scroll durante intro
+        const terminalOverlay = document.getElementById("terminal");
+        const terminalContent = document.getElementById("terminal-content");
+        const keySound = document.getElementById("keySound");
+        const clearSound = document.getElementById("clearSound");
+        
+        const lastBoot = localStorage.getItem("lastBoot");
+        const now = Date.now();
+        const oneHour = 60 * 60 * 1000;
+        const skipAnimation = lastBoot && (now - parseInt(lastBoot)) < oneHour;
+
+        if (skipAnimation) {
+          terminalOverlay.style.display = "none";
+          document.body.classList.remove("no-scroll");
+          typeEffect();
+          animateCounters();
+          return;
+        }
+
+        terminalOverlay.style.display = "flex";
         document.body.classList.add("no-scroll");
-        typeLines(bootLines);
+        initVortex();
+
+        const bootLines = [
+          "ESTABLISHING NEURAL LINK...",
+          "DECRYPTING CORE MODULES [OK]",
+          "LOADING VIRTUAL_ENVIRONMENT...",
+          "BYPASSING HARDWARE LIMITS...",
+          "INITIALIZING 3D ENGINE...",
+          "SYNCHRONIZING DATASTREAM...",
+          "WELCOME TO THE MATRIX."
+        ];
+
+        let lineIndex = 0;
+        function nextLine() {
+          if (lineIndex < bootLines.length) {
+            const isLast = lineIndex === bootLines.length - 1;
+            
+            // Som leve de teclado
+            keySound.currentTime = 0;
+            keySound.volume = 0.15;
+            keySound.play().catch(() => {});
+
+            typeText(terminalContent, bootLines[lineIndex], 20, () => {
+              if (isLast) {
+                setTimeout(() => {
+                  terminalOverlay.classList.add("boot-complete");
+                  clearSound.volume = 0.4;
+                  clearSound.play().catch(() => {});
+
+                  localStorage.setItem("lastBoot", Date.now().toString());
+                  setTimeout(() => {
+                    terminalOverlay.style.display = "none";
+                    document.body.classList.remove("no-scroll");
+                    typeEffect();
+                    animateCounters();
+                  }, 1500);
+                }, 1000);
+              } else {
+                lineIndex++;
+                setTimeout(nextLine, 250);
+              }
+            });
+          }
+        }
+
+        setTimeout(nextLine, 500);
       }
 
       // Modal de contato
