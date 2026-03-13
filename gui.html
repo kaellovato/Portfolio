@@ -41,7 +41,7 @@
         <a href="#projects" class="nav-link" data-text="PROJETOS">
           <span class="nav-icon">&gt;</span>PROJETOS
         </a>
-        <a href="#contact" class="nav-link" data-text="CONTATO">
+        <a href="#contact" class="nav-link open-contact-btn" data-text="CONTATO">
           <span class="nav-icon">&gt;</span>CONTATO
         </a>
         <a href="index.html" class="nav-link terminal-btn" data-text="TERMINAL">
@@ -90,7 +90,7 @@
             <span class="btn-icon">►</span>
             <span>EXPLORAR PROJETOS</span>
           </a>
-          <a href="#contact" class="btn-secondary">
+          <a href="#contact" class="btn-secondary open-contact-btn">
             <span class="btn-icon">◈</span>
             <span>CONTATO</span>
           </a>
@@ -843,8 +843,18 @@
         const p = document.createElement("p");
         element.appendChild(p);
         
+        const keySound = document.getElementById("keySound");
+        
         const interval = setInterval(() => {
           p.textContent += text[i];
+          
+          // Som de teclado acompanhando cada letra
+          if (text[i] !== " ") {
+            const sound = keySound.cloneNode();
+            sound.volume = 0.25; // Aumentado para maior visibilidade sonora
+            sound.play().catch(() => {});
+          }
+
           i++;
           if (i >= text.length) {
             clearInterval(interval);
@@ -861,6 +871,8 @@
         const canvas = document.getElementById("vortex-canvas");
         const ctx = canvas.getContext("2d");
         const terminal = document.getElementById("terminal");
+        const clearSound = document.getElementById("clearSound");
+        const keySound = document.getElementById("keySound");
         
         let width, height, centerX, centerY;
         const codeSamples = [
@@ -871,7 +883,12 @@
           "docker_up", "kubectl_apply", "curl_POST", "chmod_+x", "ssh_root",
           "export_PATH", "yarn_deploy", "pip_install", "aws_sync", "openssl",
           "import_neural", "const_soul", "if(dream)_build()", "npm_i_life",
-          "rustc_main.rs", "std::cout", "grep_r_idea", "find_purpose"
+          "rustc_main.rs", "std::cout", "grep_r_idea", "find_purpose",
+          "vector<int>_v", "lambda_x:_x*x", "async_await", "ptr_nullptr",
+          "memory_alloc", "gc_collect()", "stack_overflow", "buffer_overflow",
+          "hex_0xDEADBEEF", "bin_10101011", "encrypt_aes256", "decrypt_rsa",
+          "socket_connect", "http_request", "json_parse", "xml_parse",
+          "threading_start", "mutex_lock", "semaphore_wait", "deadlock_avoid"
         ];
 
         function resize() {
@@ -885,17 +902,17 @@
 
         // Partículas (Código voador)
         const particles = [];
-        const particleCount = 80;
-        const speed = 15;
+        const particleCount = 120; // Aumentado para mais densidade visual
+        const speed = 20; // Um pouco mais rápido
         const perspective = 400;
 
         for (let i = 0; i < particleCount; i++) {
           particles.push({
-            x: (Math.random() - 0.5) * 2000,
-            y: (Math.random() - 0.5) * 2000,
+            x: (Math.random() - 0.5) * 3000, // Mais longe nas laterais
+            y: (Math.random() - 0.5) * 3000,
             z: Math.random() * 2000,
             text: codeSamples[Math.floor(Math.random() * codeSamples.length)],
-            fontSize: 10 + Math.random() * 20
+            fontSize: 12 + Math.random() * 25
           });
         }
 
@@ -903,14 +920,28 @@
         function animate() {
           if (terminal.classList.contains("boot-complete") && !terminal.style.display) {
             // Acelerar na saída
-            particles.forEach(p => p.z -= speed * 5);
+            particles.forEach(p => p.z -= speed * 8);
           } else {
             particles.forEach(p => {
               p.z -= speed;
               if (p.z <= 0) {
+                // Tocar som de "clear" quando a palavra 'some' (passa pela câmera)
+                if (Math.random() > 0.5) { // Mais frequente
+                  const sound = clearSound.cloneNode();
+                  sound.volume = 0.08;
+                  sound.play().catch(() => {});
+                }
+
+                // Tocar som de teclado também no fundo
+                if (Math.random() > 0.7) {
+                  const s = keySound.cloneNode();
+                  s.volume = 0.04;
+                  s.play().catch(() => {});
+                }
+
                 p.z = 2000;
-                p.x = (Math.random() - 0.5) * 2000;
-                p.y = (Math.random() - 0.5) * 2000;
+                p.x = (Math.random() - 0.5) * 3000;
+                p.y = (Math.random() - 0.5) * 3000;
                 p.text = codeSamples[Math.floor(Math.random() * codeSamples.length)];
               }
             });
@@ -941,7 +972,6 @@
       function startTerminal() {
         const terminalOverlay = document.getElementById("terminal");
         const terminalContent = document.getElementById("terminal-content");
-        const keySound = document.getElementById("keySound");
         const clearSound = document.getElementById("clearSound");
         
         const lastBoot = localStorage.getItem("lastBoot");
@@ -976,16 +1006,11 @@
           if (lineIndex < bootLines.length) {
             const isLast = lineIndex === bootLines.length - 1;
             
-            // Som leve de teclado
-            keySound.currentTime = 0;
-            keySound.volume = 0.15;
-            keySound.play().catch(() => {});
-
             typeText(terminalContent, bootLines[lineIndex], 20, () => {
               if (isLast) {
                 setTimeout(() => {
                   terminalOverlay.classList.add("boot-complete");
-                  clearSound.volume = 0.4;
+                  clearSound.volume = 0.6;
                   clearSound.play().catch(() => {});
 
                   localStorage.setItem("lastBoot", Date.now().toString());
@@ -1009,16 +1034,23 @@
 
       // Modal de contato
       const contactModal = document.getElementById("contact-modal");
-      const openContactBtn = document.getElementById("open-contact");
       const closeContactBtn = document.getElementById("close-contact");
       const contactForm = document.getElementById("contact-form");
       const contactSuccess = document.getElementById("contact-success");
 
-      openContactBtn.addEventListener("click", () => {
+      function openContact() {
         contactModal.classList.add("active");
         document.body.style.overflow = "hidden";
         contactForm.style.display = "block";
         contactSuccess.style.display = "none";
+      }
+
+      // Adicionar listener para todos os botões de contato
+      document.querySelectorAll("#open-contact, .open-contact-btn").forEach(btn => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          openContact();
+        });
       });
 
       closeContactBtn.addEventListener("click", () => {

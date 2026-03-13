@@ -1233,11 +1233,9 @@ main {
   z-index: 1;
 }
 
-.project-modal .modal-content {
+.project-modal .modal-content,
+.contact-modal .modal-content {
   position: relative;
-  width: 98vw;
-  height: 95vh;
-  max-width: 1400px;
   background: var(--bg-card);
   border: 1px solid var(--accent-primary);
   border-radius: 8px;
@@ -1247,6 +1245,19 @@ main {
   animation: modalSlideIn 0.4s ease;
   box-shadow: 0 0 50px var(--accent-glow);
   z-index: 2;
+}
+
+.project-modal .modal-content {
+  width: 98vw;
+  height: 95vh;
+  max-width: 1400px;
+}
+
+.contact-modal .modal-content {
+  width: 90vw;
+  max-width: 500px;
+  height: auto;
+  max-height: 90vh;
 }
 
 @keyframes fadeIn {
@@ -2134,7 +2145,7 @@ body.no-scroll {
 }
 
 .contact-content {
-  max-width: 450px;
+  /* Inherits from .contact-modal .modal-content */
 }
 
 .contact-body {
