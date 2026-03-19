@@ -600,3 +600,51 @@ observer.observe(document.getElementById("terminal"), {
   childList: true,
   subtree: true,
 });
+
+// Transição suave para GUI
+document.addEventListener("DOMContentLoaded", () => {
+  const portfolioLink = document.querySelector(".portfolio-link");
+  if (portfolioLink) {
+    portfolioLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      
+      // Ocultar campo de input
+      const inputLine = document.querySelector(".input-line");
+      if (inputLine) inputLine.style.display = "none";
+      
+      const history = document.getElementById("history");
+      
+      const output = document.createElement("div");
+      output.className = "command-echo";
+      output.innerHTML = `<br><span class="prompt-symbol">$</span> ./start_gui.sh`;
+      history.appendChild(output);
+      
+      const response = document.createElement("div");
+      response.style.color = "var(--cyan)";
+      response.style.marginTop = "10px";
+      response.style.whiteSpace = "pre-wrap";
+      history.appendChild(response);
+      
+      const text = "ESTABLISHING NEURAL LINK...\nDECRYPTING CORE MODULES [OK]\nLOADING VIRTUAL_ENVIRONMENT...\nBYPASSING HARDWARE LIMITS...\nACCESS GRANTED.";
+      
+      // typeEffect já possui a chamada de keySound e autoScroll
+      typeEffect(text, response, () => {
+        setTimeout(() => {
+          // Tocar som de fechar terminal
+          const clearSound = document.getElementById("clearSound");
+          if (clearSound) {
+            clearSound.currentTime = 0;
+            clearSound.volume = 0.5;
+            clearSound.play().catch(() => {});
+          }
+          
+          document.body.classList.add("terminal-closing");
+          
+          setTimeout(() => {
+            window.location.href = portfolioLink.href + "?skipBoot=true";
+          }, 500);
+        }, 500);
+      });
+    });
+  }
+});

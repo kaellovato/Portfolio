@@ -1265,3 +1265,18 @@ code {
     height: 98vh;
   }
 }
+
+/*============================
+=    EXIT ANIMATION          =
+============================*/
+
+@keyframes crt-off {
+  0% { transform: scale(1, 1); opacity: 1; }
+  20% { transform: scale(1, 0.01); opacity: 1; }
+  100% { transform: scale(0, 0.01); opacity: 0; }
+}
+
+.terminal-closing {
+  animation: crt-off 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards !important;
+  pointer-events: none;
+}

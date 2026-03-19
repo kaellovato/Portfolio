@@ -546,7 +546,12 @@
         }
       }
 
-      setInterval(drawMatrix, 50);
+      let matrixInterval = null;
+      function startMatrix() {
+        if (!matrixInterval) {
+          matrixInterval = setInterval(drawMatrix, 50);
+        }
+      }
 
       window.addEventListener("resize", () => {
         canvas.width = window.innerWidth;
@@ -574,6 +579,14 @@
         } else {
           typingElement.textContent = currentText.substring(0, charIndex + 1);
           charIndex++;
+          
+          // SFX "keyboardtype" hacker style
+          const keySound = document.getElementById("keySound");
+          if (keySound && charIndex % 2 !== 0) {
+            const sound = keySound.cloneNode();
+            sound.volume = 0.1;
+            sound.play().catch(() => {});
+          }
         }
 
         let typeSpeed = isDeleting ? 50 : 100;
@@ -868,9 +881,14 @@
 
       // Vórtice de Código via Canvas 3D (Máxima Performance)
       function initVortex() {
+        const terminal = document.getElementById("terminal");
+        if (isMobileDevice()) {
+          terminal.style.background = "var(--bg)"; // dark background fallback
+          return;
+        }
+
         const canvas = document.getElementById("vortex-canvas");
         const ctx = canvas.getContext("2d");
-        const terminal = document.getElementById("terminal");
         const clearSound = document.getElementById("clearSound");
         const keySound = document.getElementById("keySound");
         
@@ -974,16 +992,20 @@
         const terminalContent = document.getElementById("terminal-content");
         const clearSound = document.getElementById("clearSound");
         
+        const urlParams = new URLSearchParams(window.location.search);
+        const skipUrl = urlParams.get('skipBoot') === 'true';
+        
         const lastBoot = localStorage.getItem("lastBoot");
         const now = Date.now();
         const oneHour = 60 * 60 * 1000;
-        const skipAnimation = lastBoot && (now - parseInt(lastBoot)) < oneHour;
+        const skipAnimation = (lastBoot && (now - parseInt(lastBoot)) < oneHour) || skipUrl;
 
         if (skipAnimation) {
           terminalOverlay.style.display = "none";
           document.body.classList.remove("no-scroll");
           typeEffect();
           animateCounters();
+          startMatrix();
           return;
         }
 
@@ -1019,6 +1041,7 @@
                     document.body.classList.remove("no-scroll");
                     typeEffect();
                     animateCounters();
+                    startMatrix();
                   }, 1500);
                 }, 1000);
               } else {
