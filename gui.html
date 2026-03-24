@@ -41,7 +41,11 @@
         <a href="#projects" class="nav-link" data-text="PROJETOS">
           <span class="nav-icon">&gt;</span>PROJETOS
         </a>
-        <a href="#contact" class="nav-link open-contact-btn" data-text="CONTATO">
+        <a
+          href="#contact"
+          class="nav-link open-contact-btn"
+          data-text="CONTATO"
+        >
           <span class="nav-icon">&gt;</span>CONTATO
         </a>
         <a href="index.html" class="nav-link terminal-btn" data-text="TERMINAL">
@@ -318,26 +322,10 @@
             <span class="modal-dot yellow"></span>
             <span class="modal-dot green"></span>
           </div>
-          <button
-            id="modal-back"
-            class="modal-back-btn"
-            title="Voltar para a síntese"
-            style="display: none"
+          <span class="modal-title-bar" id="modal-title-bar"
+            >project_details.exe</span
           >
-            ←
-          </button>
-          <span class="modal-title-bar" id="modal-title-bar">project_details.exe</span>
           <div class="modal-controls">
-            <a
-              id="preview-external"
-              href="#"
-              target="_blank"
-              class="preview-btn"
-              title="Abrir em nova aba"
-              style="display: none"
-            >
-              ↗
-            </a>
             <button class="close-btn" title="Fechar" aria-label="Fechar modal">
               ×
             </button>
@@ -349,6 +337,7 @@
             <div class="synthesis-grid">
               <div class="synthesis-image-container">
                 <img id="modal-img" src="" alt="" />
+                <div id="modal-gallery-tabs" class="modal-gallery-tabs"></div>
                 <div class="modal-meta">
                   <div class="meta-item">
                     <span class="meta-label">FERRAMENTAS:</span>
@@ -363,23 +352,8 @@
               <div class="synthesis-info">
                 <h3 id="modal-title"></h3>
                 <div id="modal-desc" class="modal-desc"></div>
-                <div class="synthesis-actions">
-                  <button id="modal-link" class="btn-test">
-                    <span class="btn-icon">►</span>
-                    <span>VISUALIZAR PROJETO</span>
-                  </button>
-                </div>
               </div>
             </div>
-          </div>
-          
-          <!-- Test View (Iframe) -->
-          <div id="modal-test-area" class="modal-test-area" style="display: none">
-            <div class="preview-loader">
-              <div class="loader-spinner"></div>
-              <span>CARREGANDO AMBIENTE DE TESTE...</span>
-            </div>
-            <iframe id="preview-iframe" src="" frameborder="0"></iframe>
           </div>
         </div>
       </div>
@@ -482,6 +456,7 @@
       const modalTools = document.getElementById("modal-tools");
       const modalStatus = document.getElementById("modal-status");
       const modalClose = modal.querySelector(".close-btn");
+      const modalGalleryTabs = document.getElementById("modal-gallery-tabs");
       const guiContainer = document.getElementById("gui-container");
 
       // Lista de projetos
@@ -494,26 +469,40 @@
           status: "Finalizado",
           category: "game",
           link: null,
+          screenshots: ["rvprojeto.png"],
         },
         {
           title: "Plugies Dreamy Chaos",
-          img: "ProjetoProg/IMGS/logo.png",
+          img: "Projetos/PlugiesDreamyChaos/plugies-menu.png",
           desc: "Jogo de minigames desenvolvido com p5.js. Controle o Plugie através de desafios como setas rítmicas, quick-time events e labirinto com jumpscare. [Disponível apenas para Desktop - requer teclado]",
           tools: "JavaScript, p5.js, HTML, CSS",
           status: "Finalizado",
           category: "game",
           link: "ProjetoProg/Index.html",
           mobilePlayable: false,
+          screenshots: [
+            "Projetos/PlugiesDreamyChaos/plugies-menu.png",
+            "Projetos/PlugiesDreamyChaos/plugies-creditos.png",
+            "Projetos/PlugiesDreamyChaos/plugies-jogo.png",
+            "Projetos/PlugiesDreamyChaos/plugies-loading.png",
+            "Projetos/PlugiesDreamyChaos/plugies-vitoria.png",
+          ],
         },
         {
           title: "CACB - Site Institucional",
-          img: "projeto_final/IMGS/cacb-removebg-preview.png",
+          img: "Projetos/Cacb/cacb-home-print.png",
           desc: "Website institucional do Centro Académico Clínico das Beiras. Interface responsiva com carrossel, múltiplas seções e design moderno.",
           tools: "HTML, CSS, JavaScript",
           status: "Finalizado",
           category: "web",
-          link: "projeto_final/HTML/index.html",
+          link: null,
           mobilePlayable: true,
+          screenshots: [
+            "Projetos/Cacb/cacb-home-print.png",
+            "Projetos/Cacb/cacb-eventos-print.png",
+            "Projetos/Cacb/cacb-contatos-print.png",
+            "Projetos/Cacb/cacb-missao-print.png",
+          ],
         },
       ];
 
@@ -579,7 +568,7 @@
         } else {
           typingElement.textContent = currentText.substring(0, charIndex + 1);
           charIndex++;
-          
+
           // SFX "keyboardtype" hacker style
           const keySound = document.getElementById("keySound");
           if (keySound && charIndex % 2 !== 0) {
@@ -636,94 +625,64 @@
       }
 
       // Modal
-      const modalLink = document.getElementById("modal-link");
-      const modalBack = document.getElementById("modal-back");
       const modalSynthesis = document.getElementById("modal-synthesis");
-      const modalTestArea = document.getElementById("modal-test-area");
       const modalTitleBar = document.getElementById("modal-title-bar");
-      const previewIframe = document.getElementById("preview-iframe");
-      const previewExternal = document.getElementById("preview-external");
-      const previewLoader = document.querySelector(".preview-loader");
-      let mobileWarningEl = null;
 
-      function isMobileDevice() {
-        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+      function renderProjectScreenshots(project) {
+        const screenshots =
+          project.screenshots && project.screenshots.length
+            ? project.screenshots
+            : [project.img];
+
+        modalImg.src = screenshots[0];
+        modalGalleryTabs.innerHTML = "";
+
+        if (screenshots.length <= 1) {
+          modalGalleryTabs.style.display = "none";
+          return;
+        }
+
+        modalGalleryTabs.style.display = "flex";
+        screenshots.forEach((src, index) => {
+          const tab = document.createElement("button");
+          tab.type = "button";
+          tab.className = "gallery-tab-btn";
+          if (index === 0) tab.classList.add("active");
+          tab.style.backgroundImage = `url('${src}')`;
+          tab.style.backgroundSize = "cover";
+          tab.style.backgroundPosition = "center";
+          tab.setAttribute("aria-label", `Print ${index + 1}`);
+          tab.addEventListener("click", () => {
+            modalImg.src = src;
+            modalGalleryTabs
+              .querySelectorAll(".gallery-tab-btn")
+              .forEach((btn) => btn.classList.remove("active"));
+            tab.classList.add("active");
+          });
+          modalGalleryTabs.appendChild(tab);
+        });
       }
 
       function openModal(p) {
-        // Reset View
+        // Reset view
         modalSynthesis.style.display = "block";
-        modalTestArea.style.display = "none";
-        modalBack.style.display = "none";
-        previewExternal.style.display = "none";
         modalTitleBar.textContent = "project_details.exe";
-        previewIframe.src = "";
 
-        modalImg.src = p.img;
+        renderProjectScreenshots(p);
         modalImg.alt = p.title;
         modalTitle.textContent = p.title;
         modalDesc.textContent = p.desc;
         modalTools.textContent = p.tools || "";
         modalStatus.textContent = p.status || "";
 
-        // Remove existing mobile warning if any
-        if (mobileWarningEl) {
-          mobileWarningEl.remove();
-          mobileWarningEl = null;
-        }
-
-        // Configurar botão de teste
-        if (p.link) {
-          const isMobile = isMobileDevice();
-          
-          if (p.mobilePlayable === false && isMobile) {
-            modalLink.style.display = "none";
-            mobileWarningEl = document.createElement("div");
-            mobileWarningEl.className = "mobile-warning";
-            mobileWarningEl.innerHTML = `<span class="warning-icon">⚠</span> Este projeto requer teclado. Acesse pelo computador para testar.`;
-            modalLink.parentNode.insertBefore(mobileWarningEl, modalLink.nextSibling);
-          } else {
-            modalLink.style.display = "inline-flex";
-            modalLink.onclick = () => {
-              modalSynthesis.style.display = "none";
-              modalTestArea.style.display = "block";
-              modalBack.style.display = "block";
-              previewExternal.style.display = "flex";
-              previewExternal.href = p.link;
-              modalTitleBar.textContent = `visualizando: ${p.title.toLowerCase().replace(/\s+/g, '_')}.exe`;
-              
-              previewLoader.style.display = "flex";
-              previewIframe.style.opacity = "0";
-              previewIframe.src = p.link;
-            };
-          }
-        } else {
-          modalLink.style.display = "none";
-        }
-
         modal.classList.add("active");
         document.body.style.overflow = "hidden";
         modalClose.focus();
       }
 
-      previewIframe.onload = () => {
-        previewLoader.style.display = "none";
-        previewIframe.style.opacity = "1";
-      };
-
-      modalBack.addEventListener("click", () => {
-        modalSynthesis.style.display = "block";
-        modalTestArea.style.display = "none";
-        modalBack.style.display = "none";
-        previewExternal.style.display = "none";
-        modalTitleBar.textContent = "project_details.exe";
-        previewIframe.src = "";
-      });
-
       modalClose.addEventListener("click", () => {
         modal.classList.remove("active");
         document.body.style.overflow = "";
-        previewIframe.src = "";
       });
 
       modal.addEventListener("click", (e) => {
@@ -733,7 +692,6 @@
         ) {
           modal.classList.remove("active");
           document.body.style.overflow = "";
-          previewIframe.src = "";
         }
       });
 
@@ -742,7 +700,6 @@
           if (modal.classList.contains("active")) {
             modal.classList.remove("active");
             document.body.style.overflow = "";
-            previewIframe.src = "";
           }
         }
       });
@@ -855,12 +812,12 @@
         let i = 0;
         const p = document.createElement("p");
         element.appendChild(p);
-        
+
         const keySound = document.getElementById("keySound");
-        
+
         const interval = setInterval(() => {
           p.textContent += text[i];
-          
+
           // Som de teclado acompanhando cada letra
           if (text[i] !== " ") {
             const sound = keySound.cloneNode();
@@ -874,7 +831,7 @@
             if (callback) callback();
           }
         }, delay);
-        
+
         // Auto-scroll
         element.scrollTop = element.scrollHeight;
       }
@@ -891,22 +848,62 @@
         const ctx = canvas.getContext("2d");
         const clearSound = document.getElementById("clearSound");
         const keySound = document.getElementById("keySound");
-        
+
         let width, height, centerX, centerY;
         const codeSamples = [
-          "0x882A_BOOT", "KERNEL_v2.0", "BYPASS_FW", "load_matrix()", 
-          "git_push_universe", "while(hacking)", "def_hack_reality()", 
-          "System.out.print", "fn_main()", "SELECT_*", "vec4_shader",
-          "access_granted", "root@hacker", "sudo_rm_limits", "go_func()",
-          "docker_up", "kubectl_apply", "curl_POST", "chmod_+x", "ssh_root",
-          "export_PATH", "yarn_deploy", "pip_install", "aws_sync", "openssl",
-          "import_neural", "const_soul", "if(dream)_build()", "npm_i_life",
-          "rustc_main.rs", "std::cout", "grep_r_idea", "find_purpose",
-          "vector<int>_v", "lambda_x:_x*x", "async_await", "ptr_nullptr",
-          "memory_alloc", "gc_collect()", "stack_overflow", "buffer_overflow",
-          "hex_0xDEADBEEF", "bin_10101011", "encrypt_aes256", "decrypt_rsa",
-          "socket_connect", "http_request", "json_parse", "xml_parse",
-          "threading_start", "mutex_lock", "semaphore_wait", "deadlock_avoid"
+          "0x882A_BOOT",
+          "KERNEL_v2.0",
+          "BYPASS_FW",
+          "load_matrix()",
+          "git_push_universe",
+          "while(hacking)",
+          "def_hack_reality()",
+          "System.out.print",
+          "fn_main()",
+          "SELECT_*",
+          "vec4_shader",
+          "access_granted",
+          "root@hacker",
+          "sudo_rm_limits",
+          "go_func()",
+          "docker_up",
+          "kubectl_apply",
+          "curl_POST",
+          "chmod_+x",
+          "ssh_root",
+          "export_PATH",
+          "yarn_deploy",
+          "pip_install",
+          "aws_sync",
+          "openssl",
+          "import_neural",
+          "const_soul",
+          "if(dream)_build()",
+          "npm_i_life",
+          "rustc_main.rs",
+          "std::cout",
+          "grep_r_idea",
+          "find_purpose",
+          "vector<int>_v",
+          "lambda_x:_x*x",
+          "async_await",
+          "ptr_nullptr",
+          "memory_alloc",
+          "gc_collect()",
+          "stack_overflow",
+          "buffer_overflow",
+          "hex_0xDEADBEEF",
+          "bin_10101011",
+          "encrypt_aes256",
+          "decrypt_rsa",
+          "socket_connect",
+          "http_request",
+          "json_parse",
+          "xml_parse",
+          "threading_start",
+          "mutex_lock",
+          "semaphore_wait",
+          "deadlock_avoid",
         ];
 
         function resize() {
@@ -930,21 +927,25 @@
             y: (Math.random() - 0.5) * 3000,
             z: Math.random() * 2000,
             text: codeSamples[Math.floor(Math.random() * codeSamples.length)],
-            fontSize: 12 + Math.random() * 25
+            fontSize: 12 + Math.random() * 25,
           });
         }
 
         let animationFrame;
         function animate() {
-          if (terminal.classList.contains("boot-complete") && !terminal.style.display) {
+          if (
+            terminal.classList.contains("boot-complete") &&
+            !terminal.style.display
+          ) {
             // Acelerar na saída
-            particles.forEach(p => p.z -= speed * 8);
+            particles.forEach((p) => (p.z -= speed * 8));
           } else {
-            particles.forEach(p => {
+            particles.forEach((p) => {
               p.z -= speed;
               if (p.z <= 0) {
                 // Tocar som de "clear" quando a palavra 'some' (passa pela câmera)
-                if (Math.random() > 0.5) { // Mais frequente
+                if (Math.random() > 0.5) {
+                  // Mais frequente
                   const sound = clearSound.cloneNode();
                   sound.volume = 0.08;
                   sound.play().catch(() => {});
@@ -960,7 +961,8 @@
                 p.z = 2000;
                 p.x = (Math.random() - 0.5) * 3000;
                 p.y = (Math.random() - 0.5) * 3000;
-                p.text = codeSamples[Math.floor(Math.random() * codeSamples.length)];
+                p.text =
+                  codeSamples[Math.floor(Math.random() * codeSamples.length)];
               }
             });
           }
@@ -968,11 +970,11 @@
           ctx.fillStyle = "black";
           ctx.fillRect(0, 0, width, height);
 
-          particles.forEach(p => {
+          particles.forEach((p) => {
             const scale = perspective / (perspective + p.z);
             const x2d = p.x * scale + centerX;
             const y2d = p.y * scale + centerY;
-            
+
             const opacity = Math.min(1, (2000 - p.z) / 1500);
             ctx.fillStyle = `rgba(0, 255, 65, ${opacity * scale * 2})`;
             ctx.font = `${p.fontSize * scale}px JetBrains Mono`;
@@ -991,14 +993,15 @@
         const terminalOverlay = document.getElementById("terminal");
         const terminalContent = document.getElementById("terminal-content");
         const clearSound = document.getElementById("clearSound");
-        
+
         const urlParams = new URLSearchParams(window.location.search);
-        const skipUrl = urlParams.get('skipBoot') === 'true';
-        
+        const skipUrl = urlParams.get("skipBoot") === "true";
+
         const lastBoot = localStorage.getItem("lastBoot");
         const now = Date.now();
         const oneHour = 60 * 60 * 1000;
-        const skipAnimation = (lastBoot && (now - parseInt(lastBoot)) < oneHour) || skipUrl;
+        const skipAnimation =
+          (lastBoot && now - parseInt(lastBoot) < oneHour) || skipUrl;
 
         if (skipAnimation) {
           terminalOverlay.style.display = "none";
@@ -1020,14 +1023,14 @@
           "BYPASSING HARDWARE LIMITS...",
           "INITIALIZING 3D ENGINE...",
           "SYNCHRONIZING DATASTREAM...",
-          "WELCOME TO THE MATRIX."
+          "WELCOME TO THE MATRIX.",
         ];
 
         let lineIndex = 0;
         function nextLine() {
           if (lineIndex < bootLines.length) {
             const isLast = lineIndex === bootLines.length - 1;
-            
+
             typeText(terminalContent, bootLines[lineIndex], 20, () => {
               if (isLast) {
                 setTimeout(() => {
@@ -1069,12 +1072,14 @@
       }
 
       // Adicionar listener para todos os botões de contato
-      document.querySelectorAll("#open-contact, .open-contact-btn").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-          e.preventDefault();
-          openContact();
+      document
+        .querySelectorAll("#open-contact, .open-contact-btn")
+        .forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            openContact();
+          });
         });
-      });
 
       closeContactBtn.addEventListener("click", () => {
         contactModal.classList.remove("active");

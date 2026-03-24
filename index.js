@@ -12,55 +12,66 @@ let terminalState = "root";
 const projects = [
   {
     id: 1,
-    title: "Experiencia em Realidade Virtual",
+    title: "Experiência em Realidade Virtual",
     image: "rvprojeto.png",
-    description: `Recriacao do Terremoto de Lisboa (1755) na Unreal Engine 5.
+    description: `Recriação do Terremoto de Lisboa (1755) na Unreal Engine 5.
 
 Destaques:
-- Ambientacao historica realista com modelagem 3D
+- Ambientação histórica realista com modelagem 3D
 - Efeitos visuais e sonoros imersivos
-- Navegacao em primeira pessoa
+- Navegação em primeira pessoa
 
 Ferramentas: Unreal Engine 5, Quixel, Fab
 
-Status: Finalizado e apresentado em banca.
-[Video demonstrativo sera inserido em breve]`,
+Status: Finalizado e apresentado em banca.`,
     tech: "Unreal Engine 5",
     link: null,
+    screenshots: ["rvprojeto.png"],
   },
   {
     id: 2,
     title: "Plugies Dreamy Chaos",
-    image: "ProjetoProg/IMGS/logo.png",
+    image: "Projetos/PlugiesDreamyChaos/plugies-menu.png",
     description: `Jogo interativo desenvolvido em p5.js.
 
 Destaques:
-- Arte com personagens carismaticos
-- Sistema de dificuldade progressiva (quanto mais vezes passa os minijogos, mais rapido fica)
+- Arte com personagens carismáticos
+- Sistema de dificuldade progressiva
 - Trilha sonora e efeitos imersivos
 
-Conceito: Criado para um projeto de disciplina universitária focado em programação em JavaScript.
-
-[Disponivel apenas para Desktop - requer teclado]`,
+Conceito: Criado para um projeto de disciplina universitária focado em programação em JavaScript.`,
     tech: "p5.js / JavaScript",
     link: "ProjetoProg/Index.html",
     mobilePlayable: false,
+    screenshots: [
+      "Projetos/PlugiesDreamyChaos/plugies-menu.png",
+      "Projetos/PlugiesDreamyChaos/plugies-creditos.png",
+      "Projetos/PlugiesDreamyChaos/plugies-jogo.png",
+      "Projetos/PlugiesDreamyChaos/plugies-loading.png",
+      "Projetos/PlugiesDreamyChaos/plugies-vitoria.png",
+    ],
   },
   {
     id: 3,
-    title: "CACB - Centro Academico Clínico das Beiras",
-    image: "projeto_final/IMGS/cacb-removebg-preview.png",
-    description: `Sistema web para o Centro Academico Clínico das Beiras, desenvolvido com HTML, CSS e JavaScript.
+    title: "CACB - Site Institucional",
+    image: "Projetos/Cacb/cacb-home-print.png",
+    description: `Sistema web para o Centro Académico Clínico das Beiras.
 
 Destaques:
-- Interface intuitiva
-- Remodelação do site original
+- Interface intuitiva e moderna
+- Remodelação total do site original
 - Design responsivo para uso mobile
 
-Objetivo: Melhorar a experiencia do usuario e facilitar o acesso a informações.`,
+Objetivo: Melhorar a experiência do usuário e facilitar o acesso a informações clínicas e institucionais.`,
     tech: "HTML / CSS / JavaScript",
-    link: "projeto_final/HTML/index.html",
+    link: null,
     mobilePlayable: true,
+    screenshots: [
+      "Projetos/Cacb/cacb-home-print.png",
+      "Projetos/Cacb/cacb-eventos-print.png",
+      "Projetos/Cacb/cacb-contatos-print.png",
+      "Projetos/Cacb/cacb-missao-print.png",
+    ],
   },
 ];
 
@@ -385,56 +396,7 @@ function showHelp(callback) {
   typeEffect(helpMessage, helpResponse, callback);
 }
 
-// Preview Modal Functions
-function openPreview(url, title) {
-  const modal = document.getElementById("preview-modal");
-  const iframe = document.getElementById("preview-iframe");
-  const previewTitle = document.getElementById("preview-title");
-  const previewNewTab = document.getElementById("preview-new-tab");
-  const loader = document.querySelector(".preview-loader");
-
-  previewTitle.textContent = title;
-  previewNewTab.href = url;
-  iframe.src = url;
-
-  loader.style.display = "flex";
-  modal.classList.add("active");
-  document.body.style.overflow = "hidden";
-
-  iframe.onload = () => {
-    loader.style.display = "none";
-  };
-}
-
-function closePreview() {
-  const modal = document.getElementById("preview-modal");
-  const iframe = document.getElementById("preview-iframe");
-
-  modal.classList.remove("active");
-  document.body.style.overflow = "";
-  iframe.src = "";
-}
-
-// Event listeners for preview modal
-document.addEventListener("DOMContentLoaded", () => {
-  const previewClose = document.getElementById("preview-close");
-  const previewOverlay = document.querySelector(".preview-overlay");
-
-  if (previewClose) {
-    previewClose.addEventListener("click", closePreview);
-  }
-  if (previewOverlay) {
-    previewOverlay.addEventListener("click", closePreview);
-  }
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      closePreview();
-    }
-  });
-});
-
-// Render project with test button inside
+// Render project with screenshots
 function renderProject(project, container) {
   const projectContainer = document.createElement("div");
   projectContainer.className = "project-container fade-in";
@@ -443,10 +405,17 @@ function renderProject(project, container) {
   title.className = "project-title";
   title.textContent = project.title;
 
-  const img = document.createElement("img");
-  img.src = project.image;
-  img.alt = project.title;
-  img.className = "project-img";
+  const gallery = document.createElement("div");
+  gallery.className = "project-gallery";
+
+  const screenshots = project.screenshots || [project.image];
+  screenshots.forEach((src) => {
+    const img = document.createElement("img");
+    img.src = src;
+    img.alt = project.title;
+    img.className = "project-img";
+    gallery.appendChild(img);
+  });
 
   const textContainer = document.createElement("div");
   textContainer.className = "project-text";
@@ -456,31 +425,9 @@ function renderProject(project, container) {
   meta.innerHTML = `<span><span class="label">Tech:</span> ${project.tech}</span>`;
 
   projectContainer.appendChild(title);
-  projectContainer.appendChild(img);
+  projectContainer.appendChild(gallery);
   projectContainer.appendChild(textContainer);
   projectContainer.appendChild(meta);
-
-  // Add test button if project has a link
-  if (project.link) {
-    const isMobile =
-      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-        navigator.userAgent,
-      ) || window.innerWidth <= 768;
-
-    if (project.mobilePlayable === false && isMobile) {
-      // Show mobile warning instead of button
-      const mobileWarning = document.createElement("div");
-      mobileWarning.className = "mobile-warning";
-      mobileWarning.innerHTML = `<span class="warning-icon">⚠</span> Este projeto requer teclado. Acesse pelo computador para testar.`;
-      projectContainer.appendChild(mobileWarning);
-    } else {
-      const testBtn = document.createElement("button");
-      testBtn.className = "test-btn";
-      testBtn.textContent = "Testar Projeto";
-      testBtn.onclick = () => openPreview(project.link, project.title);
-      projectContainer.appendChild(testBtn);
-    }
-  }
 
   container.appendChild(projectContainer);
 
@@ -527,7 +474,7 @@ commandInput.addEventListener("keydown", function (e) {
     if (terminalState === "projects") {
       if (input.toLowerCase() === "exit") {
         terminalState = "root";
-        typeEffect("Saindo da secao de projetos...", response, () => {
+        typeEffect("Saindo da seção de projetos...", response, () => {
           setTimeout(() => {
             showHelp();
           }, 500);
@@ -607,26 +554,27 @@ document.addEventListener("DOMContentLoaded", () => {
   if (portfolioLink) {
     portfolioLink.addEventListener("click", (e) => {
       e.preventDefault();
-      
+
       // Ocultar campo de input
       const inputLine = document.querySelector(".input-line");
       if (inputLine) inputLine.style.display = "none";
-      
+
       const history = document.getElementById("history");
-      
+
       const output = document.createElement("div");
       output.className = "command-echo";
       output.innerHTML = `<br><span class="prompt-symbol">$</span> ./start_gui.sh`;
       history.appendChild(output);
-      
+
       const response = document.createElement("div");
       response.style.color = "var(--cyan)";
       response.style.marginTop = "10px";
       response.style.whiteSpace = "pre-wrap";
       history.appendChild(response);
-      
-      const text = "ESTABLISHING NEURAL LINK...\nDECRYPTING CORE MODULES [OK]\nLOADING VIRTUAL_ENVIRONMENT...\nBYPASSING HARDWARE LIMITS...\nACCESS GRANTED.";
-      
+
+      const text =
+        "ESTABLISHING NEURAL LINK...\nDECRYPTING CORE MODULES [OK]\nLOADING VIRTUAL_ENVIRONMENT...\nBYPASSING HARDWARE LIMITS...\nACCESS GRANTED.";
+
       // typeEffect já possui a chamada de keySound e autoScroll
       typeEffect(text, response, () => {
         setTimeout(() => {
@@ -637,9 +585,9 @@ document.addEventListener("DOMContentLoaded", () => {
             clearSound.volume = 0.5;
             clearSound.play().catch(() => {});
           }
-          
+
           document.body.classList.add("terminal-closing");
-          
+
           setTimeout(() => {
             window.location.href = portfolioLink.href + "?skipBoot=true";
           }, 500);

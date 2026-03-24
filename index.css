@@ -326,19 +326,25 @@ code {
   color: var(--green);
 }
 
+.project-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin: 12px 0;
+}
+
 .project-img {
-  max-width: 100%;
-  max-height: 300px;
-  object-fit: contain;
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
   border: 1px solid var(--border);
   border-radius: 6px;
-  margin: 12px 0;
   transition: all 0.3s;
 }
 
 .project-img:hover {
   box-shadow: 0 0 20px var(--green-glow);
-  transform: scale(1.02);
+  transform: translateY(-5px);
   cursor: zoom-in;
 }
 
@@ -366,32 +372,6 @@ code {
 }
 
 /* Bot�o de teste */
-.test-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 16px;
-  padding: 10px 20px;
-  background: transparent;
-  border: 1px solid var(--cyan);
-  color: var(--cyan);
-  font-family: inherit;
-  font-size: 0.9rem;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.test-btn:hover {
-  background: var(--cyan);
-  color: var(--bg);
-  box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
-}
-
-.test-btn::before {
-  content: "";
-  font-size: 0.8rem;
-}
 
 /* Mobile warning for non-playable projects */
 .mobile-warning {
@@ -680,146 +660,6 @@ code {
 }
 
 /*============================
-=      PREVIEW MODAL         =
-============================*/
-
-.preview-modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 10000;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-
-.preview-modal.active {
-  display: flex;
-}
-
-.preview-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.9);
-}
-
-.preview-content {
-  position: relative;
-  z-index: 2;
-  width: 95vw;
-  height: 90vh;
-  max-width: 1400px;
-  background: var(--bg-terminal);
-  border: 1px solid var(--green);
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  box-shadow: 0 0 50px var(--green-glow);
-  animation: modalIn 0.3s ease;
-}
-
-@keyframes modalIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.preview-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 16px;
-  background: var(--bg-header);
-  border-bottom: 1px solid var(--border);
-}
-
-.preview-title {
-  color: var(--green);
-  font-size: 0.9rem;
-}
-
-.preview-controls {
-  display: flex;
-  gap: 8px;
-}
-
-.preview-btn,
-.preview-close {
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  border: 1px solid var(--border);
-  color: #8b949e;
-  font-size: 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.2s;
-}
-
-.preview-btn:hover {
-  border-color: var(--cyan);
-  color: var(--cyan);
-}
-
-.preview-close:hover {
-  border-color: var(--red);
-  color: var(--red);
-}
-
-.preview-body {
-  flex: 1;
-  position: relative;
-  background: #fff;
-}
-
-.preview-loader {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  background: var(--bg-terminal);
-}
-
-.preview-loader span {
-  color: var(--green);
-  font-size: 0.9rem;
-}
-
-.loader-spinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid var(--border);
-  border-top-color: var(--green);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-#preview-iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-}
-
-/*============================
 =     IMAGE MODAL ZOOM       =
 ============================*/
 
@@ -911,18 +751,6 @@ code {
 =       RESPONSIVE           =
 ============================*/
 
-/* Large tablets and small desktops */
-@media (max-width: 1024px) {
-  #terminal {
-    max-width: 95%;
-  }
-
-  .preview-content {
-    width: 98vw;
-    height: 85vh;
-  }
-}
-
 /* Tablets */
 @media (max-width: 768px) {
   body {
@@ -1007,21 +835,6 @@ code {
   .contact-btn {
     width: 100%;
     text-align: center;
-  }
-
-  .preview-content {
-    width: 100vw;
-    height: 95vh;
-    border-radius: 0;
-    max-width: none;
-  }
-
-  .preview-header {
-    padding: 10px 12px;
-  }
-
-  .preview-title {
-    font-size: 0.8rem;
   }
 }
 
@@ -1130,12 +943,6 @@ code {
 
   .project-meta {
     font-size: 0.8rem;
-  }
-
-  .test-btn {
-    width: 100%;
-    justify-content: center;
-    padding: 12px;
   }
 
   .about-container {
@@ -1260,10 +1067,6 @@ code {
   .welcome-text {
     margin-top: 10px;
   }
-
-  .preview-content {
-    height: 98vh;
-  }
 }
 
 /*============================
@@ -1271,9 +1074,18 @@ code {
 ============================*/
 
 @keyframes crt-off {
-  0% { transform: scale(1, 1); opacity: 1; }
-  20% { transform: scale(1, 0.01); opacity: 1; }
-  100% { transform: scale(0, 0.01); opacity: 0; }
+  0% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+  20% {
+    transform: scale(1, 0.01);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0, 0.01);
+    opacity: 0;
+  }
 }
 
 .terminal-closing {
